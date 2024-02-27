@@ -1,0 +1,28 @@
+# Ignore Composer's vendor directory
+/vendor/
+
+# Ignore Composer's lock file
+/composer.lock
+
+# Ignore user-specific configs
+/.idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+.vscode/
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore node modules if using any Node.js-based tools
+/node_modules/
+
+# Ignore cache and backup files
+*.bak
+*.cache
+*.tmp
+*.swp
+
+# Ignore the specific plugin files that should not be versioned
+/registration.php

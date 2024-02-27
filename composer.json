@@ -1,0 +1,15 @@
+{
+    "name": "kaiser-keenmon/wp-plugin-modernizer",
+    "autoload": {
+        "psr-4": {
+            "WPModernPlugin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kaiserk",
+            "email": "55062263+kaiserkeenmon@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
