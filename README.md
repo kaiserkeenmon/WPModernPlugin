@@ -1,11 +1,11 @@
 
 
-<p align="center">
+<p align="center" style="background-color:black; padding:20px; margin-bottom:0;">
   <img src="https://staging.machinelrn.com/images/machinehead.gif" width="80" alt="Logo for Taiko" />
 </p>
 
-<h1 align="center">
-  WPModernPlugin
+<h1 align="center" style="background-color:black; color: white; padding-bottom: 20px; margin-top:0;">
+  WPModernPlugin <i>Starter</i>
 </h1>
 
 <div align="center">
