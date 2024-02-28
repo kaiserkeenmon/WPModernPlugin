@@ -51,4 +51,6 @@ WPModernPlugin is open-source software, available under the [MIT license](LICENS
 
 ## Author
 
-kaiser@kaiserkeenmon.com
+[LinkedIn:](https://linkedin.com/in/kaiser-keenmon/) linkedin.com/in/kaiser-keenmon |
+[Email:](kaiser@kaiserkeenmon.com) kaiser@kaiserkeenmon.com 
+
