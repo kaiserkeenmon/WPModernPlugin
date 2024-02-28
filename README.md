@@ -21,7 +21,6 @@ A streamlined WordPress plugin starter kit designed for efficient development, i
 
 </div>
 
----
 ## Key Features
 
 - **PSR-4 Autoloading:** Ensures an organized class structure for easy management and scalability.
