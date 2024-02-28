@@ -1,40 +1,58 @@
-# WPModernPlugin
 
-A streamlined starter kit for WordPress plugin development, focusing on simplicity, best practices, and modern standards.
 
-## Introduction
+<p align="center">
+  <img src="https://staging.machinelrn.com/images/machinehead.gif" width="80" alt="Logo for Taiko" />
+</p>
 
-WPModernPlugin offers a foundational structure to kickstart your WordPress plugin development. 
-Designed with simplicity and modern development practices in mind, it provides an essential set of features such as 
-PSR-4 autoloading and Dependency Injection (DI) with lazy instantiation, as well as integration capabilities for non-PSR-4 classes.
+<h1 align="center">
+  WPModernPlugin
+</h1>
 
-## Features
+<div align="center">
+A streamlined WordPress plugin starter kit designed for efficient development, inspired by the best practices of modern PHP architecture.
+</div>
 
-- **PSR-4 Autoloading:** Organize your plugin classes with modern namespacing, making your code cleaner and more maintainable.
-- **Lazy Dependency Injection:** Only load what you need, when you need it, enhancing your plugin's performance.
-- **Non-PSR-4 Class Integration:** Seamlessly integrate third-party or legacy classes without namespacing into your modern workflow.
+<div align="center">
 
-## Getting Started
+![WordPress](https://img.shields.io/badge/WordPress-%3E%3D5.8-blue.svg)
+![PHP Version](https://img.shields.io/badge/PHP-%3E%3D8.1-777BB4.svg)
+![Composer](https://img.shields.io/badge/Composer-Enabled-885630.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-1. Clone or download WPModernPlugin into your WordPress plugins directory.
-2. If necessary, run `composer install` within your plugin directory to set up autoloading. Note: Composer can also be used to add any additional PHP packages required for your project.
-3. Activate the plugin from the WordPress admin interface.
-4. Build something great!
+</div>
 
-## Usage
+---
+## Key Features
 
-### Defining Services and Repositories
+- **PSR-4 Autoloading:** Ensures an organized class structure for easy management and scalability.
+- **Lazy Dependency Injection:** Optimizes performance by loading services only when they are needed, with the ability to swap service implementations on the fly, enhancing flexibility.
+- **Flexible Class Integration:** Supports both namespaced and non-namespaced classes, allowing seamless integration third-party libraries and external classes.
 
-Create your service and repository classes within the `src/Service` and `src/Repository` directories, respectively. Register these classes in `src/registration.php` for autoloading and dependency injection.
+## Quick Start
 
-### Integrating Non-PSR-4 Classes
+### Installation
 
-For external classes without namespacing, specify the class name and its file path in `src/registration.php`. WPModernPlugin will handle the rest.
+1. **Download:** Clone or download this repository into your WordPress `plugins` directory.
+2. **Activate:** No external dependencies required. Activate the plugin from the WordPress admin panel.
+3. **Create:** Now build something great!
+
+## How to Use
+
+- **Develop Your Plugin:** Utilize the `src/` directory for adding PHP classes, adhering to PSR-4 for an organized and scalable codebase.
+- **Register Services:** Leverage `src/registration.php` for registering services and repositories, enabling autoloading and dependency injection for streamlined development.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit pull requests or create issues for bugs and feature requests.
+While WPModernPlugin is currently not open for public contributions, feedback and suggestions are welcome. Please feel free to open an issue for any bugs you find or enhancements you think would make the starter kit more useful. For more direct communication, see the contact information below.
 
 ## License
 
-WPModernPlugin is open-sourced software licensed under the [MIT license](LICENSE).
+WPModernPlugin is open-source software, available under the [MIT license](LICENSE).
+
+## Author
+
+**Kaiser Keenmon**
+
+- GitHub: [@kaiserkeenmon](https://github.com/kaiserkeenmon)
+- LinkedIn: [Kaiser Keenmon](https://www.linkedin.com/in/kaiser-keenmon/)
+- Email: kaiser@kaiserkeenmon.com
