@@ -24,4 +24,11 @@ return [
         'class' => ClassCService::class,
         'singleton' => true,
     ],
+
+    // Example non-PSR-4 class registration
+    ClassD::class => [
+        'class' => ClassD::class,
+        'file' => __DIR__ . '/ClassD.php',
+        'singleton' => true
+    ],
 ];

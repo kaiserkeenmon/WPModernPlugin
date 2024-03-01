@@ -7,29 +7,22 @@
  * Author: Kaiser Keenmon
  */
 
+// Exit if accessed directly.
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 // Register the Composer autoloader.
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Import the DI Container class.
 use WPModernPlugin\Container\Container;
 
-// Initialize the DI Container.
-$container = new Container();
-
 // Load the class registration file.
-$classes = require __DIR__ . '/src/registration.php';
+$registrations = require __DIR__ . '/src/registration.php';
 
-// Register classes with the container.
-foreach ($classes as $class => $path) {
-    if (is_string($path)) {
-        // It's a path, require it directly (useful for non-namespaced classes)
-        require_once $path;
-    } else {
-        // It's a class name; register it in the DI container for lazy loading
-        // Assuming $container->register() exists and handles lazy loading setup
-        $container->register($class);
-    }
-}
+// Initialize the DI Container.
+$container = Container::getInstance($registrations);
 
 // Plugin Activation
 register_activation_hook(__FILE__, function () use ($container) {

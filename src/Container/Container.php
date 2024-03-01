@@ -1,26 +1,42 @@
 <?php
 
 /**
- * Project: WPModernPlugin
+ * Project: GiphyBlocksPlugin
  * File: Container.php
  * Author: Kaiser Keenmon
  * Date: 2/28/24
  */
 
-namespace WPModernPlugin\Container;
+namespace GiphyBlocksPlugin\Container;
 
 class Container
 {
-    /** @var array */
+    /** @var null  */
+    private static $instance = null;
+
+    /** @var array  */
     private $registrations;
 
-    /** @var array */
-    private $instances = [];
+    /** @var array Array to hold instantiated singleton objects */
+    private $instances = []; // Explicitly declare the $instances property
+
+    public static function getInstance($registrations = []) {
+        if (self::$instance === null) {
+            self::$instance = new self($registrations);
+        }
+        return self::$instance;
+    }
 
     public function __construct(array $registrations)
     {
         $this->registrations = $registrations;
     }
+
+    /**
+     * Prevent cloning and serialization.
+     */
+    private function __clone() {}
+    public function __wakeup() {}
 
     /**
      * Get or make an instance of the class.
@@ -66,6 +82,10 @@ class Container
      */
     protected function buildInstance($registration)
     {
+        if (isset($registration['file']) && file_exists($registration['file'])) {
+            require_once $registration['file'];
+        }
+
         $reflector = new \ReflectionClass($registration['class']);
         if (!$reflector->isInstantiable()) {
             throw new \Exception("Class {$registration['class']} is not instantiable.");
