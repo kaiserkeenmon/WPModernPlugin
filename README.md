@@ -23,9 +23,26 @@ A streamlined WordPress plugin starter kit designed for efficient development, i
 
 ## Key Features
 
-- **PSR-4 Autoloading:** Ensures an organized class structure for easy management and scalability.
-- **Lazy Dependency Injection:** Optimizes performance by loading services only when they are needed, with the ability to swap service implementations on the fly, enhancing flexibility.
-- **Flexible Class Integration:** Supports both namespaced and non-namespaced classes, allowing seamless integration third-party libraries and external classes.
+- **Modern PHP Practices:** Employs the latest PHP development practices for improved security, efficiency, and readability.
+
+- **PSR-4 Autoloading:** Streamlines class loading for better organization and scalability, adhering to modern PHP 
+- standards.
+
+- **Lazy Dependency Injection:** Enhances performance and flexibility by loading services only as needed, with easy 
+- swapping of implementations.
+
+- **Flexible Class Integration:** Accommodates both namespaced and non-namespaced classes for seamless third-party 
+- library and external class integration.
+
+- **Dependency Inversion Principle:** Ensures high-level modules rely on abstractions rather than low-level modules, 
+- promoting maintainable and decoupled code.
+
+- **External Non-PSR-4 Class Support:** Offers integration for external classes outside PSR-4 standards, enhancing 
+- the plugin's versatility.
+
+- **Easy Configuration & Customization:** Simplifies setup with a centralized registration file, making customization 
+- straightforward.
+
 
 ## Quick Start
 
