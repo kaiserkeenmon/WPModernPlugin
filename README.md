@@ -9,10 +9,13 @@
 </h1>
 
 <div align="center">
-A WordPress plugin starter designed to modernize plugin development, inspired by the best practices of modern PHP architecture seen in frameworks like Magento, Laravel, and Symfony. This starter aims to revolutionize your development process, incorporating features such as PSR-4 autoloading, dependency injection, and more.
+A WordPress plugin starter designed to modernize plugin development, inspired by the best practices of modern PHP 
+architecture seen in frameworks like Magento, Laravel, and Symfony. This starter aims to revolutionize your development 
+process, incorporating features such as PSR-4 autoloading, dependency injection, and more.
 </div>
 
-<div align="center">
+<div align="center" style="padding: 20px 0;">
+
 
 ![WordPress](https://img.shields.io/badge/WordPress-%3E%3D5.8-blue.svg)
 ![PHP Version](https://img.shields.io/badge/PHP-%3E%3D8.1-777BB4.svg)
@@ -23,7 +26,9 @@ A WordPress plugin starter designed to modernize plugin development, inspired by
 
 ## WPModernPlugin starter demo
 
-To watch the demo without navigating away from GitHub, right-click on the link and select "Open link in new tab". [![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPModernPlugin/master/thumbnail.jpg?token=GHSAT0AAAAAACKFBWNLDM4JTPUE4IKACCP2ZPGJQOQ)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
+To watch the demo without navigating away from GitHub, right-click on the link and select "Open link in new tab". 
+[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPModernPlugin/2a0d6e482ac5515a4469debbb35f2b41f3e5498d/thumbnail.jpg)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
+
 
 The above demo is a brief intro to the WPModernPlugin starter, highlighting its features and demoing how to 
 use it to build a modernized WordPress plugin.
@@ -43,23 +48,17 @@ Watch now and learn how the WPModernPlugin starter can revolutionize your WordPr
 
 - **Modern PHP Practices:** Employs the latest PHP development practices for improved security, efficiency, and readability.
 
-- **PSR-4 Autoloading:** Streamlines class loading for better organization and scalability, adhering to modern PHP 
-- standards.
+- **PSR-4 Autoloading:** Streamlines class loading for better organization and scalability, adhering to modern PHP standards.
 
-- **Lazy Dependency Injection:** Enhances performance and flexibility by loading services only as needed, with easy 
-- swapping of implementations.
+- **Lazy Dependency Injection:** Enhances performance and flexibility by loading services only as needed, with easy swapping of implementations.
 
-- **Flexible Class Integration:** Accommodates both namespaced and non-namespaced classes for seamless third-party 
-- library and external class integration.
+- **Flexible Class Integration:** Accommodates both namespaced and non-namespaced classes for seamless third-party library and external class integration.
 
-- **Dependency Inversion:** Ensures high-level modules rely on abstractions rather than low-level modules, 
-- promoting maintainable and decoupled code.
+- **Dependency Inversion:** Ensures high-level modules rely on abstractions rather than low-level modules, promoting maintainable and decoupled code.
 
-- **External Non-PSR-4 Class Support:** Offers integration for external classes outside PSR-4 standards, enhancing 
-- the plugin's versatility.
+- **External Non-PSR-4 Class Support:** Offers integration for external classes outside PSR-4 standards, enhancing the plugin's versatility.
 
-- **Easy Configuration & Customization:** Simplifies setup with a centralized registration file, making customization 
-- straightforward.
+- **Easy Configuration & Customization:** Simplifies setup with a centralized registration file, making customization straightforward.
 
 
 ## Quick Start
