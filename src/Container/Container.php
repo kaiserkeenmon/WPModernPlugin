@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Project: GiphyBlocksPlugin
+ * Project: WPModernPlugin
  * File: Container.php
  * Author: Kaiser Keenmon
  * Date: 2/28/24
  */
 
-namespace GiphyBlocksPlugin\Container;
+namespace WPModernPlugin\Container;
 
 class Container
 {

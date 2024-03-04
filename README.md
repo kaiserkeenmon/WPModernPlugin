@@ -21,7 +21,25 @@ A streamlined WordPress plugin starter kit designed for efficient development, i
 
 </div>
 
-## Key Features
+## WPModernPlugin starter demo
+
+[![Watch the Video](URL_of_Thumbnail)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
+
+The above demo video is a brief introduction to the WPModernPlugin starter kit, showcasing its benefits as well as how to 
+use it to build modernized WordPress plugin.
+
+**Key Features Highlighted in the Video**:
+- PSR-4 Autoloading and Namespacing
+- Dependency Injection
+- Lazy DI Auto-instantiation
+- Flexible Class Integration with PSR-4
+- Dependency Inversion
+- Managing External Non-PSR-4 Classes 
+- A step-by-step guide to creating a plugin with Giphy API integration!
+
+Watch now and learn how the WPModernPlugin starter can modernize your WordPress plugin development!
+
+## Key Plugin Starter Features
 
 - **Modern PHP Practices:** Employs the latest PHP development practices for improved security, efficiency, and readability.
 
@@ -34,7 +52,7 @@ A streamlined WordPress plugin starter kit designed for efficient development, i
 - **Flexible Class Integration:** Accommodates both namespaced and non-namespaced classes for seamless third-party 
 - library and external class integration.
 
-- **Dependency Inversion Principle:** Ensures high-level modules rely on abstractions rather than low-level modules, 
+- **Dependency Inversion:** Ensures high-level modules rely on abstractions rather than low-level modules, 
 - promoting maintainable and decoupled code.
 
 - **External Non-PSR-4 Class Support:** Offers integration for external classes outside PSR-4 standards, enhancing 
@@ -49,7 +67,9 @@ A streamlined WordPress plugin starter kit designed for efficient development, i
 ### Installation
 
 1. **Download:** Clone or download this repository into your WordPress `plugins` directory.
-2. **Activate:** No external dependencies required. Activate the plugin from the WordPress admin panel.
+2. **Rename:** Find and replace 'WPModernPlugin' with your plugin's name across the entire plugin.
+3. **Composer:** Run `composer install` to install autoload classes. No external dependencies are included but can be added as needed.
+2. **Activate:** Activate the plugin from the WordPress admin panel.
 3. **Create:** Now build something great!
 
 ## How to Use
