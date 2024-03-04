@@ -25,8 +25,8 @@ A streamlined WordPress plugin starter kit designed for efficient development, i
 
 [![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPModernPlugin/master/thumbnail.jpg?token=GHSAT0AAAAAACKFBWNKQ4ERNH6CPL3YIYVOZPGI7PA)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
 
-The above demo video is a brief introduction to the WPModernPlugin starter kit, showcasing its benefits as well as how to 
-use it to build modernized WordPress plugin.
+The above demo is a brief intro to the WPModernPlugin starter kit, highlighting its features and demoing how to 
+use it to build a modernized WordPress plugin.
 
 **Key Features Highlighted in the Video**:
 - PSR-4 Autoloading and Namespacing
@@ -37,7 +37,7 @@ use it to build modernized WordPress plugin.
 - Managing External Non-PSR-4 Classes 
 - A step-by-step guide to creating a plugin with Giphy API integration!
 
-Watch now and learn how the WPModernPlugin starter can modernize your WordPress plugin development!
+Watch now and learn how the WPModernPlugin starter can revolutionize your WordPress plugin development!
 
 ## Key Plugin Starter Features
 
