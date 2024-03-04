@@ -23,7 +23,7 @@ A WordPress plugin starter designed to modernize plugin development, inspired by
 
 ## WPModernPlugin starter demo
 
-To watch the demo without navigating away from GitHub, right-click on the link and select "Open link in new tab". [![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPModernPlugin/master/thumbnail.jpg?token=GHSAT0AAAAAACKFBWNKQ4ERNH6CPL3YIYVOZPGI7PA)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
+To watch the demo without navigating away from GitHub, right-click on the link and select "Open link in new tab". [![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPModernPlugin/master/thumbnail.jpg?token=GHSAT0AAAAAACKFBWNLDM4JTPUE4IKACCP2ZPGJQOQ)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
 
 The above demo is a brief intro to the WPModernPlugin starter, highlighting its features and demoing how to 
 use it to build a modernized WordPress plugin.
