@@ -23,7 +23,7 @@ A streamlined WordPress plugin starter kit designed for efficient development, i
 
 ## WPModernPlugin starter demo
 
-[![Watch the Video](URL_of_Thumbnail)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
+[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPModernPlugin/master/thumbnail.jpg?token=GHSAT0AAAAAACKFBWNKQ4ERNH6CPL3YIYVOZPGI7PA)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
 
 The above demo video is a brief introduction to the WPModernPlugin starter kit, showcasing its benefits as well as how to 
 use it to build modernized WordPress plugin.
