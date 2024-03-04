@@ -9,7 +9,7 @@
 </h1>
 
 <div align="center">
-A streamlined WordPress plugin starter kit designed for efficient development, inspired by the best practices of modern PHP architecture.
+A WordPress plugin starter designed to modernize plugin development, inspired by the best practices of modern PHP architecture seen in frameworks like Magento, Laravel, and Symfony. This starter aims to revolutionize your development process, incorporating features such as PSR-4 autoloading, dependency injection, and more.
 </div>
 
 <div align="center">
@@ -23,9 +23,9 @@ A streamlined WordPress plugin starter kit designed for efficient development, i
 
 ## WPModernPlugin starter demo
 
-[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPModernPlugin/master/thumbnail.jpg?token=GHSAT0AAAAAACKFBWNKQ4ERNH6CPL3YIYVOZPGI7PA)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
+To watch the demo without navigating away from GitHub, right-click on the link and select "Open link in new tab". [![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPModernPlugin/master/thumbnail.jpg?token=GHSAT0AAAAAACKFBWNKQ4ERNH6CPL3YIYVOZPGI7PA)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
 
-The above demo is a brief intro to the WPModernPlugin starter kit, highlighting its features and demoing how to 
+The above demo is a brief intro to the WPModernPlugin starter, highlighting its features and demoing how to 
 use it to build a modernized WordPress plugin.
 
 **Key Features Highlighted in the Video**:
@@ -79,7 +79,11 @@ Watch now and learn how the WPModernPlugin starter can revolutionize your WordPr
 
 ## Contributing
 
-While WPModernPlugin is currently not open for public contributions, feedback and suggestions are welcome. Please feel free to open an issue for any bugs you find or enhancements you think would make the starter kit more useful. For more direct communication, see the contact information below.
+While WPModernPlugin is currently not open for public contributions, feedback and suggestions are welcome. Please feel 
+free to open an issue for any bugs you find or enhancements you think would make the starter more useful. 
+For more direct communication, see the contact information below.
+
+I'd love to hear what you build with WPModernPlugin, so please feel free to share your projects with me!
 
 ## License
 
