@@ -11,5 +11,7 @@
             "email": "55062263+kaiserkeenmon@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/console": "^7.0"
+    }
 }

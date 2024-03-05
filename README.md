@@ -67,7 +67,7 @@ Watch now and learn how the WPModernPlugin starter can revolutionize your WordPr
 
 1. **Download:** Clone or download this repository into your WordPress `plugins` directory.
 2. **Rename:** Find and replace 'WPModernPlugin' with your plugin's name across the entire plugin.
-3. **Composer:** Run `composer install` to install autoload classes. No external dependencies are included but can be added as needed.
+3. **Composer:** Run `composer install` to install autoload classes and dependencies.
 2. **Activate:** Activate the plugin from the WordPress admin panel.
 3. **Create:** Now build something great!
 
