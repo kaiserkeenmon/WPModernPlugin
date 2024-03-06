@@ -79,7 +79,7 @@ class CreateServiceCommand extends Command
             $io->error("Service {$serviceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName, $output);
+        $this->generateFileFromTemplate('service', $serviceName, $namespaceBase, $io);
 
         $io->success("Service {$serviceName} created successfully.");
 
@@ -93,7 +93,7 @@ class CreateServiceCommand extends Command
             $io->error("Service interface for service {$serviceName}Interface already exists.");
             return Command::FAILURE;
         }
-        $this->generateServiceInterface($serviceName, $namespace, $output);
+        $this->generateFileFromTemplate('serviceInterface', $serviceName . 'Interface', $namespaceBase, $io);
 
         $io->success("Service interface for service {$serviceName} created successfully.");
 
@@ -107,7 +107,7 @@ class CreateServiceCommand extends Command
             $io->error("Repository {$repositoryName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateRepository($repositoryName, $repositoryNamespace, $output);
+        $this->generateFileFromTemplate('repository', $repositoryName, $namespaceBase, $io);
 
         $io->success("Repository for service {$repositoryName} created successfully.");
 
@@ -121,97 +121,60 @@ class CreateServiceCommand extends Command
             $io->error("Repository interface {$repositoryInterfaceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace, $output);
+        $this->generateFileFromTemplate('repositoryInterface', $repositoryInterfaceName, $namespaceBase, $io);
 
         $io->success("Repository interface for service {$repositoryInterfaceName} created successfully.");
 
         return Command::SUCCESS;
     }
 
-    /**
-     * @param $serviceName
-     * @param $namespace
-     * @param $repositoryInterfaceName
-     * @param $repositoryVariableName
-     * @return void
-     */
-    protected function generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName, $io)
+    protected function generateFileFromTemplate($type, $name, $namespace, SymfonyStyle $io)
     {
-        $serviceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Service/Service.php');
-        $processedServiceTemplate = str_replace(
-            ['{{namespace}}', '{{serviceName}}', '{{repositoryInterfaceName}}', '{{repositoryVariableName}}'],
-            [$namespace, $serviceName, $repositoryInterfaceName, $repositoryVariableName],
-            $serviceTemplateContents
-        );
-        // Define the path for the new service file
-        $filePath = $this->pluginDirPath . "/src/Service/{$serviceName}.php";
-        // Write the replaced content to a new service file
-        file_put_contents($filePath, $processedServiceTemplate);
+        switch ($type) {
+            case 'service':
+                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/Service.php';
+                $filePath = $this->pluginDirPath . "/src/Service/{$name}.php";
+                $replacements = [
+                    '{{namespace}}' => $namespace . '\\Service',
+                    '{{serviceName}}' => $name,
+                    '{{repositoryInterfaceName}}' => $name . 'RepositoryInterface',
+                    '{{repositoryVariableName}}' => lcfirst($name) . 'Repository',
+                ];
+                break;
+            case 'serviceInterface':
+                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php';
+                $filePath = $this->pluginDirPath . "/src/Service/{$name}Interface.php";
+                $replacements = [
+                    '{{namespace}}' => $namespace . '\\Service',
+                    '{{serviceName}}' => $name,
+                ];
+                break;
+            case 'repository':
+                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Repository/Repository.php';
+                $filePath = $this->pluginDirPath . "/src/Repository/{$name}.php";
+                $replacements = [
+                    '{{namespace}}' => $namespace . '\\Repository',
+                    '{{repositoryClassName}}' => $name,
+                    '{{repositoryInterfaceName}}' => $name . 'Interface',
+                ];
+                break;
+            case 'repositoryInterface':
+                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Repository/RepositoryInterface.php';
+                $filePath = $this->pluginDirPath . "/src/Repository/{$name}Interface.php";
+                $replacements = [
+                    '{{namespace}}' => $namespace . '\\Repository',
+                    '{{repositoryInterfaceName}}' => $name,
+                ];
+                break;
+            default:
+                $io->error("Invalid type: $type");
+                return;
+        }
 
-        $io->success("Service {$serviceName} created successfully at {$filePath}.");
-    }
-
-    /**
-     * @param $serviceName
-     * @param $namespace
-     * @return void
-     */
-    protected function generateServiceInterface($serviceName, $namespace, $io)
-    {
-        $serviceInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php');
-        $processedServiceInterfaceTemplate = str_replace(
-            ['{{namespace}}', '{{serviceName}}'],
-            [$namespace, $serviceName],
-            $serviceInterfaceTemplateContents
-        );
-        // Define the path for the new service interface file
-        $filePath = $this->pluginDirPath . "/src/Service/{$serviceName}Interface.php";
-        // Write the replaced content to a new service interface file
-        file_put_contents($filePath, $processedServiceInterfaceTemplate);
-
-        $io->success("Service interface {$serviceName}Interface created successfully at {$filePath}.");
-    }
-
-    /**
-     * @param $repositoryInterfaceName
-     * @param $repositoryNamespace
-     * @return void
-     */
-    protected function generateRepository($repositoryInterfaceName, $repositoryNamespace, $io)
-    {
-        $repositoryTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Repository/Repository.php');
-        $processedRepositoryTemplate = str_replace(
-            ['{{namespace}}', '{{repositoryClassName}}', '{{repositoryInterfaceName}'],
-            [$repositoryNamespace, $repositoryInterfaceName, $repositoryInterfaceName],
-            $repositoryTemplateContents
-        );
-        // Define the path for the new repository file
-        $filePath = $this->pluginDirPath . "/src/Repository/{$repositoryInterfaceName}.php";
-        // Write the replaced content to a new repository file
-        file_put_contents($filePath, $processedRepositoryTemplate);
-
-        $io->success("Repository {$repositoryInterfaceName} created successfully at {$filePath}.");
-    }
-
-    /**
-     * @param $repositoryInterfaceName
-     * @param $repositoryNamespace
-     * @return void
-     */
-    protected function generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace, $io)
-    {
-        $repositoryInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Repository/RepositoryInterface.php');
-        $processedRepositoryInterfaceTemplate = str_replace(
-            ['{{namespace}}', '{{repositoryInterfaceName}}'],
-            [$repositoryNamespace, $repositoryInterfaceName],
-            $repositoryInterfaceTemplateContents
-        );
-        // Define the path for the new repository interface file
-        $filePath = $this->pluginDirPath . "/src/Repository/{$repositoryInterfaceName}.php";
-        // Write the replaced content to a new repository interface file
-        file_put_contents($filePath, $processedRepositoryInterfaceTemplate);
-
-        $io->success("Repository interface {$repositoryInterfaceName} created successfully at {$filePath}.");
+        $templateContents = file_get_contents($templatePath);
+        $processedContent = str_replace(array_keys($replacements), array_values($replacements), $templateContents);
+        file_put_contents($filePath, $processedContent);
+        $io->success("$type $name created successfully at $filePath.");
     }
 
     /**
