@@ -13,10 +13,21 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Question\Question;
 
 class CreateServiceCommand extends Command
 {
+    /** @var false|string  */
+    protected $pluginDirPath;
+
+    /** @var OutputInterface  */
+    protected $output;
+
+    public function __construct(OutputInterface $output) {
+        $this->pluginDirPath = getcwd();
+        $this->output = $output;
+        parent::__construct();
+    }
+
     /**
      * @var OutputInterface
      */
@@ -57,7 +68,7 @@ class CreateServiceCommand extends Command
          * Create the service class.
          */
         // Check if the service already exists
-        if (file_exists(WP_PLUGIN_DIR . "/src/Service/{$serviceName}.php")) {
+        if (file_exists($this->pluginDirPath . "/src/Service/{$serviceName}.php")) {
             $output->writeln("Service {$serviceName} already exists.");
             return Command::FAILURE;
         }
@@ -67,7 +78,7 @@ class CreateServiceCommand extends Command
          * Create the service interface.
          */
         // Check if the service interface already exists
-        if (file_exists(WP_PLUGIN_DIR . "/src/Service/{$serviceName}Interface.php")) {
+        if (file_exists($this->pluginDirPath . "/src/Service/{$serviceName}Interface.php")) {
             $output->writeln("Service interface {$serviceName}Interface already exists.");
             return Command::FAILURE;
         }
@@ -77,7 +88,7 @@ class CreateServiceCommand extends Command
          * Create the repository class.
          */
         // Check if the repository already exists
-        if (file_exists(WP_PLUGIN_DIR . "/src/Repository/{$repositoryInterfaceName}.php")) {
+        if (file_exists($this->pluginDirPath . "/src/Repository/{$repositoryInterfaceName}.php")) {
             $output->writeln("Repository {$repositoryInterfaceName} already exists.");
             return Command::FAILURE;
         }
@@ -87,13 +98,13 @@ class CreateServiceCommand extends Command
          * Create the repository interface.
          */
         // Check if the repository interface already exists
-        if (file_exists(WP_PLUGIN_DIR . "/src/Repository/{$repositoryInterfaceName}.php")) {
+        if (file_exists($this->pluginDirPath . "/src/Repository/{$repositoryInterfaceName}.php")) {
             $output->writeln("Repository interface {$repositoryInterfaceName} already exists.");
             return Command::FAILURE;
         }
         $this->generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace);
 
-        $output->writeln("Service {$serviceName} created successfully.");
+        $this->output->writeln("Service {$serviceName} created successfully.");
 
         return Command::SUCCESS;
     }
@@ -107,14 +118,14 @@ class CreateServiceCommand extends Command
      */
     protected function generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName)
     {
-        $serviceTemplateContents = file_get_contents(WP_PLUGIN_DIR . '/src/Modernize/templates/Service.php');
+        $serviceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Service.php');
         $processedServiceTemplate = str_replace(
             ['{{namespace}}', '{{serviceName}}', '{{repositoryInterfaceName}}', '{{repositoryVariableName}}'],
             [$namespace, $serviceName, $repositoryInterfaceName, $repositoryVariableName],
             $serviceTemplateContents
         );
         // Define the path for the new service file
-        $filePath = WP_PLUGIN_DIR . "/src/Service/{$serviceName}.php";
+        $filePath = $this->pluginDirPath . "/src/Service/{$serviceName}.php";
         // Write the replaced content to a new service file
         file_put_contents($filePath, $processedServiceTemplate);
 
@@ -128,18 +139,18 @@ class CreateServiceCommand extends Command
      */
     protected function generateServiceInterface($serviceName, $namespace)
     {
-        $serviceInterfaceTemplateContents = file_get_contents(WP_PLUGIN_DIR . '/src/Modernize/templates/ServiceInterface.php');
+        $serviceInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/ServiceInterface.php');
         $processedServiceInterfaceTemplate = str_replace(
             ['{{namespace}}', '{{serviceName}}'],
             [$namespace, $serviceName],
             $serviceInterfaceTemplateContents
         );
         // Define the path for the new service interface file
-        $filePath = WP_PLUGIN_DIR . "/src/Service/{$serviceName}Interface.php";
+        $filePath = $this->pluginDirPath . "/src/Service/{$serviceName}Interface.php";
         // Write the replaced content to a new service interface file
         file_put_contents($filePath, $processedServiceInterfaceTemplate);
 
-        $this->output->writeln("Service interface {$serviceName}Interface created successfully at {$filePath}.");
+        $this->output->writeLn("Service interface {$serviceName}Interface created successfully at {$filePath}.");
     }
 
     /**
@@ -149,18 +160,18 @@ class CreateServiceCommand extends Command
      */
     protected function generateRepository($repositoryInterfaceName, $repositoryNamespace)
     {
-        $repositoryTemplateContents = file_get_contents(WP_PLUGIN_DIR . '/src/Modernize/templates/Repository.php');
+        $repositoryTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Repository.php');
         $processedRepositoryTemplate = str_replace(
             ['{{namespace}}', '{{repositoryClassName}}', '{{repositoryInterfaceName}'],
             [$repositoryNamespace, $repositoryInterfaceName, $repositoryInterfaceName],
             $repositoryTemplateContents
         );
         // Define the path for the new repository file
-        $filePath = WP_PLUGIN_DIR . "/src/Repository/{$repositoryInterfaceName}.php";
+        $filePath = $this->pluginDirPath . "/src/Repository/{$repositoryInterfaceName}.php";
         // Write the replaced content to a new repository file
         file_put_contents($filePath, $processedRepositoryTemplate);
 
-        $this->output->writeln("Repository {$repositoryInterfaceName} created successfully at {$filePath}.");
+        $this->output->writeLn("Repository {$repositoryInterfaceName} created successfully at {$filePath}.");
     }
 
     /**
@@ -170,18 +181,18 @@ class CreateServiceCommand extends Command
      */
     protected function generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace)
     {
-        $repositoryInterfaceTemplateContents = file_get_contents(WP_PLUGIN_DIR . '/src/Modernize/templates/RepositoryInterface.php');
+        $repositoryInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/RepositoryInterface.php');
         $processedRepositoryInterfaceTemplate = str_replace(
             ['{{namespace}}', '{{repositoryInterfaceName}}'],
             [$repositoryNamespace, $repositoryInterfaceName],
             $repositoryInterfaceTemplateContents
         );
         // Define the path for the new repository interface file
-        $filePath = WP_PLUGIN_DIR . "/src/Repository/{$repositoryInterfaceName}.php";
+        $filePath = $this->pluginDirPath . "/src/Repository/{$repositoryInterfaceName}.php";
         // Write the replaced content to a new repository interface file
         file_put_contents($filePath, $processedRepositoryInterfaceTemplate);
 
-        $this->output->writeln("Repository interface {$repositoryInterfaceName} created successfully at {$filePath}.");
+        $this->output->writeLn("Repository interface {$repositoryInterfaceName} created successfully at {$filePath}.");
     }
 
     /**
