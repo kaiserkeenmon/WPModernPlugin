@@ -66,8 +66,6 @@ class CreateServiceCommand extends Command
 
         // Convert hyphenated plugin directory name to CamelCase for namespace
         $namespaceBase = $this->hyphenToCamelCase($pluginDirName);
-        $namespace = $namespaceBase . '\\Service';
-        $repositoryNamespace = $namespaceBase . '\\Repository';
 
         /**
          * Create the service class.
@@ -127,7 +125,7 @@ class CreateServiceCommand extends Command
                 $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/Service.php';
                 $filePath = $this->pluginDirPath . "/src/Service/{$name}.php";
                 $replacements = [
-                    '{{namespace}}' => $namespace . '\\Service',
+                    '{{namespace}}' => $namespace,
                     '{{serviceName}}' => $name,
                     '{{repositoryInterfaceName}}' => $name . 'RepositoryInterface',
                     '{{repositoryVariableName}}' => lcfirst($name) . 'Repository',
