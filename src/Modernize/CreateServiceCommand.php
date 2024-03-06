@@ -42,6 +42,8 @@ class CreateServiceCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $output->writeln('Creating service...');
+
         // Retrieve the service name from the command argument
         $serviceNameRaw = $input->getArgument('service');
         $serviceName = preg_replace('/Service$/', '', $serviceNameRaw) . 'Service';
@@ -51,6 +53,9 @@ class CreateServiceCommand extends Command
 
         // Automatically construct the Repository variable name based on the Service name
         $repositoryVariableName = preg_replace('/Repository$/', '', $repositoryInterfaceName);
+
+        // Automatically construct the Repository name
+        $repositoryName = preg_replace('/RepositoryInterface$/', 'Repository', $repositoryInterfaceName);
 
         // Get the plugin directory name
         $pluginDirName = basename(getcwd());
@@ -70,25 +75,31 @@ class CreateServiceCommand extends Command
         }
         $this->generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName, $output);
 
+        $output->writeln("Service {$serviceName} created successfully.");
+
         /**
          * Create the service interface.
          */
         // Check if the service interface already exists
         if (file_exists($this->pluginDirPath . "/src/Service/{$serviceName}Interface.php")) {
-            $output->writeln("Service interface {$serviceName}Interface already exists.");
+            $output->writeln("Service interface for service {$serviceName}Interface already exists.");
             return Command::FAILURE;
         }
         $this->generateServiceInterface($serviceName, $namespace, $output);
+
+        $output->writeln("Service interface for service {$serviceName} created successfully.");
 
         /**
          * Create the repository class.
          */
         // Check if the repository already exists
-        if (file_exists($this->pluginDirPath . "/src/Repository/{$repositoryInterfaceName}.php")) {
-            $output->writeln("Repository {$repositoryInterfaceName} already exists.");
+        if (file_exists($this->pluginDirPath . "/src/Repository/{$repositoryName}.php")) {
+            $output->writeln("Repository {$repositoryName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateRepository($repositoryInterfaceName, $repositoryNamespace, $output);
+        $this->generateRepository($repositoryName, $repositoryNamespace, $output);
+
+        $output->writeln("Repository for service {$repositoryName} created successfully.");
 
         /**
          * Create the repository interface.
@@ -100,7 +111,7 @@ class CreateServiceCommand extends Command
         }
         $this->generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace, $output);
 
-        $output->writeln("Service {$serviceName} created successfully.");
+        $output->writeln("Repository interface for service {$repositoryInterfaceName} created successfully.");
 
         return Command::SUCCESS;
     }
@@ -114,7 +125,7 @@ class CreateServiceCommand extends Command
      */
     protected function generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName, $output)
     {
-        $serviceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Service.php');
+        $serviceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Service/Service.php');
         $processedServiceTemplate = str_replace(
             ['{{namespace}}', '{{serviceName}}', '{{repositoryInterfaceName}}', '{{repositoryVariableName}}'],
             [$namespace, $serviceName, $repositoryInterfaceName, $repositoryVariableName],
@@ -135,7 +146,7 @@ class CreateServiceCommand extends Command
      */
     protected function generateServiceInterface($serviceName, $namespace, $output)
     {
-        $serviceInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/ServiceInterface.php');
+        $serviceInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php');
         $processedServiceInterfaceTemplate = str_replace(
             ['{{namespace}}', '{{serviceName}}'],
             [$namespace, $serviceName],
@@ -156,7 +167,7 @@ class CreateServiceCommand extends Command
      */
     protected function generateRepository($repositoryInterfaceName, $repositoryNamespace, $output)
     {
-        $repositoryTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Repository.php');
+        $repositoryTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Repository/Repository.php');
         $processedRepositoryTemplate = str_replace(
             ['{{namespace}}', '{{repositoryClassName}}', '{{repositoryInterfaceName}'],
             [$repositoryNamespace, $repositoryInterfaceName, $repositoryInterfaceName],
@@ -177,7 +188,7 @@ class CreateServiceCommand extends Command
      */
     protected function generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace, $output)
     {
-        $repositoryInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/RepositoryInterface.php');
+        $repositoryInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Repository/RepositoryInterface.php');
         $processedRepositoryInterfaceTemplate = str_replace(
             ['{{namespace}}', '{{repositoryInterfaceName}}'],
             [$repositoryNamespace, $repositoryInterfaceName],
