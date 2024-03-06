@@ -164,6 +164,11 @@ class CreateServiceCommand extends Command
         }
 
         $templateContents = file_get_contents($templatePath);
+        if ($templateContents === false) {
+            $io->error("Failed to load template from: $templatePath");
+            return Command::FAILURE;
+        }
+
         $processedContent = str_replace(array_keys($replacements), array_values($replacements), $templateContents);
         file_put_contents($filePath, $processedContent);
         $io->success("$type $name created successfully at $filePath.");
