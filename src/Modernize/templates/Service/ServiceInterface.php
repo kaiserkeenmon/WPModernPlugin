@@ -29,4 +29,6 @@ interface {{ serviceName }}Interface
 }
 TEMPLATE;
 
+return $template;
+
 

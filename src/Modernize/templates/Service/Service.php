@@ -37,3 +37,5 @@ class {{serviceName}} implements {{serviceName}}Interface {
     }
 }
 TEMPLATE;
+
+return $template;

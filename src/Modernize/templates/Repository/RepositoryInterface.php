@@ -18,3 +18,5 @@ interface {{ repositoryInterfaceName }}
 }
 TEMPLATE;
 
+return $template;
+

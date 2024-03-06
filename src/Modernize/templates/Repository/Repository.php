@@ -20,3 +20,5 @@ class {{ repositoryClassName }} implements {{ repositoryInterfaceName }}
     }
 }
 TEMPLATE;
+
+return $template;
