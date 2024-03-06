@@ -19,12 +19,8 @@ class CreateServiceCommand extends Command
     /** @var false|string  */
     protected $pluginDirPath;
 
-    /** @var OutputInterface  */
-    protected $output;
-
-    public function __construct(OutputInterface $output) {
+    public function __construct() {
         $this->pluginDirPath = getcwd();
-        $this->output = $output;
         parent::__construct();
     }
 
@@ -72,7 +68,7 @@ class CreateServiceCommand extends Command
             $output->writeln("Service {$serviceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName);
+        $this->generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName, $output);
 
         /**
          * Create the service interface.
@@ -82,7 +78,7 @@ class CreateServiceCommand extends Command
             $output->writeln("Service interface {$serviceName}Interface already exists.");
             return Command::FAILURE;
         }
-        $this->generateServiceInterface($serviceName, $namespace);
+        $this->generateServiceInterface($serviceName, $namespace, $output);
 
         /**
          * Create the repository class.
@@ -92,7 +88,7 @@ class CreateServiceCommand extends Command
             $output->writeln("Repository {$repositoryInterfaceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateRepository($repositoryInterfaceName, $repositoryNamespace);
+        $this->generateRepository($repositoryInterfaceName, $repositoryNamespace, $output);
 
         /**
          * Create the repository interface.
@@ -102,9 +98,9 @@ class CreateServiceCommand extends Command
             $output->writeln("Repository interface {$repositoryInterfaceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace);
+        $this->generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace, $output);
 
-        $this->output->writeln("Service {$serviceName} created successfully.");
+        $output->writeln("Service {$serviceName} created successfully.");
 
         return Command::SUCCESS;
     }
@@ -116,7 +112,7 @@ class CreateServiceCommand extends Command
      * @param $repositoryVariableName
      * @return void
      */
-    protected function generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName)
+    protected function generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName, $output)
     {
         $serviceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Service.php');
         $processedServiceTemplate = str_replace(
@@ -129,7 +125,7 @@ class CreateServiceCommand extends Command
         // Write the replaced content to a new service file
         file_put_contents($filePath, $processedServiceTemplate);
 
-        $this->output->writeln("Service {$serviceName} created successfully at {$filePath}.");
+        $output->writeLn("Service {$serviceName} created successfully at {$filePath}.");
     }
 
     /**
@@ -137,7 +133,7 @@ class CreateServiceCommand extends Command
      * @param $namespace
      * @return void
      */
-    protected function generateServiceInterface($serviceName, $namespace)
+    protected function generateServiceInterface($serviceName, $namespace, $output)
     {
         $serviceInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/ServiceInterface.php');
         $processedServiceInterfaceTemplate = str_replace(
@@ -150,7 +146,7 @@ class CreateServiceCommand extends Command
         // Write the replaced content to a new service interface file
         file_put_contents($filePath, $processedServiceInterfaceTemplate);
 
-        $this->output->writeLn("Service interface {$serviceName}Interface created successfully at {$filePath}.");
+        $output->writeLn("Service interface {$serviceName}Interface created successfully at {$filePath}.");
     }
 
     /**
@@ -158,7 +154,7 @@ class CreateServiceCommand extends Command
      * @param $repositoryNamespace
      * @return void
      */
-    protected function generateRepository($repositoryInterfaceName, $repositoryNamespace)
+    protected function generateRepository($repositoryInterfaceName, $repositoryNamespace, $output)
     {
         $repositoryTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/Repository.php');
         $processedRepositoryTemplate = str_replace(
@@ -171,7 +167,7 @@ class CreateServiceCommand extends Command
         // Write the replaced content to a new repository file
         file_put_contents($filePath, $processedRepositoryTemplate);
 
-        $this->output->writeLn("Repository {$repositoryInterfaceName} created successfully at {$filePath}.");
+        $output->writeLn("Repository {$repositoryInterfaceName} created successfully at {$filePath}.");
     }
 
     /**
@@ -179,7 +175,7 @@ class CreateServiceCommand extends Command
      * @param $repositoryNamespace
      * @return void
      */
-    protected function generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace)
+    protected function generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace, $output)
     {
         $repositoryInterfaceTemplateContents = file_get_contents($this->pluginDirPath . '/src/Modernize/templates/RepositoryInterface.php');
         $processedRepositoryInterfaceTemplate = str_replace(
@@ -192,7 +188,7 @@ class CreateServiceCommand extends Command
         // Write the replaced content to a new repository interface file
         file_put_contents($filePath, $processedRepositoryInterfaceTemplate);
 
-        $this->output->writeLn("Repository interface {$repositoryInterfaceName} created successfully at {$filePath}.");
+        $output->writeLn("Repository interface {$repositoryInterfaceName} created successfully at {$filePath}.");
     }
 
     /**
