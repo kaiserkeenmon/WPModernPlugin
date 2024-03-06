@@ -3,7 +3,7 @@
 /**
  * Project: WPModernPlugin
  * File: CreateServiceCommand.php
- * Author: kaiser
+ * Author: Kaiser Keenmon
  * Date: 3/5/24
  */
 
@@ -17,17 +17,15 @@ use Symfony\Component\Console\Question\Question;
 
 class CreateServiceCommand extends Command
 {
-    /** @var string  */
-    protected static $defaultName = 'make:service';
-
     /**
-     * @return void
+     * @var OutputInterface
      */
     protected function configure()
     {
         $this
-            ->setDescription('Creates a new service class with a corresponding repository.')
-            ->addArgument('name', InputArgument::REQUIRED, 'The name of the service');
+            ->setName('make:service')
+            ->setDescription('Creates a new service class with a corresponding repository class.')
+            ->addArgument('service', InputArgument::REQUIRED, 'The name of the service to create');
     }
 
     /**
@@ -37,46 +35,167 @@ class CreateServiceCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $serviceName = $input->getArgument('serviceName');
-        $helper = $this->getHelper('question');
+        // Retrieve the service name from the command argument
+        $serviceNameRaw = $input->getArgument('service');
+        $serviceName = preg_replace('/Service$/', '', $serviceNameRaw) . 'Service';
 
-        $namespaceQuestion = new Question('Please enter the namespace of the service: ', 'App\\Service');
-        $namespace = $helper->ask($input, $output, $namespaceQuestion);
+        // Automatically construct the Repository Interface name based on the Service name
+        $repositoryInterfaceName = preg_replace('/Service$/', 'RepositoryInterface', $serviceName);
 
-        $repositoryInterfaceNameQuestion = new Question('Please enter the repository interface name (e.g., "GiphyRepositoryInterface"): ');
-        $repositoryInterfaceName = $helper->ask($input, $output, $repositoryInterfaceNameQuestion);
+        // Automatically construct the Repository variable name based on the Service name
+        $repositoryVariableName = preg_replace('/Repository$/', '', $repositoryInterfaceName);
 
-        $repositoryVariableNameQuestion = new Question('Please enter the repository variable name (e.g., "giphyRepository"): ');
-        $repositoryVariableName = $helper->ask($input, $output, $repositoryVariableNameQuestion);
+        // Get the plugin directory name
+        $pluginDirName = basename(getcwd());
 
-        $methodNameQuestion = new Question('Please enter the method name (e.g., "searchGifs"): ');
-        $methodName = $helper->ask($input, $output, $methodNameQuestion);
+        // Convert hyphenated plugin directory name to CamelCase for namespace
+        $namespaceBase = $this->hyphenToCamelCase($pluginDirName);
+        $namespace = $namespaceBase . '\\Service';
+        $repositoryNamespace = $namespaceBase . '\\Repository';
 
-        $parameterNameQuestion = new Question('Please enter the parameter name (e.g., "searchTerm"): ');
-        $parameterName = $helper->ask($input, $output, $parameterNameQuestion);
+        /**
+         * Create the service class.
+         */
+        // Check if the service already exists
+        if (file_exists(WP_PLUGIN_DIR . "/src/Service/{$serviceName}.php")) {
+            $output->writeln("Service {$serviceName} already exists.");
+            return Command::FAILURE;
+        }
+        $this->generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName);
 
-        $repositoryMethodNameQuestion = new Question('Please enter the repository method name (e.g., "searchGifs"): ');
-        $repositoryMethodName = $helper->ask($input, $output, $repositoryMethodNameQuestion);
+        /**
+         * Create the service interface.
+         */
+        // Check if the service interface already exists
+        if (file_exists(WP_PLUGIN_DIR . "/src/Service/{$serviceName}Interface.php")) {
+            $output->writeln("Service interface {$serviceName}Interface already exists.");
+            return Command::FAILURE;
+        }
+        $this->generateServiceInterface($serviceName, $namespace);
 
-        $templateContents = file_get_contents(WP_PLUGIN_DIR . '/src/Modernize/templates/ServiceTemplate.php');
+        /**
+         * Create the repository class.
+         */
+        // Check if the repository already exists
+        if (file_exists(WP_PLUGIN_DIR . "/src/Repository/{$repositoryInterfaceName}.php")) {
+            $output->writeln("Repository {$repositoryInterfaceName} already exists.");
+            return Command::FAILURE;
+        }
+        $this->generateRepository($repositoryInterfaceName, $repositoryNamespace);
 
-        // Replace placeholders in the template
-        $processedTemplate = str_replace(
-            ['{{namespace}}', '{{serviceName}}', '{{repositoryInterfaceName}}', '{{repositoryVariableName}}', '{{methodName}}', '{{parameterName}}', '{{repositoryMethodName}}'],
-            [$namespace, $serviceName, $repositoryInterfaceName, $repositoryVariableName, $methodName, $parameterName, $repositoryMethodName],
-            $templateContents
-        );
+        /**
+         * Create the repository interface.
+         */
+        // Check if the repository interface already exists
+        if (file_exists(WP_PLUGIN_DIR . "/src/Repository/{$repositoryInterfaceName}.php")) {
+            $output->writeln("Repository interface {$repositoryInterfaceName} already exists.");
+            return Command::FAILURE;
+        }
+        $this->generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace);
 
-        // Define the path for the new service file
-        $filePath = WP_PLUGIN_DIR . "/src/Service/{$serviceName}.php";
-
-        // Write the replaced content to a new service file
-        file_put_contents($filePath, $processedTemplate);
-
-        $output->writeln("Service {$serviceName} created successfully at {$filePath}.");
+        $output->writeln("Service {$serviceName} created successfully.");
 
         return Command::SUCCESS;
     }
+
+    /**
+     * @param $serviceName
+     * @param $namespace
+     * @param $repositoryInterfaceName
+     * @param $repositoryVariableName
+     * @return void
+     */
+    protected function generateService($serviceName, $namespace, $repositoryInterfaceName, $repositoryVariableName)
+    {
+        $serviceTemplateContents = file_get_contents(WP_PLUGIN_DIR . '/src/Modernize/templates/Service.php');
+        $processedServiceTemplate = str_replace(
+            ['{{namespace}}', '{{serviceName}}', '{{repositoryInterfaceName}}', '{{repositoryVariableName}}'],
+            [$namespace, $serviceName, $repositoryInterfaceName, $repositoryVariableName],
+            $serviceTemplateContents
+        );
+        // Define the path for the new service file
+        $filePath = WP_PLUGIN_DIR . "/src/Service/{$serviceName}.php";
+        // Write the replaced content to a new service file
+        file_put_contents($filePath, $processedServiceTemplate);
+
+        $this->output->writeln("Service {$serviceName} created successfully at {$filePath}.");
+    }
+
+    /**
+     * @param $serviceName
+     * @param $namespace
+     * @return void
+     */
+    protected function generateServiceInterface($serviceName, $namespace)
+    {
+        $serviceInterfaceTemplateContents = file_get_contents(WP_PLUGIN_DIR . '/src/Modernize/templates/ServiceInterface.php');
+        $processedServiceInterfaceTemplate = str_replace(
+            ['{{namespace}}', '{{serviceName}}'],
+            [$namespace, $serviceName],
+            $serviceInterfaceTemplateContents
+        );
+        // Define the path for the new service interface file
+        $filePath = WP_PLUGIN_DIR . "/src/Service/{$serviceName}Interface.php";
+        // Write the replaced content to a new service interface file
+        file_put_contents($filePath, $processedServiceInterfaceTemplate);
+
+        $this->output->writeln("Service interface {$serviceName}Interface created successfully at {$filePath}.");
+    }
+
+    /**
+     * @param $repositoryInterfaceName
+     * @param $repositoryNamespace
+     * @return void
+     */
+    protected function generateRepository($repositoryInterfaceName, $repositoryNamespace)
+    {
+        $repositoryTemplateContents = file_get_contents(WP_PLUGIN_DIR . '/src/Modernize/templates/Repository.php');
+        $processedRepositoryTemplate = str_replace(
+            ['{{namespace}}', '{{repositoryClassName}}', '{{repositoryInterfaceName}'],
+            [$repositoryNamespace, $repositoryInterfaceName, $repositoryInterfaceName],
+            $repositoryTemplateContents
+        );
+        // Define the path for the new repository file
+        $filePath = WP_PLUGIN_DIR . "/src/Repository/{$repositoryInterfaceName}.php";
+        // Write the replaced content to a new repository file
+        file_put_contents($filePath, $processedRepositoryTemplate);
+
+        $this->output->writeln("Repository {$repositoryInterfaceName} created successfully at {$filePath}.");
+    }
+
+    /**
+     * @param $repositoryInterfaceName
+     * @param $repositoryNamespace
+     * @return void
+     */
+    protected function generateRepositoryInterface($repositoryInterfaceName, $repositoryNamespace)
+    {
+        $repositoryInterfaceTemplateContents = file_get_contents(WP_PLUGIN_DIR . '/src/Modernize/templates/RepositoryInterface.php');
+        $processedRepositoryInterfaceTemplate = str_replace(
+            ['{{namespace}}', '{{repositoryInterfaceName}}'],
+            [$repositoryNamespace, $repositoryInterfaceName],
+            $repositoryInterfaceTemplateContents
+        );
+        // Define the path for the new repository interface file
+        $filePath = WP_PLUGIN_DIR . "/src/Repository/{$repositoryInterfaceName}.php";
+        // Write the replaced content to a new repository interface file
+        file_put_contents($filePath, $processedRepositoryInterfaceTemplate);
+
+        $this->output->writeln("Repository interface {$repositoryInterfaceName} created successfully at {$filePath}.");
+    }
+
+    /**
+     * Converts a hyphenated string to CamelCase.
+     *
+     * @param string $string The hyphenated string.
+     * @return string The CamelCase string.
+     */
+    private function hyphenToCamelCase(string $string): string
+    {
+        $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
+        return $str;
+    }
+
 }
 
 

@@ -3,19 +3,12 @@
 /**
  * Project: WPModernPlugin
  * File: ServiceTemplate.php
- * Author: kaiser
+ * Author: Kaiser Keenmon
  * Date: 3/5/24
  */
 
 $template = <<<TEMPLATE
 <?php
-
-/**
- * Project: WPModernPlugin
- * File: ServiceTemplate.php
- * Author: kaiser
- * Date: 3/5/24
- */
 
 namespace {{namespace}}\\Service;
 
@@ -23,7 +16,7 @@ use {{namespace}}\\Repository\\{{repositoryInterfaceName}};
 
 class {{serviceName}} implements {{serviceName}}Interface {
 
-    /** @var {{repositoryInterfaceName}}  */
+    /** @var {{repositoryInterfaceName}} */
     protected \${{repositoryVariableName}};
 
     public function __construct({{repositoryInterfaceName}} \${{repositoryVariableName}}) {
@@ -31,15 +24,16 @@ class {{serviceName}} implements {{serviceName}}Interface {
     }
 
     /**
-     * Method description
+     * Example method.
      *
-     * @param string \$parameterName Description of the parameter
-     * @return array
+     * Modify this stub to fit your service's needs.
+     *
+     * @param mixed \$parameter Description of the parameter
+     * @return mixed
      */
-    public function {{methodName}}(string \$parameterName): array {
+    public function exampleMethod(\$parameter) {
         // Implement method functionality here
-        \$results = \$this->{{repositoryVariableName}}->{{repositoryMethodName}}(\$parameterName);
-        return \$results;
+        // Example: return \$this->{{repositoryVariableName}}->find(\$parameter);
     }
 }
 TEMPLATE;
