@@ -10,14 +10,14 @@
 $template = <<<TEMPLATE
 <?php
 
-namespace {{ namespace }};
+namespace {{namespace}};
 
 /**
  * Interface {{ serviceName }}Interface
  *
  * Describe the purpose of the interface here.
  */
-interface {{ serviceName }}Interface
+interface {{serviceName}}Interface
 {
     /**
      * Describe the method and its purpose here.

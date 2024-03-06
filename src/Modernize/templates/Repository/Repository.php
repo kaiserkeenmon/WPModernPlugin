@@ -10,7 +10,7 @@
 $template = <<<TEMPLATE
 <?php
 
-namespace {{namespace}}\Repository;
+namespace {{namespace}};
 
 class {{repositoryClassName}} implements {{repositoryInterfaceName}}
 {
