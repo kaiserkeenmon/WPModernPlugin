@@ -10,9 +10,9 @@
 $template = <<<TEMPLATE
 <?php
 
-namespace {{ namespace }}\Repository;
+namespace {{namespace}}\Repository;
 
-class {{ repositoryClassName }} implements {{ repositoryInterfaceName }}
+class {{repositoryClassName}} implements {{repositoryInterfaceName}}
 {
     public function exampleMethod(array \$parameter): array
     {
