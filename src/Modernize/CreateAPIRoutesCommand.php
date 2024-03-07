@@ -18,11 +18,13 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 class CreateAPIRoutesCommand extends Command
 {
-    protected static $defaultName = 'make:api-routes';
-
+    /**
+     * @var OutputInterface
+     */
     protected function configure()
     {
         $this
+            ->setName('make:api-routes')
             ->setDescription('Creates a new API routes file.')
             ->setHelp('This command allows you to create a api-routes.php file.');
     }
