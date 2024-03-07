@@ -31,7 +31,6 @@ add_action('rest_api_init', function () use (\$container) {
 
     // Add more routes as needed.
 });
->>>
 TEMPLATE;
 
 return $template;

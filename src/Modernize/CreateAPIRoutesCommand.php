@@ -56,8 +56,8 @@ class CreateAPIRoutesCommand extends Command
         $pluginDirName = basename(getcwd());
 
         // Load the template
-        $templatePath = __DIR__ . '/../Routes/api-routes.php';
-        $templateContent = file_get_contents($templatePath);
+        $templatePath = __DIR__ . '/templates/Routes/api-routes.php';
+        $templateContent = include($templatePath);
 
         // Replace placeholders in the template
         $replacedContent = str_replace(
@@ -78,7 +78,7 @@ class CreateAPIRoutesCommand extends Command
         // Write the replaced content to the new file
         try {
             $filesystem->dumpFile($targetFilePath, $replacedContent);
-            $io->success('api-routes.php file created successfully.');
+            $io->success('api-routes.php file created successfully at ' . $targetFilePath);
         } catch (\Exception $e) {
             $io->error('An error occurred while creating the api-routes.php file.');
             return Command::FAILURE;
