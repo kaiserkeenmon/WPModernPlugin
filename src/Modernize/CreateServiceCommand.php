@@ -154,8 +154,8 @@ class CreateServiceCommand extends Command
                 break;
             case 'repositoryInterface':
                 $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Repository/RepositoryInterface.php';
-                $filePath = $this->pluginDirPath . "/src/Repository/{$name}Interface.php";
-                $pluginFilePath = $this->pluginDirName . "/src/Repository/{$name}Interface.php";
+                $filePath = $this->pluginDirPath . "/src/Repository/{$name}.php";
+                $pluginFilePath = $this->pluginDirName . "/src/Repository/{$name}.php";
                 $replacements = [
                     '{{namespace}}' => $namespace . '\\Repository',
                     '{{repositoryInterfaceName}}' => $name,
