@@ -14,7 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Modernize\Utilities\String;
+use Modernize\Utilities\Strings;
 use WPModernPlugin\Modernize\Traits\PluginDirectory;
 
 class CreateServiceCommand extends Command
@@ -69,7 +69,7 @@ class CreateServiceCommand extends Command
         $repositoryName = preg_replace('/RepositoryInterface$/', 'Repository', $repositoryInterfaceName);
 
         // Convert hyphenated plugin directory name to CamelCase for namespace
-        $namespaceBase = String::hyphenToCamelCase($this->pluginDirName);
+        $namespaceBase = Strings::hyphenToCamelCase($this->pluginDirName);
 
         /**
          * Create the service class.
