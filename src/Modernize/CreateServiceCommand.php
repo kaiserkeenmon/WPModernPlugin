@@ -20,8 +20,12 @@ class CreateServiceCommand extends Command
     /** @var false|string  */
     protected $pluginDirPath;
 
+    /** @var string  */
+    protected $pluginDirName;
+
     public function __construct() {
         $this->pluginDirPath = getcwd();
+        $this->pluginDirName = basename(getcwd());
         parent::__construct();
     }
 
@@ -61,11 +65,8 @@ class CreateServiceCommand extends Command
         // Automatically construct the Repository name
         $repositoryName = preg_replace('/RepositoryInterface$/', 'Repository', $repositoryInterfaceName);
 
-        // Get the plugin directory name
-        $pluginDirName = basename(getcwd());
-
         // Convert hyphenated plugin directory name to CamelCase for namespace
-        $namespaceBase = $this->hyphenToCamelCase($pluginDirName);
+        $namespaceBase = $this->hyphenToCamelCase($this->pluginDirName);
 
         /**
          * Create the service class.
@@ -124,6 +125,7 @@ class CreateServiceCommand extends Command
             case 'service':
                 $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/Service.php';
                 $filePath = $this->pluginDirPath . "/src/Service/{$name}.php";
+                $pluginFilePath = $this->pluginDirName . "/src/Service/{$name}.php";
                 $replacements = [
                     '{{namespace}}' => $namespace,
                     '{{serviceName}}' => $name,
@@ -134,6 +136,7 @@ class CreateServiceCommand extends Command
             case 'serviceInterface':
                 $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php';
                 $filePath = $this->pluginDirPath . "/src/Service/{$name}Interface.php";
+                $pluginFilePath = $this->pluginDirName . "/src/Service/{$name}Interface.php";
                 $replacements = [
                     '{{namespace}}' => $namespace . '\\Service',
                     '{{serviceName}}' => $name,
@@ -142,6 +145,7 @@ class CreateServiceCommand extends Command
             case 'repository':
                 $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Repository/Repository.php';
                 $filePath = $this->pluginDirPath . "/src/Repository/{$name}.php";
+                $pluginFilePath = $this->pluginDirName . "/src/Repository/{$name}.php";
                 $replacements = [
                     '{{namespace}}' => $namespace . '\\Repository',
                     '{{repositoryClassName}}' => $name,
@@ -151,6 +155,7 @@ class CreateServiceCommand extends Command
             case 'repositoryInterface':
                 $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Repository/RepositoryInterface.php';
                 $filePath = $this->pluginDirPath . "/src/Repository/{$name}Interface.php";
+                $pluginFilePath = $this->pluginDirName . "/src/Repository/{$name}Interface.php";
                 $replacements = [
                     '{{namespace}}' => $namespace . '\\Repository',
                     '{{repositoryInterfaceName}}' => $name,
@@ -164,7 +169,7 @@ class CreateServiceCommand extends Command
         $templateContents = include($templatePath);
         $processedContent = str_replace(array_keys($replacements), array_values($replacements), $templateContents);
         file_put_contents($filePath, $processedContent);
-        $io->success("$type $name created successfully at $filePath.");
+        $io->success("$type $name created successfully at $pluginFilePath.");
     }
 
     /**
