@@ -14,9 +14,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Modernize\Utilities\String;
+use WPModernPlugin\Modernize\Traits\PluginDirectory;
 
 class CreateServiceCommand extends Command
 {
+    use PluginDirectory;
+
     /** @var false|string  */
     protected $pluginDirPath;
 
@@ -24,9 +28,8 @@ class CreateServiceCommand extends Command
     protected $pluginDirName;
 
     public function __construct() {
-        $this->pluginDirPath = getcwd();
-        $this->pluginDirName = basename(getcwd());
         parent::__construct();
+        $this->initializePluginDirectory();
     }
 
     /**
@@ -66,7 +69,7 @@ class CreateServiceCommand extends Command
         $repositoryName = preg_replace('/RepositoryInterface$/', 'Repository', $repositoryInterfaceName);
 
         // Convert hyphenated plugin directory name to CamelCase for namespace
-        $namespaceBase = $this->hyphenToCamelCase($this->pluginDirName);
+        $namespaceBase = String::hyphenToCamelCase($this->pluginDirName);
 
         /**
          * Create the service class.
@@ -171,19 +174,6 @@ class CreateServiceCommand extends Command
         file_put_contents($filePath, $processedContent);
         $io->success("$type $name created successfully at $pluginFilePath.");
     }
-
-    /**
-     * Converts a hyphenated string to CamelCase.
-     *
-     * @param string $string The hyphenated string.
-     * @return string The CamelCase string.
-     */
-    private function hyphenToCamelCase(string $string): string
-    {
-        $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
-        return $str;
-    }
-
 }
 
 

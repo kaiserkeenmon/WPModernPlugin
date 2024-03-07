@@ -14,10 +14,23 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use WPModernPlugin\Modernize\Traits\PluginDirectory;
 
 class CreateAPIRoutesCommand extends Command
 {
+    use PluginDirectory;
+
+    /** @var false|string  */
+    protected $pluginDirPath;
+
+    /** @var string  */
+    protected $pluginDirName;
+
+    public function __construct() {
+        parent::__construct();
+        $this->initializePluginDirectory();
+    }
+
     /**
      * @var OutputInterface
      */
@@ -39,20 +52,34 @@ class CreateAPIRoutesCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $filesystem = new Filesystem();
 
-        $sourceFilePath = __DIR__ . '/templates/Routes/api-routes.php'; // Adjust the path to your template file
-        $targetFilePath = getcwd() . '/api-routes.php'; // Adjust the target path as necessary
+        // Determine the plugin directory name dynamically
+        $pluginDirName = basename(getcwd());
 
+        // Load the template
+        $templatePath = __DIR__ . '/../Routes/api-routes.php';
+        $templateContent = file_get_contents($templatePath);
+
+        // Replace placeholders in the template
+        $replacedContent = str_replace(
+            ['{{pluginDirName}}'],
+            [$pluginDirName],
+            $templateContent
+        );
+
+        // Define the target path for the api-routes.php file
+        $targetFilePath = getcwd() . '/api-routes.php';
+
+        // Ensure the file does not already exist
+        if ($filesystem->exists($targetFilePath)) {
+            $io->error('The api-routes.php file already exists.');
+            return Command::FAILURE;
+        }
+
+        // Write the replaced content to the new file
         try {
-            // Check if the target file already exists to avoid overwriting
-            if ($filesystem->exists($targetFilePath)) {
-                $io->error('The api-routes.php file already exists.');
-                return Command::FAILURE;
-            }
-
-            $filesystem->copy($sourceFilePath, $targetFilePath);
+            $filesystem->dumpFile($targetFilePath, $replacedContent);
             $io->success('api-routes.php file created successfully.');
-
-        } catch (IOExceptionInterface $exception) {
+        } catch (\Exception $e) {
             $io->error('An error occurred while creating the api-routes.php file.');
             return Command::FAILURE;
         }
