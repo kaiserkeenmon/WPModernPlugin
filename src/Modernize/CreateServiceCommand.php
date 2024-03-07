@@ -136,7 +136,7 @@ class CreateServiceCommand extends Command
             case 'serviceInterface':
                 $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php';
                 $filePath = $this->pluginDirPath . "/src/Service/{$name}Interface.php";
-                $pluginFilePath = $this->pluginDirName . "/src/Service/{$name}Interface.php";
+                $pluginFilePath = $this->pluginDirName . "/src/Service/{$name}.php";
                 $replacements = [
                     '{{namespace}}' => $namespace . '\\Service',
                     '{{serviceName}}' => $name,
