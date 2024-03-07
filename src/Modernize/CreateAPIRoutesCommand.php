@@ -78,7 +78,7 @@ class CreateAPIRoutesCommand extends Command
         // Write the replaced content to the new file
         try {
             $filesystem->dumpFile($targetFilePath, $replacedContent);
-            $io->success('api-routes.php file created successfully at ' . $targetFilePath);
+            $io->success('api-routes.php file created successfully at ' . $pluginDirName . '/api-routes.php');
         } catch (\Exception $e) {
             $io->error('An error occurred while creating the api-routes.php file.');
             return Command::FAILURE;
