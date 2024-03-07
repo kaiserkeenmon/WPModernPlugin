@@ -9,7 +9,7 @@ $application = new Application();
 
 // Modernize commands
 $application->add(new WPModernPlugin\Modernize\CreateServiceCommand());
-$application->add(new WPModernPlugin\Modernize\CreateApiRoutesCommand());
+$application->add(new WPModernPlugin\Modernize\CreateAPIRoutesCommand());
 
 
 $application->run();
