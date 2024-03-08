@@ -56,7 +56,7 @@ class CreateAPIRoutesCommand extends Command
         $pluginDirName = basename(getcwd());
 
         // Load the template
-        $templatePath = __DIR__ . '/templates/Routes/api-routes.php';
+        $templatePath = __DIR__ . '/templates/Route/api-routes.php';
         $templateContent = include($templatePath);
 
         // Replace placeholders in the template

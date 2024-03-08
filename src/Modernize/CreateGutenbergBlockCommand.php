@@ -37,13 +37,17 @@ class CreateGutenbergBlockCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        // Check for NPM
+        // Section for checking NPM installation
         $io->section('Checking for NPM installation...');
         $process = Process::fromShellCommandline('npm -v');
         $process->run();
 
         if (!$process->isSuccessful()) {
-            $io->error('NPM is not installed. Please install NPM before running this command.');
+            $io->error([
+                'NPM is not installed. Please install NPM before running this command.',
+                'For installation instructions, visit the official NPM website:',
+                'https://docs.npmjs.com/downloading-and-installing-node-js-and-npm'
+            ]);
             return Command::FAILURE;
         } else {
             $io->success('NPM is installed.');
@@ -59,8 +63,21 @@ class CreateGutenbergBlockCommand extends Command
             $io->error('An error occurred while installing @wordpress/scripts.');
             return Command::FAILURE;
         }
-
         $io->success('@wordpress/scripts installed successfully.');
+
+        // Install additional npm packages required for webpack configuration
+        $io->section('Installing additional NPM packages for webpack configuration...');
+        $npmPackages = ['webpack-merge', 'style-loader', 'css-loader', 'sass-loader'];
+        $process = Process::fromShellCommandline('npm install ' . implode(' ', $npmPackages) . ' --save-dev');
+        $process->setWorkingDirectory(getcwd());
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            $io->error('An error occurred while installing additional NPM packages.');
+            return Command::FAILURE;
+        }
+
+        $io->success('Additional NPM packages installed successfully.');
 
         return Command::SUCCESS;
     }
