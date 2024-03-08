@@ -16,11 +16,11 @@ use Symfony\Component\Console\Command\ListCommand;
 
 class ListCommands extends Command
 {
-    protected static $defaultName = 'list-commands';
-
     protected function configure()
     {
-        $this->setDescription('Displays the ASCII logo and a list of available commands.');
+        $this
+            ->setName('list-commands')
+            ->setDescription('Displays the ASCII logo and a list of available commands.');
     }
 
     /**
