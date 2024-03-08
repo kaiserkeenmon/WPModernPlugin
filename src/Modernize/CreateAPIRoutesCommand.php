@@ -20,12 +20,6 @@ class CreateAPIRoutesCommand extends Command
 {
     use PluginDirectory;
 
-    /** @var false|string  */
-    protected $pluginDirPath;
-
-    /** @var string  */
-    protected $pluginDirName;
-
     public function __construct() {
         parent::__construct();
         $this->initializePluginDirectory();
@@ -52,9 +46,6 @@ class CreateAPIRoutesCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $filesystem = new Filesystem();
 
-        // Determine the plugin directory name dynamically
-        $pluginDirName = basename(getcwd());
-
         // Load the template
         $templatePath = __DIR__ . '/templates/Route/api-routes.php';
         $templateContent = include($templatePath);
@@ -62,7 +53,7 @@ class CreateAPIRoutesCommand extends Command
         // Replace placeholders in the template
         $replacedContent = str_replace(
             ['{{pluginDirName}}'],
-            [$pluginDirName],
+            [$this->pluginDirName],
             $templateContent
         );
 
@@ -78,7 +69,7 @@ class CreateAPIRoutesCommand extends Command
         // Write the replaced content to the new file
         try {
             $filesystem->dumpFile($targetFilePath, $replacedContent);
-            $io->success('api-routes.php file created successfully at ' . $pluginDirName . '/api-routes.php');
+            $io->success('api-routes.php file created successfully at ' . $this->pluginDirName . '/api-routes.php');
         } catch (\Exception $e) {
             $io->error('An error occurred while creating the api-routes.php file.');
             return Command::FAILURE;

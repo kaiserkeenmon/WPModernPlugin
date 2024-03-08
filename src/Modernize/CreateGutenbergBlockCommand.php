@@ -15,9 +15,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
+use WPModernPlugin\Modernize\Traits\PluginDirectory;
 
 class CreateGutenbergBlockCommand extends Command
 {
+    use PluginDirectory;
+
+    public function __construct() {
+        parent::__construct();
+        $this->initializePluginDirectory();
+    }
+
     /**
      * @return void
      */
@@ -110,12 +118,12 @@ class CreateGutenbergBlockCommand extends Command
         $stylesScssTemplate = file_get_contents($stylesScssTemplatePath);
 
         foreach ($blockNames as $blockName) {
-            $blockDirPath = getcwd() . "/src/blocks/$blockName";
+            $blockDirPath = $this->pluginDirPath . "/src/blocks/$blockName";
 
             // Create the block directory if it doesn't exist
             if (!$filesystem->exists($blockDirPath)) {
                 $filesystem->mkdir($blockDirPath);
-                $io->success("Created directory: $blockDirPath");
+                $io->success("Created directory: $this->pluginDirName/src/blocks/$blockName");
             }
 
             // Populate the files with template content

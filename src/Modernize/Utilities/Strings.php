@@ -7,16 +7,16 @@
  * Date: 3/7/24
  */
 
-namespace Modernize\Utilities;
+namespace WPModernPlugin\Modernize\Utilities;
 
 class Strings {
     /**
      * Converts a hyphenated string to CamelCase.
      *
-     * @param Strings $string The hyphenated string.
-     * @return Strings The CamelCase string.
+     * @param String $string The hyphenated string.
+     * @return String The CamelCase string.
      */
-    public static function hyphenToCamelCase(Strings $string): Strings {
+    public static function hyphenToCamelCase(String $string): Strings {
         $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
         return $str;
     }

@@ -14,18 +14,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Modernize\Utilities\Strings;
+use WPModernPlugin\Modernize\Utilities\Strings;
 use WPModernPlugin\Modernize\Traits\PluginDirectory;
 
 class CreateServiceCommand extends Command
 {
     use PluginDirectory;
-
-    /** @var false|string  */
-    protected $pluginDirPath;
-
-    /** @var string  */
-    protected $pluginDirName;
 
     public function __construct() {
         parent::__construct();
