@@ -9,9 +9,9 @@
 </h1>
 
 <div align="center">
-A WordPress plugin starter designed to modernize plugin development, inspired by the best practices of modern PHP 
+A WordPress plugin designed to modernize plugin development, inspired by the best practices of modern PHP 
 architecture seen in frameworks like Magento, Laravel, and Symfony. This starter aims to revolutionize your development 
-process, incorporating features such as PSR-4 autoloading, dependency injection, and more.
+process, incorporating features such as PSR-4 autoloading, dependency injection, code scaffolding, and more.
 </div>
 
 <div align="center" style="padding: 20px 0;">
@@ -21,7 +21,6 @@ process, incorporating features such as PSR-4 autoloading, dependency injection,
 ![PHP Version](https://img.shields.io/badge/PHP-%3E%3D8.1-777BB4.svg)
 ![Composer](https://img.shields.io/badge/Composer-Enabled-885630.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-
 </div>
 
 ## WPModernPlugin starter demo
@@ -33,48 +32,107 @@ To watch the demo without navigating away from GitHub, right-click on the link a
 The above demo is a brief intro to the WPModernPlugin starter, highlighting its features and demoing how to 
 use it to build a modernized WordPress plugin.
 
-**Key Features Highlighted in the Video**:
-- PSR-4 Autoloading and Namespacing
-- Dependency Injection
-- Lazy DI Auto-instantiation
-- Flexible Class Integration with PSR-4
-- Dependency Inversion
-- Managing External Non-PSR-4 Classes 
-- A step-by-step guide to creating a plugin with Giphy API integration!
-
-Watch now and learn how the WPModernPlugin starter can revolutionize your WordPress plugin development!
-
 ## Key Plugin Starter Features
 
-- **Modern PHP Practices:** Employs the latest PHP development practices for improved security, efficiency, and readability.
-
-- **PSR-4 Autoloading:** Streamlines class loading for better organization and scalability, adhering to modern PHP standards.
-
-- **Lazy Dependency Injection:** Enhances performance and flexibility by loading services only as needed, with easy swapping of implementations.
-
-- **Flexible Class Integration:** Accommodates both namespaced and non-namespaced classes for seamless third-party library and external class integration.
-
-- **Dependency Inversion:** Ensures high-level modules rely on abstractions rather than low-level modules, promoting maintainable and decoupled code.
-
-- **External Non-PSR-4 Class Support:** Offers integration for external classes outside PSR-4 standards, enhancing the plugin's versatility.
-
-- **Easy Configuration & Customization:** Simplifies setup with a centralized registration file, making customization straightforward.
+- **Modern PHP Practices**: Employs the latest PHP development practices for *improved efficiency*, *maintainability*, and *performance*.
+- **PSR-4 Autoloading**: Streamlines class loading for better organization and scalability, adhering to [modern PHP standards](https://www.php-fig.org/psr/psr-4/).
+- **Lazy Dependency Injection**: Enhances performance and flexibility by loading services only as needed, with easy swapping of implementations.
+- **Flexible Class Integration**: Accommodates both namespaced and non-namespaced classes for seamless third-party library and external class integration.
+- **Dependency Inversion**: Ensures high-level modules rely on abstractions rather than low-level modules, promoting *maintainable* and *decoupled code*.
+- **Easy Configuration & Customization**: Simplifies setup with a centralized registration file, making customization straightforward.
+- **Console Command CLI**: Introduces a Symfony Console-based toolkit for scaffolding services, REST API routes, and Gutenberg blocks, streamlining development.
+    
+- **Service Scaffolding**: Quickly generate boilerplate code for new services and repositories, saving time and enforcing best practices.  
+    ```php
+    php modernize make:service MyNewService
+    ```
+- **Gutenberg Block Scaffolding**: Quickly generate boilerplate code for new Gutenberg blocks, accelerating development.
+    ```php
+    php modernize make:block MyCustomBlock
+    ```
+- **REST API Route Generation**: Generate an API route file, saving time and enforcing best practices.
+    ```php
+    php modernize make:api-routes
+    ```
+- **Configurable Console Commands**: Offers a flexible console command infrastructure for extending the starter kit with custom commands.
 
 
 ## Quick Start
 
+Follow these steps to get started with WPModernPlugin:
+
 ### Installation
 
 1. **Download:** Clone or download this repository into your WordPress `plugins` directory.
-2. **Rename:** Find and replace 'WPModernPlugin' with your plugin's name across the entire plugin.
-3. **Composer:** Run `composer install` to install autoload classes and dependencies.
-2. **Activate:** Activate the plugin from the WordPress admin panel.
-3. **Create:** Now build something great!
+
+2. **Rename (Optional):** If you prefer, find and replace 'WPModernPlugin' with your plugin's unique name across the entire plugin.
+
+3. **Update Composer Autoloading (If Renamed):** If you've renamed the plugin, ensure to update the `composer.json` file to reflect the new directory-to-namespace mapping. Modify the `autoload` section to match your new plugin's namespace. For example:
+
+    ```json
+    "autoload": {
+        "psr-4": {
+            "YourPluginNamespace\\": "src/"
+        }
+    }
+    ```
+   After updating, run `composer dump-autoload` to refresh the autoload files with your changes.
+
+4. **Composer Installation:** Run `composer install` to install PHP class autoloading and dependencies.
+
+5. **Activate:** Activate the plugin from the WordPress admin panel.
+
+6. **Create:** Start building something great! Utilize the WPModernPlugin's features, including PSR-4 autoloading, dependency injection, and console commands for scaffolding services, REST API routes, and Gutenberg blocks.
 
 ## How to Use
 
-- **Develop Your Plugin:** Utilize the `src/` directory for adding PHP classes, adhering to PSR-4 for an organized and scalable codebase.
-- **Register Services:** Leverage `src/registration.php` for registering services and repositories, enabling autoloading and dependency injection for streamlined development.
+### Utilize the Modernize CLI for Scaffolding
+- **Jumpstart Development:** Leverage the provided console commands to scaffold services, REST API routes, and Gutenberg blocks quickly. This helps maintain consistency and best practices across your plugin development.
+
+- **Generate a Service**:
+```bash
+php modernize make:service YourServiceName
+```
+
+- **Create a REST API Route**:
+```bash
+php modernize make:api-routes
+```
+
+- **Scaffold Gutenberg Blocks**:
+```bash
+php modernize make:block
+```
+
+### Develop Your Plugin
+- **Organize Your Codebase:** Place PHP classes within the `src/` directory, ensuring they adhere to the PSR-4 naming convention for an organized and scalable codebase. For example:
+
+```php
+namespace YourPluginNamespace\SubNamespace;
+
+class YourClassName {
+    // Your class implementation
+}
+```
+
+### Register Services and Repositories
+- **Simplify Service Management:** Use the src/registration.php file to register your services and repositories with the DI container. This central registration facilitates autoloading and dependency injection, streamlining your development process. Example:
+
+```php
+return [
+    YourPluginNamespace\Service\YourServiceInterface::class => [
+        'class' => YourPluginNamespace\Service\Implementation\YourService::class,
+        'singleton' => true, // Optional: Define as a singleton service
+    ],
+    YourPluginNamespace\Repository\YourRepositoryInterface::class => [
+        'class' => YourPluginNamespace\Repository\Implementation\YourRepository::class,
+        'params' => ['dependency1', 'dependency2'], // Optional: Constructor parameters
+    ],
+    // Add more class DI container registrations as needed
+];
+```
+
+> ### Note: See the video above for a detailed guide on using the WPModernPlugin starter.
 
 ## Contributing
 
