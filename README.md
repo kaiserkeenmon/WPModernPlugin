@@ -36,11 +36,11 @@ use it to build a modernized WordPress plugin.
 
 - **Modern PHP Practices**: Employs the latest PHP development practices for *improved efficiency*, *maintainability*, and *performance*.
 - **PSR-4 Autoloading**: Streamlines class loading for better organization and scalability, adhering to [modern PHP standards](https://www.php-fig.org/psr/psr-4/).
-- **Lazy Dependency Injection**: Enhances performance and flexibility by loading services only as needed, with easy swapping of implementations.
-- **Flexible Class Integration**: Accommodates both namespaced and non-namespaced classes for seamless third-party library and external class integration.
-- **Dependency Inversion**: Ensures high-level modules rely on abstractions rather than low-level modules, promoting *maintainable* and *decoupled code*.
+- **Lazy Dependency Injection**: Enhances performance and flexibility by loading services only as needed, with easy swapping of implementations. More on [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection).
+- **Flexible Class Integration**: Accommodates both [namespaced](https://www.php.net/manual/en/language.namespaces.rationale.php) and non-namespaced classes for seamless third-party library and external class integration.
+- **Dependency Inversion**: Ensures high-level modules rely on abstractions rather than low-level modules, promoting *maintainable* and *decoupled code*. Learn about the [Dependency Inversion Principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle).
 - **Easy Configuration & Customization**: Simplifies setup with a centralized registration file, making customization straightforward.
-- **Console Command CLI**: Introduces a Symfony Console-based toolkit for scaffolding services, REST API routes, and Gutenberg blocks, streamlining development.
+- **Console Command CLI**: Introduces a [Symfony Console](https://symfony.com/doc/current/components/console.html)-based toolkit for scaffolding services, REST API routes, and Gutenberg blocks, streamlining development.
     
 - **Service Scaffolding**: Quickly generate boilerplate code for new services and repositories, saving time and enforcing best practices.  
     ```php
