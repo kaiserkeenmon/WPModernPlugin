@@ -15,10 +15,14 @@ $application = new Application();
 $application->add(new CreateServiceCommand());
 $application->add(new CreateAPIRoutesCommand());
 $application->add(new CreateGutenbergBlockCommand());
-$application->add(new ListCommands());
+$listCommands = new ListCommands();
+$application->add($listCommands);
 
-// Set the default command to the custom list command
-$application->setDefaultCommand((new ListCommands())->getName(), true);
+// Check if additional arguments are provided
+if ($argc === 1) {
+    // No additional arguments, set 'list-commands' as default command
+    $application->setDefaultCommand($listCommands->getName(), true);
+}
 
 
 $application->run();
