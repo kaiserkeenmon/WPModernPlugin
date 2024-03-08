@@ -131,7 +131,7 @@ class CreateGutenbergBlockCommand extends Command
             $filesystem->dumpFile("$blockDirPath/editor.scss", $editorScssTemplate);
             $filesystem->dumpFile("$blockDirPath/styles.scss", $stylesScssTemplate);
 
-            $io->success("Scaffolded block files for $blockName");
+            $io->success("Scaffolded block files for $blockName at $this->pluginDirName/src/blocks/$blockName");
         }
 
         return Command::SUCCESS;
