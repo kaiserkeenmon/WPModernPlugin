@@ -25,8 +25,8 @@ class CreateGutenbergBlockCommand extends Command
     {
         $this
             ->setName('make:gutenberg-block')
-            ->setDescription('Scaffolds a basic Gutenberg block setup, including installing npm and @wordpress/scripts.')
-            ->setHelp('This command checks for npm installation and installs @wordpress/scripts to start Gutenberg block development.');
+            ->setDescription('Scaffolds a basic Gutenberg block setup, including package installation and configuration.')
+            ->setHelp('This command checks for npm installation and installs a sensible set of packages needed for Gutenberg block development.');
     }
 
     /**
