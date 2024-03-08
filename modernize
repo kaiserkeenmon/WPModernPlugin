@@ -9,7 +9,7 @@ use WPModernPlugin\Modernize\CreateAPIRoutesCommand;
 use WPModernPlugin\Modernize\CreateGutenbergBlockCommand;
 use WPModernPlugin\Modernize\ListCommands;
 
-$application = new Application();
+$application = new Application('WPModernPlugin', '1.0');
 
 // Modernize commands
 $application->add(new CreateServiceCommand());

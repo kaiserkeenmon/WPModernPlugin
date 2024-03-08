@@ -58,6 +58,7 @@ class CreateGutenbergBlockCommand extends Command
         $io->section('Installing @wordpress/scripts...');
         $process = Process::fromShellCommandline('npm install @wordpress/scripts --save-dev');
         $process->setWorkingDirectory(getcwd()); // Ensure we are in the plugin directory
+        $process->setTimeout(240);
         $process->run();
 
         if (!$process->isSuccessful()) {
@@ -71,6 +72,7 @@ class CreateGutenbergBlockCommand extends Command
         $npmPackages = ['webpack-merge', 'style-loader', 'css-loader', 'sass-loader'];
         $process = Process::fromShellCommandline('npm install ' . implode(' ', $npmPackages) . ' --save-dev');
         $process->setWorkingDirectory(getcwd());
+        $process->setTimeout(240);
         $process->run();
 
         if (!$process->isSuccessful()) {

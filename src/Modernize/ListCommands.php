@@ -20,7 +20,7 @@ class ListCommands extends Command
     {
         $this
             ->setName('list-commands')
-            ->setDescription('Displays the ASCII logo and a list of available commands.');
+            ->setDescription('Displays the list of available commands.');
     }
 
     /**
