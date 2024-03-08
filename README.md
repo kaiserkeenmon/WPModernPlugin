@@ -64,9 +64,7 @@ Follow these steps to get started with WPModernPlugin:
 ### Installation
 
 1. **Download:** Clone or download this repository into your WordPress `plugins` directory.
-
 2. **Rename (Optional):** If you prefer, find and replace 'WPModernPlugin' with your plugin's unique name across the entire plugin.
-
 3. **Update Composer Autoloading (If Renamed):** If you've renamed the plugin, ensure to update the `composer.json` file to reflect the new directory-to-namespace mapping. Modify the `autoload` section to match your new plugin's namespace. For example:
 
     ```json
@@ -79,7 +77,6 @@ Follow these steps to get started with WPModernPlugin:
    After updating, run `composer dump-autoload` to refresh the autoload files with your changes.
 
 4. **Composer Installation:** Run `composer install` to install PHP class autoloading and dependencies.
-
 5. **Activate:** Activate the plugin from the WordPress admin panel.
 
 6. **Create:** Start building something great! Utilize the WPModernPlugin's features, including PSR-4 autoloading, dependency injection, and console commands for scaffolding services, REST API routes, and Gutenberg blocks.
