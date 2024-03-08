@@ -48,7 +48,7 @@ use it to build a modernized WordPress plugin.
     ```
 - **Gutenberg Block Scaffolding**: Quickly generate boilerplate code for new Gutenberg blocks, accelerating development.
     ```php
-    php modernize make:block MyCustomBlock
+    php modernize make:gutenberg-block
     ```
 - **REST API Route Generation**: Generate an API route file, saving time and enforcing best practices.
     ```php
