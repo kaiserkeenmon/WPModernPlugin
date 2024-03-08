@@ -7,6 +7,7 @@ use Symfony\Component\Console\Application;
 use WPModernPlugin\Modernize\CreateServiceCommand;
 use WPModernPlugin\Modernize\CreateAPIRoutesCommand;
 use WPModernPlugin\Modernize\CreateGutenbergBlockCommand;
+use WPModernPlugin\Modernize\ListCommands;
 
 $application = new Application();
 
@@ -14,6 +15,10 @@ $application = new Application();
 $application->add(new CreateServiceCommand());
 $application->add(new CreateAPIRoutesCommand());
 $application->add(new CreateGutenbergBlockCommand());
+$application->add(new ListCommands());
+
+// Set the default command to the custom list command
+$application->setDefaultCommand((new ListCommands())->getName(), true);
 
 
 $application->run();
