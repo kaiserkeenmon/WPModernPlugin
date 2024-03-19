@@ -5,12 +5,12 @@
 </p>
 
 <h1 align="center" style="background-color:black; color: white; padding-bottom: 20px; margin-top:0;">
-  WPPluginModernizer <i>Starter</i>
+  WPPluginModernizer
 </h1>
 
 <div align="center">
 A WordPress plugin designed to modernize plugin development, inspired by the best practices of modern PHP 
-architecture seen in frameworks like Magento, Laravel, and Symfony. This starter aims to revolutionize your development 
+architecture seen in frameworks like Magento, Laravel, and Symfony. This plugin aims to revolutionize your development 
 process, incorporating features such as PSR-4 autoloading, dependency injection, code scaffolding, and more.
 </div>
 
@@ -23,16 +23,16 @@ process, incorporating features such as PSR-4 autoloading, dependency injection,
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 </div>
 
-## WPPluginModernizer starter demo
+## WPPluginModernizer  demo
 
 To watch the demo without navigating away from GitHub, right-click on the link and select "Open link in new tab". 
-[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPPluginModernizer/2a0d6e482ac5515a4469debbb35f2b41f3e5498d/thumbnail.jpg)](https://youtu.be/SZrRi3xd4Qo "WPPluginModernizer Starter Guide")
+[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPPluginModernizer/2a0d6e482ac5515a4469debbb35f2b41f3e5498d/thumbnail.jpg)](https://youtu.be/SZrRi3xd4Qo "WPPluginModernizer Intro")
 
 
-The above demo is a brief intro to the WPPluginModernizer starter, highlighting its features and demoing how to 
+The above demo is a brief intro to WPPluginModernizer, highlighting its features and demoing how to 
 use it to build a modernized WordPress plugin.
 
-## Key Plugin Starter Features
+## Key Plugin Features
 
 - **Modern PHP Practices**: Employs the latest PHP development practices for *improved efficiency*, *maintainability*, and *performance*.
 - **PSR-4 Autoloading**: Streamlines class loading for better organization and scalability, adhering to [modern PHP standards](https://www.php-fig.org/psr/psr-4/).
@@ -54,7 +54,7 @@ use it to build a modernized WordPress plugin.
     ```php
     php modernize make:api-routes
     ```
-- **Configurable Console Commands**: Offers a flexible console command infrastructure for extending the starter kit with custom commands.
+- **Configurable Console Commands**: Offers a flexible console command infrastructure for extending the plugin with custom commands.
 
 
 ## Quick Start
@@ -64,22 +64,9 @@ Follow these steps to get started with WPPluginModernizer:
 ### Installation
 
 1. **Download:** Clone or download this repository into your WordPress `plugins` directory.
-2. **Rename (Optional):** If you prefer, find and replace 'WPPluginModernizer' with your plugin's unique name across the entire plugin.
-3. **Update Composer Autoloading (If Renamed):** If you've renamed the plugin, ensure to update the `composer.json` file to reflect the new directory-to-namespace mapping. Modify the `autoload` section to match your new plugin's namespace. For example:
-
-    ```json
-    "autoload": {
-        "psr-4": {
-            "YourPluginNamespace\\": "src/"
-        }
-    }
-    ```
-   After updating, run `composer dump-autoload` to refresh the autoload files with your changes.
-
-4. **Composer Installation:** Run `composer install` to install PHP class autoloading and dependencies.
-5. **Activate:** Activate the plugin from the WordPress admin panel.
-
-6. **Create:** Start building something great! Utilize the WPPluginModernizer's features, including PSR-4 autoloading, dependency injection, and console commands for scaffolding services, REST API routes, and Gutenberg blocks.
+3. **Composer Installation:** Run `composer install` to install PHP class autoloading and dependencies.
+4. **Activate:** Activate the plugin from the WordPress admin panel.
+5. **Create:** Start building something great! Utilize the WPPluginModernizer's features, including PSR-4 autoloading, dependency injection, and console commands for scaffolding services, REST API routes, and Gutenberg blocks.
 
 ## How to Use
 
@@ -129,12 +116,12 @@ return [
 ];
 ```
 
-> ### Note: See the video above for a detailed guide on using the WPPluginModernizer starter.
+> ### Note: See the user guide video for a detailed walkthrough on using WPPluginModernizer.
 
 ## Contributing
 
 While WPPluginModernizer is currently not open for public contributions, feedback and suggestions are welcome. Please feel 
-free to open an issue for any bugs you find or enhancements you think would make the starter more useful. 
+free to open an issue for any bugs you find or enhancements you think would make the plugin more useful. 
 For more direct communication, see the contact information below.
 
 I'd love to hear what you build with WPPluginModernizer, so please feel free to share your projects with me!

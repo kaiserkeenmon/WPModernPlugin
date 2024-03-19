@@ -14,9 +14,9 @@ class Strings {
      * Converts a hyphenated string to CamelCase.
      *
      * @param String $string The hyphenated string.
-     * @return String The CamelCase string.
+     * @return string The CamelCase string.
      */
-    public static function hyphenToCamelCase(String $string): Strings {
+    public static function hyphenToCamelCase(String $string): string {
         $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $string)));
         return $str;
     }
