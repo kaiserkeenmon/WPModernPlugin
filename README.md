@@ -1,7 +1,7 @@
 
 
 <p align="center" style="background-color:black; padding:20px; margin-bottom:0;">
-  <img src="https://staging.machinelrn.com/images/machinehead.gif" width="80" alt="Logo for Taiko" />
+  <img src="https://raw.githubusercontent.com/kaiserkeenmon/WPPluginModernizer/master/wppm-logo.png" width="80" alt="Logo for Taiko" />
 </p>
 
 <h1 align="center" style="background-color:black; color: white; padding-bottom: 20px; margin-top:0;">
@@ -26,8 +26,7 @@ process, incorporating features such as PSR-4 autoloading, dependency injection,
 ## WPPluginModernizer  demo
 
 To watch the demo without navigating away from GitHub, right-click on the link and select "Open link in new tab". 
-[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPPluginModernizer/2a0d6e482ac5515a4469debbb35f2b41f3e5498d/thumbnail.jpg)](https://youtu.be/gdDSBzfBm50?si=ak1Uheubbe4oMeQj "WPPluginModernizer Intro")
-
+[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPPluginModernizer/master/thumb.png)](https://youtu.be/gdDSBzfBm50?si=ak1Uheubbe4oMeQj "WPPluginModernizer Intro")
 
 The above demo is a brief intro to WPPluginModernizer, highlighting its features and demoing how to 
 use it to build a modernized WordPress plugin.
