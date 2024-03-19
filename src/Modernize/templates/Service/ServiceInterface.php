@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Project: WPModernPlugin
+ * Project: WPPluginModernizer
  * File: ServiceInterfaceTemplate.php
  * Author: Kaiser Keenmon
  * Date: 3/5/24

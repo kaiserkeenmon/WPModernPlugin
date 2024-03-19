@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: WPModernPlugin
+ * Plugin Name: WPPluginModernizer
  * Description: A modern plugin starter with PSR-4 autoloading, lazy DI, and auto-instantiation.
  * Version: 1.00
  * Author: Kaiser Keenmon
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Import the DI Container class.
-use WPModernPlugin\Container\Container;
+use WPPluginModernizer\Container\Container;
 
 // Load the class registration file.
 $registrations = require __DIR__ . '/src/registration.php';

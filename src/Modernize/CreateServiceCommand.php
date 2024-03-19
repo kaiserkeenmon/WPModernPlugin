@@ -1,21 +1,21 @@
 <?php
 
 /**
- * Project: WPModernPlugin
+ * Project: WPPluginModernizer
  * File: CreateServiceCommand.php
  * Author: Kaiser Keenmon
  * Date: 3/5/24
  */
 
-namespace WPModernPlugin\Modernize;
+namespace WPPluginModernizer\Modernize;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use WPModernPlugin\Modernize\Utilities\Strings;
-use WPModernPlugin\Modernize\Traits\PluginDirectory;
+use WPPluginModernizer\Modernize\Utilities\Strings;
+use WPPluginModernizer\Modernize\Traits\PluginDirectory;
 
 class CreateServiceCommand extends Command
 {

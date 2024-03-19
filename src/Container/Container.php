@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Project: WPModernPlugin
+ * Project: WPPluginModernizer
  * File: Container.php
  * Author: Kaiser Keenmon
  * Date: 2/28/24
  */
 
-namespace WPModernPlugin\Container;
+namespace WPPluginModernizer\Container;
 
 class Container
 {

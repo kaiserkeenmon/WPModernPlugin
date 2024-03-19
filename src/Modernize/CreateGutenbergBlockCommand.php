@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Project: WPModernPlugin
+ * Project: WPPluginModernizer
  * File: CreateGutenbergBlock.php
  * Author: Kaiser Keenmon
  * Date: 3/7/24
  */
 
-namespace WPModernPlugin\Modernize;
+namespace WPPluginModernizer\Modernize;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
-use WPModernPlugin\Modernize\Traits\PluginDirectory;
+use WPPluginModernizer\Modernize\Traits\PluginDirectory;
 
 class CreateGutenbergBlockCommand extends Command
 {

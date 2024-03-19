@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Project: WPModernPlugin
+ * Project: WPPluginModernizer
  * File: ListCommands.php
  * Author: Kaiser Keenmon
  * Date: 3/7/24
  */
 
-namespace WPModernPlugin\Modernize;
+namespace WPPluginModernizer\Modernize;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

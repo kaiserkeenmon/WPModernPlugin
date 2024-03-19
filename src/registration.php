@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Project: WPModernPlugin
+ * Project: WPPluginModernizer
  * File: Container.php
  * Author: Kaiser Keenmon
  * Date: 2/27/24

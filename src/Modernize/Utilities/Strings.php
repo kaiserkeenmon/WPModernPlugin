@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Project: WPModernPlugin
+ * Project: WPPluginModernizer
  * File: StringUtils.php
  * Author: Kaiser Keenmon
  * Date: 3/7/24
  */
 
-namespace WPModernPlugin\Modernize\Utilities;
+namespace WPPluginModernizer\Modernize\Utilities;
 
 class Strings {
     /**

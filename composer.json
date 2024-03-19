@@ -2,7 +2,7 @@
     "name": "kaiser-keenmon/wp-plugin-modernizer",
     "autoload": {
         "psr-4": {
-            "WPModernPlugin\\": "src/"
+            "WPPluginModernizer\\": "src/"
         }
     },
     "authors": [

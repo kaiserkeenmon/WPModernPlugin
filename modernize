@@ -4,12 +4,12 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use WPModernPlugin\Modernize\CreateServiceCommand;
-use WPModernPlugin\Modernize\CreateAPIRoutesCommand;
-use WPModernPlugin\Modernize\CreateGutenbergBlockCommand;
-use WPModernPlugin\Modernize\ListCommands;
+use WPPluginModernizer\Modernize\CreateServiceCommand;
+use WPPluginModernizer\Modernize\CreateAPIRoutesCommand;
+use WPPluginModernizer\Modernize\CreateGutenbergBlockCommand;
+use WPPluginModernizer\Modernize\ListCommands;
 
-$application = new Application('WPModernPlugin', '1.0');
+$application = new Application('WPPluginModernizer', '1.0');
 
 // Modernize commands
 $application->add(new CreateServiceCommand());

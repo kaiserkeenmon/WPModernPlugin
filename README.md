@@ -5,7 +5,7 @@
 </p>
 
 <h1 align="center" style="background-color:black; color: white; padding-bottom: 20px; margin-top:0;">
-  WPModernPlugin <i>Starter</i>
+  WPPluginModernizer <i>Starter</i>
 </h1>
 
 <div align="center">
@@ -23,13 +23,13 @@ process, incorporating features such as PSR-4 autoloading, dependency injection,
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 </div>
 
-## WPModernPlugin starter demo
+## WPPluginModernizer starter demo
 
 To watch the demo without navigating away from GitHub, right-click on the link and select "Open link in new tab". 
-[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPModernPlugin/2a0d6e482ac5515a4469debbb35f2b41f3e5498d/thumbnail.jpg)](https://www.youtube.com/watch?v=1KjYSDZezp0 "WPModernPlugin Starter Guide")
+[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPPluginModernizer/2a0d6e482ac5515a4469debbb35f2b41f3e5498d/thumbnail.jpg)](https://youtu.be/SZrRi3xd4Qo "WPPluginModernizer Starter Guide")
 
 
-The above demo is a brief intro to the WPModernPlugin starter, highlighting its features and demoing how to 
+The above demo is a brief intro to the WPPluginModernizer starter, highlighting its features and demoing how to 
 use it to build a modernized WordPress plugin.
 
 ## Key Plugin Starter Features
@@ -59,12 +59,12 @@ use it to build a modernized WordPress plugin.
 
 ## Quick Start
 
-Follow these steps to get started with WPModernPlugin:
+Follow these steps to get started with WPPluginModernizer:
 
 ### Installation
 
 1. **Download:** Clone or download this repository into your WordPress `plugins` directory.
-2. **Rename (Optional):** If you prefer, find and replace 'WPModernPlugin' with your plugin's unique name across the entire plugin.
+2. **Rename (Optional):** If you prefer, find and replace 'WPPluginModernizer' with your plugin's unique name across the entire plugin.
 3. **Update Composer Autoloading (If Renamed):** If you've renamed the plugin, ensure to update the `composer.json` file to reflect the new directory-to-namespace mapping. Modify the `autoload` section to match your new plugin's namespace. For example:
 
     ```json
@@ -79,7 +79,7 @@ Follow these steps to get started with WPModernPlugin:
 4. **Composer Installation:** Run `composer install` to install PHP class autoloading and dependencies.
 5. **Activate:** Activate the plugin from the WordPress admin panel.
 
-6. **Create:** Start building something great! Utilize the WPModernPlugin's features, including PSR-4 autoloading, dependency injection, and console commands for scaffolding services, REST API routes, and Gutenberg blocks.
+6. **Create:** Start building something great! Utilize the WPPluginModernizer's features, including PSR-4 autoloading, dependency injection, and console commands for scaffolding services, REST API routes, and Gutenberg blocks.
 
 ## How to Use
 
@@ -129,19 +129,19 @@ return [
 ];
 ```
 
-> ### Note: See the video above for a detailed guide on using the WPModernPlugin starter.
+> ### Note: See the video above for a detailed guide on using the WPPluginModernizer starter.
 
 ## Contributing
 
-While WPModernPlugin is currently not open for public contributions, feedback and suggestions are welcome. Please feel 
+While WPPluginModernizer is currently not open for public contributions, feedback and suggestions are welcome. Please feel 
 free to open an issue for any bugs you find or enhancements you think would make the starter more useful. 
 For more direct communication, see the contact information below.
 
-I'd love to hear what you build with WPModernPlugin, so please feel free to share your projects with me!
+I'd love to hear what you build with WPPluginModernizer, so please feel free to share your projects with me!
 
 ## License
 
-WPModernPlugin is open-source software, available under the [MIT license](LICENSE).
+WPPluginModernizer is open-source software, available under the [MIT license](LICENSE).
 
 ## Author
 

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Project: WPModernPlugin
+ * Project: WPPluginModernizer
  * File: PluginDirectoryTrait.php
  * Author: Kaiser Keenmon
  * Date: 3/7/24
  */
 
-namespace WPModernPlugin\Modernize\Traits;
+namespace WPPluginModernizer\Modernize\Traits;
 
 trait PluginDirectory
 {
