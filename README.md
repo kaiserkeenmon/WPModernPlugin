@@ -115,7 +115,7 @@ return [
 ];
 ```
 
-> ### Note: See the user guide video [here](https://www.youtube.com/watch?v=uSfkCi_jkE4) for a detailed walkthrough on using WPPluginModernizer.
+> ### Note: See the user guide video [here](https://youtu.be/74py3FYiX8U) for a detailed walkthrough on using WPPluginModernizer.
 
 ## Contributing
 
