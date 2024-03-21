@@ -7,7 +7,7 @@
  * Date: 3/7/24
  */
 
-namespace WPPluginModernizer\Modernize\Traits;
+namespace WPPluginModernizer\Modernize\Traits\Commands;
 
 trait PluginDirectory
 {

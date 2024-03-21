@@ -7,7 +7,7 @@
  * Date: 3/7/24
  */
 
-namespace WPPluginModernizer\Modernize;
+namespace WPPluginModernizer\Modernize\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
-use WPPluginModernizer\Modernize\Traits\PluginDirectory;
+use WPPluginModernizer\Modernize\Traits\Commands\PluginDirectory;
 
 class CreateGutenbergBlockCommand extends Command
 {

@@ -4,14 +4,16 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use WPPluginModernizer\Modernize\CreateServiceCommand;
-use WPPluginModernizer\Modernize\CreateAPIRoutesCommand;
-use WPPluginModernizer\Modernize\CreateGutenbergBlockCommand;
-use WPPluginModernizer\Modernize\ListCommands;
+use WPPluginModernizer\Modernize\Commands\RebrandCommand;
+use WPPluginModernizer\Modernize\Commands\CreateAPIRoutesCommand;
+use WPPluginModernizer\Modernize\Commands\CreateGutenbergBlockCommand;
+use WPPluginModernizer\Modernize\Commands\CreateServiceCommand;
+use WPPluginModernizer\Modernize\Commands\ListCommands;
 
 $application = new Application('WPPluginModernizer', '1.0');
 
 // Modernize commands
+$application->add(new RebrandCommand());
 $application->add(new CreateServiceCommand());
 $application->add(new CreateAPIRoutesCommand());
 $application->add(new CreateGutenbergBlockCommand());

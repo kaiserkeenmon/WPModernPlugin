@@ -7,12 +7,12 @@
  * Date: 3/7/24
  */
 
-namespace WPPluginModernizer\Modernize;
+namespace WPPluginModernizer\Modernize\Commands;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Command\ListCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Command\ListCommand;
 
 class ListCommands extends Command
 {

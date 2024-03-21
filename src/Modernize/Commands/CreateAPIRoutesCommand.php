@@ -7,14 +7,14 @@
  * Date: 3/5/24
  */
 
-namespace WPPluginModernizer\Modernize;
+namespace WPPluginModernizer\Modernize\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
-use WPPluginModernizer\Modernize\Traits\PluginDirectory;
+use WPPluginModernizer\Modernize\Traits\Commands\PluginDirectory;
 
 class CreateAPIRoutesCommand extends Command
 {
