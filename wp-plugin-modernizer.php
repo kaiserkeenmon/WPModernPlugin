@@ -4,7 +4,7 @@
  * Plugin Name: WPPluginModernizer
  * Description: A modern plugin starter with PSR-4 autoloading, lazy DI, and auto-instantiation.
  * Version: 1.0.1
- * Author: Kaiser Keenmon
+ * Author: WPPluginModernizer
  */
 
 // Exit if accessed directly.
