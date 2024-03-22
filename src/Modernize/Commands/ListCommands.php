@@ -3,7 +3,7 @@
 /**
  * Project: WPPluginModernizer
  * File: ListCommands.php
- * Author: Kaiser Keenmon
+ * Author: WPPluginModernizer
  * Date: 3/7/24
  */
 

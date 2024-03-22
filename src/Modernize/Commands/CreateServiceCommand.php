@@ -3,7 +3,7 @@
 /**
  * Project: WPPluginModernizer
  * File: CreateServiceCommand.php
- * Author: Kaiser Keenmon
+ * Author: WPPluginModernizer
  * Date: 3/5/24
  */
 

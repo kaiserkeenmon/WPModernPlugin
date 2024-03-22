@@ -3,7 +3,7 @@
 /**
  * Project: WPPluginModernizer
  * File: Container.php
- * Author: Kaiser Keenmon
+ * Author: WPPluginModernizer
  * Date: 2/27/24
  */
 
