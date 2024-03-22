@@ -10,7 +10,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Symfony\Component\Console\Application;
+use WPPluginModernizer\Modernize\Commands\CustomApplication as Application;
 use WPPluginModernizer\Modernize\Commands\RebrandCommand;
 use WPPluginModernizer\Modernize\Commands\CreateAPIRoutesCommand;
 use WPPluginModernizer\Modernize\Commands\CreateGutenbergBlockCommand;
