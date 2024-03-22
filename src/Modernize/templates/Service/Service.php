@@ -3,7 +3,7 @@
 /**
  * Project: WPPluginModernizer
  * File: ServiceTemplate.php
- * Author: Kaiser Keenmon
+ * Author: WPPluginModernizer
  * Date: 3/5/24
  */
 

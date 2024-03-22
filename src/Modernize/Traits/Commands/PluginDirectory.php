@@ -3,7 +3,7 @@
 /**
  * Project: WPPluginModernizer
  * File: PluginDirectoryTrait.php
- * Author: Kaiser Keenmon
+ * Author: WPPluginModernizer
  * Date: 3/7/24
  */
 

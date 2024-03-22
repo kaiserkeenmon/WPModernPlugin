@@ -1,6 +1,13 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * Project: WPPluginModernizer
+ * File: modernize
+ * Author: WPPluginModernizer
+ * Date: 3/22/24
+ */
+
 require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
@@ -9,16 +16,26 @@ use WPPluginModernizer\Modernize\Commands\CreateAPIRoutesCommand;
 use WPPluginModernizer\Modernize\Commands\CreateGutenbergBlockCommand;
 use WPPluginModernizer\Modernize\Commands\CreateServiceCommand;
 use WPPluginModernizer\Modernize\Commands\ListCommands;
+use WPPluginModernizer\Modernize\Commands\CreateConsoleCommand;
 
-$application = new Application('WPPluginModernizer', '1.0');
+$application = new Application('WPPluginModernizer', '1.0.1');
 
 // Modernize commands
 $application->add(new RebrandCommand());
 $application->add(new CreateServiceCommand());
 $application->add(new CreateAPIRoutesCommand());
 $application->add(new CreateGutenbergBlockCommand());
+$application->add(new CreateConsoleCommand());
 $listCommands = new ListCommands();
 $application->add($listCommands);
+
+// Load and register user defined custom commands
+$customCommands = require(__DIR__ . '/src/Console/registration.php');
+foreach ($customCommands as $customCommandClass) {
+    if (class_exists($customCommandClass)) {
+        $application->add(new $customCommandClass());
+    }
+}
 
 // Check if additional arguments are provided
 if ($argc === 1) {
