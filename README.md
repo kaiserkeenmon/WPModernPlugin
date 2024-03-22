@@ -63,7 +63,8 @@ Follow these steps to get started with WPPluginModernizer:
 ### Installation
 
 1. **Download:** Clone or download this repository into your WordPress `plugins` directory.
-3. **Composer Installation:** Run `composer install` to install PHP class autoloading and dependencies.
+2. **Composer Installation:** Run `composer install` to install PHP class autoloading and dependencies.
+3. **Rebrand Plugin (Optional):** Run `php modernize rebrand YourPluginName` to rebrand the plugin with your desired name. This allows you to not rebrand the plugin, but also enables you to install multiple instances of the plugin for developing separate, more modular features.
 4. **Activate:** Activate the plugin from the WordPress admin panel.
 5. **Create:** Start building something great! Utilize the WPPluginModernizer's features, including PSR-4 autoloading, dependency injection, and console commands for scaffolding services, REST API routes, and Gutenberg blocks.
 
