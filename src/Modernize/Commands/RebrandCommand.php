@@ -41,6 +41,15 @@ class RebrandCommand extends Command
         $currentDirectory = getcwd();
         $mainPluginFile = $currentDirectory . '/wp-plugin-modernizer.php';
 
+        // Prompt for manual deactivation
+        $io->note("Please ensure the plugin is deactivated from the WordPress admin dashboard before continuing.");
+
+        // Wait for user confirmation
+        if (!$io->confirm('Is the plugin deactivated?')) {
+            $io->error('Plugin rebranding aborted. Please deactivate the plugin first.');
+            return Command::FAILURE;
+        }
+
         // Update the Plugin Name in the main plugin file.
         $contents = file_get_contents($mainPluginFile);
         $updatedContents = preg_replace('/(Plugin Name:\s*).*/', "$1$pluginName", $contents);
@@ -51,7 +60,7 @@ class RebrandCommand extends Command
         $newDirectoryPath = $parentDir . DIRECTORY_SEPARATOR . $pluginName;
         rename($currentDirectory, $newDirectoryPath);
 
-        $io->success("Plugin rebranded to '$pluginName' and moved to '$pluginName'.");
+        $io->success("Plugin rebranded to '$pluginName'. Please reactivate the plugin under its new name from the WordPress admin dashboard.");
 
         return Command::SUCCESS;
     }
