@@ -27,13 +27,12 @@ class CustomApplication extends BaseApplication
     {
         // Output ASCII art text before running any command
         $output->writeln([
-            '
-              _      _____  ___  __          _      __  ___        __             _            
-             | | /| / / _ \/ _ \/ /_ _____ _(_)__  /  |/  /__  ___/ /__ _______  (_)__ ___ ____
-             | |/ |/ / ___/ ___/ / // / _ `/ / _ \/ /|_/ / _ \/ _  / -_) __/ _ \/ /_ // -_) __/
-             |__/|__/_/  /_/  /_/\_,_/\_, /_/_//_/_/  /_/\___/\_,_/\__/_/ /_//_/_//__/\__/_/   
-                                     /___/                                                     
-            '
+            '<fg=black;bg=magenta>  _      _____  ___  __          _      __  ___        __             _            </>',
+            '<fg=black;bg=magenta> | | /| / / _ \/ _ \/ /_ _____ _(_)__  /  |/  /__  ___/ /__ _______  (_)__ ___ ____</>',
+            '<fg=black;bg=magenta> | |/ |/ / ___/ ___/ / // / _ `/ / _ \/ /|_/ / _ \/ _  / -_) __/ _ \/ /_ // -_) __/</>',
+            '<fg=black;bg=magenta> |__/|__/_/  /_/  /_/\_,_/\_, /_/_//_/_/  /_/\___/\_,_/\__/_/ /_//_/_//__/\__/_/   </>',
+            '<fg=black;bg=magenta>                         /___/                                                      </>',
+            '',
         ]);
 
         // Call parent method to handle actual command execution
