@@ -27,11 +27,11 @@ class CustomApplication extends BaseApplication
     {
         // Output ASCII art text before running any command
         $output->writeln([
-            '<fg=black;bg=magenta>  _      _____  ___  __          _      __  ___        __             _            </>',
-            '<fg=black;bg=magenta> | | /| / / _ \/ _ \/ /_ _____ _(_)__  /  |/  /__  ___/ /__ _______  (_)__ ___ ____</>',
-            '<fg=black;bg=magenta> | |/ |/ / ___/ ___/ / // / _ `/ / _ \/ /|_/ / _ \/ _  / -_) __/ _ \/ /_ // -_) __/</>',
-            '<fg=black;bg=magenta> |__/|__/_/  /_/  /_/\_,_/\_, /_/_//_/_/  /_/\___/\_,_/\__/_/ /_//_/_//__/\__/_/   </>',
-            '<fg=black;bg=magenta>                         /___/                                                      </>',
+            '<fg=magenta;bg=black>  _      _____  ___  __          _      __  ___        __             _            </>',
+            '<fg=magenta;bg=black> | | /| / / _ \/ _ \/ /_ _____ _(_)__  /  |/  /__  ___/ /__ _______  (_)__ ___ ____</>',
+            '<fg=magenta;bg=black> | |/ |/ / ___/ ___/ / // / _ `/ / _ \/ /|_/ / _ \/ _  / -_) __/ _ \/ /_ // -_) __/</>',
+            '<fg=magenta;bg=black> |__/|__/_/  /_/  /_/\_,_/\_, /_/_//_/_/  /_/\___/\_,_/\__/_/ /_//_/_//__/\__/_/   </>',
+            '<fg=magenta;bg=black>                         /___/                                                      </>',
             '',
         ]);
 
