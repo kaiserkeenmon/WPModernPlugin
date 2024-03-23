@@ -23,13 +23,12 @@ process, incorporating features such as PSR-4 autoloading, dependency injection,
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 </div>
 
-## WPPluginModernizer  demo
+## Unleashing WPPluginModernizer: Revolutionize WordPress Plugin Development
 
-To watch the demo without navigating away from GitHub, right-click on the link and select "Open link in new tab". 
+To watch the intro video below without navigating away from GitHub, right-click on the link and select "Open link in new tab". 
 [![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPPluginModernizer/master/thumb.png)](https://youtu.be/gdDSBzfBm50?si=ak1Uheubbe4oMeQj "WPPluginModernizer Intro")
 
-The above demo is a brief intro to WPPluginModernizer, highlighting its features and demoing how to 
-use it to build a modernized WordPress plugin.
+The above video is a brief intro to WPPluginModernizer, highlighting its features and how it can revolutionize your WordPress plugin development.
 
 ## Key Plugin Features
 
