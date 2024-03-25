@@ -8,6 +8,8 @@
   WPPluginModernizer
 </h1>
 
+[wppluginmodernizer.com](https://wppluginmodernizer.com)
+
 <div align="center">
 A WordPress plugin designed to modernize plugin development, inspired by the best practices of modern PHP 
 architecture seen in frameworks like Magento, Laravel, and Symfony. This plugin aims to revolutionize your development 
@@ -26,7 +28,7 @@ process, incorporating features such as PSR-4 autoloading, dependency injection,
 ## Unleashing WPPluginModernizer: Revolutionize WordPress Plugin Development
 
 To watch the intro video below without navigating away from GitHub, right-click on the link and select "Open link in new tab". 
-[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPPluginModernizer/master/thumb.png)](https://youtu.be/gdDSBzfBm50?si=ak1Uheubbe4oMeQj "WPPluginModernizer Intro")
+[![Watch the Video](https://raw.githubusercontent.com/kaiserkeenmon/WPPluginModernizer/master/thumb.png)](https://youtu.be/vkUaMRt0jx4?si=WC3izCFvam-Np7Aa "WPPluginModernizer Intro")
 
 The above video is a brief intro to WPPluginModernizer, highlighting its features and how it can revolutionize your WordPress plugin development.
 
@@ -115,7 +117,7 @@ return [
 ];
 ```
 
-> ### Note: See the user guide video [here](https://youtu.be/74py3FYiX8U) for a detailed walkthrough on using WPPluginModernizer.
+> ### Note: See the user guide video [here](https://youtu.be/eTvLHtiRS0M?si=fUJcH44IuZ_N9zTB) for a detailed walkthrough on using WPPluginModernizer.
 
 ## Contributing
 
