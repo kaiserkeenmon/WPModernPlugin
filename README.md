@@ -55,7 +55,9 @@ The above video is a brief intro to WPPluginModernizer, highlighting its feature
     php modernize make:api-routes
     ```
 - **Configurable Console Commands**: Offers a flexible console command infrastructure for extending the plugin with custom commands.
-
+    ```php
+    php modernize make:command DoSomething
+    ```
 
 ## Quick Start
 
