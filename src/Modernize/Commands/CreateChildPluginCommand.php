@@ -16,6 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use WPPluginModernizer\Modernize\Traits\Commands\PluginDirectory;
+use WPPluginModernizer\Modernize\Utilities\Strings;
 
 class CreateChildPluginCommand extends Command
 {
@@ -48,7 +49,7 @@ class CreateChildPluginCommand extends Command
     {
         $pluginName = $input->getArgument('pluginName');
         $sourceDir = $this->pluginDirPath . '/src/Modernize/templates/ChildPlugin/';
-        $targetDir = dirname($this->pluginDirPath) . sanitize_title_with_dashes($pluginName);
+        $targetDir = dirname($this->pluginDirPath) . Strings::sanitizeTitleWithDashes($pluginName);
 
         $filesystem = new Filesystem();
 
@@ -58,7 +59,7 @@ class CreateChildPluginCommand extends Command
 
             // Rename the main plugin file within the new plugin directory
             $originalPluginFileName = 'child-plugin.php';
-            $newPluginFileName = sanitize_title_with_dashes($pluginName) . '.php';
+            $newPluginFileName = Strings::sanitizeTitleWithDashes($pluginName) . '.php';
             $filesystem->rename($targetDir . '/' . $originalPluginFileName, $targetDir . '/' . $newPluginFileName);
 
             // Update the plugin header in the new main file
