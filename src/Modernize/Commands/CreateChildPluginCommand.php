@@ -49,7 +49,7 @@ class CreateChildPluginCommand extends Command
     {
         $pluginName = $input->getArgument('pluginName');
         $sourceDir = $this->pluginDirPath . '/src/Modernize/templates/ChildPlugin/';
-        $targetDir = dirname(dirname($this->pluginDirPath)) . Strings::sanitizeTitleWithDashes($pluginName);
+        $targetDir = dirname($this->pluginDirPath) . '/' . Strings::sanitizeTitleWithDashes($pluginName);
 
         $filesystem = new Filesystem();
 
