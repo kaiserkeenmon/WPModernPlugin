@@ -47,6 +47,7 @@ class CreateServiceCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+
         // Command title
         $io->title('Modernizing a new service class with a corresponding repository class');
 
@@ -56,9 +57,6 @@ class CreateServiceCommand extends Command
 
         // Automatically construct the Repository Interface name based on the Service name
         $repositoryInterfaceName = preg_replace('/Service$/', 'RepositoryInterface', $serviceName);
-
-        // Automatically construct the Repository variable name based on the Service name
-        $repositoryVariableName = preg_replace('/Repository$/', '', $repositoryInterfaceName);
 
         // Automatically construct the Repository name
         $repositoryName = preg_replace('/RepositoryInterface$/', 'Repository', $repositoryInterfaceName);

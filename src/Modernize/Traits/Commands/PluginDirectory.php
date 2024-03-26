@@ -24,5 +24,15 @@ trait PluginDirectory
     {
         $this->pluginDirPath = getcwd();
         $this->pluginDirName = basename($this->pluginDirPath);
+
+        // Check for scaffold-config.php in the current directory
+        $configPath = $this->pluginDirPath . '/scaffold-config.php';
+        if (file_exists($configPath)) {
+            $config = include $configPath;
+            if (isset($config['pluginPath'])) {
+                $this->pluginDirPath = $config['pluginPath'];
+                $this->pluginDirName = basename($this->pluginDirPath);
+            }
+        }
     }
 }

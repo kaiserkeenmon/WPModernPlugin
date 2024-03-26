@@ -10,6 +10,7 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
+use WPPluginModernizer\Modernize\Commands\CreateChildPluginCommand;
 use WPPluginModernizer\Modernize\Commands\CustomApplication as Application;
 use WPPluginModernizer\Modernize\Commands\CreateAPIRoutesCommand;
 use WPPluginModernizer\Modernize\Commands\CreateGutenbergBlockCommand;
@@ -23,6 +24,7 @@ $application->add(new CreateServiceCommand());
 $application->add(new CreateAPIRoutesCommand());
 $application->add(new CreateGutenbergBlockCommand());
 $application->add(new CreateConsoleCommand());
+$application->add(new CreateChildPluginCommand());
 
 // Load and register user defined custom commands
 $customCommands = require(__DIR__ . '/src/Console/registration.php');
