@@ -52,7 +52,7 @@ class CreateServiceCommand extends Command
         $io->title('Modernizing a new service class with a corresponding repository class');
 
         // Retrieve the service name from the command argument
-        $serviceNameRaw = $input->getArgument('service');
+        $serviceNameRaw = $input->getArgument('serviceName');
         $serviceName = preg_replace('/Service$/', '', $serviceNameRaw) . 'Service';
 
         // Automatically construct the Repository Interface name based on the Service name

@@ -46,7 +46,7 @@ class CreateChildPluginCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $pluginName = $input->getArgument('name');
+        $pluginName = $input->getArgument('pluginName');
         $sourceDir = $this->pluginDirPath . '/src/Modernize/templates/ChildPlugin/';
         $targetDir = dirname($this->pluginDirPath) . sanitize_title_with_dashes($pluginName);
 
