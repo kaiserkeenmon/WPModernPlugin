@@ -35,7 +35,7 @@ class CreateServiceCommand extends Command
             ->setName('make:service')
             ->setDescription('Creates a new service class with a corresponding repository class.')
             ->setHelp('This command allows you to create a new service class with a corresponding repository class.')
-            ->addArgument('service', InputArgument::REQUIRED, 'The name of the service to create');
+            ->addArgument('serviceName', InputArgument::REQUIRED, 'The name of the service to create');
     }
 
     /**

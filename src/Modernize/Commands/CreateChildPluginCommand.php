@@ -36,7 +36,7 @@ class CreateChildPluginCommand extends Command
             ->setName('make:child-plugin')
             ->setDescription('Creates a new plugin from the template.')
             ->setHelp('This command allows you to create a new WordPress plugin from a template')
-            ->addArgument('name', InputArgument::REQUIRED, 'The name of the new plugin');
+            ->addArgument('pluginName', InputArgument::REQUIRED, 'The name of the new plugin');
     }
 
     /**
@@ -48,7 +48,7 @@ class CreateChildPluginCommand extends Command
     {
         $pluginName = $input->getArgument('name');
         $sourceDir = $this->pluginDirPath . '/src/Modernize/templates/ChildPlugin/';
-        $targetDir = WP_CONTENT_DIR . '/plugins/' . sanitize_title_with_dashes($pluginName);
+        $targetDir = dirname($this->pluginDirPath) . sanitize_title_with_dashes($pluginName);
 
         $filesystem = new Filesystem();
 
