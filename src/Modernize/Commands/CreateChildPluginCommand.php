@@ -48,10 +48,18 @@ class CreateChildPluginCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $pluginName = $input->getArgument('pluginName');
+        $templateDir = $this->pluginDirPath . '/src/Modernize/templates/';
         $sourceDir = $this->pluginDirPath . '/src/Modernize/templates/ChildPlugin/';
         $targetDir = dirname($this->pluginDirPath) . '/' . Strings::sanitizeTitleWithDashes($pluginName);
 
         $filesystem = new Filesystem();
+
+        try {
+            // copy the templates directory into the child plugin
+            $filesystem->mirror($templateDir, $sourceDir);
+        } catch (IOExceptionInterface $exception) {
+            $output->writeln('<error>An error occurred while creating the plugin.</error>');
+        }
 
         try {
             // Copy the template directory to the new location
