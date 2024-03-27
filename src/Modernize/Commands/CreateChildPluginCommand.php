@@ -56,7 +56,7 @@ class CreateChildPluginCommand extends Command
 
         try {
             // copy the templates directory into the child plugin
-            $filesystem->mirror($templateDir, $sourceDir);
+            $filesystem->mirror($templateDir, $sourceDir . '/templates');
         } catch (IOExceptionInterface $exception) {
             $output->writeln('<error>An error occurred while creating the plugin.</error>');
         }
