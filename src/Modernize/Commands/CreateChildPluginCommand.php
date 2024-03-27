@@ -50,13 +50,36 @@ class CreateChildPluginCommand extends Command
         $pluginName = $input->getArgument('pluginName');
         $templateDir = $this->pluginDirPath . '/src/Modernize/templates/';
         $sourceDir = $this->pluginDirPath . '/src/Modernize/templates/ChildPlugin/';
+        $targetDirTemplatePath = $sourceDir . 'templates/';
         $targetDir = dirname($this->pluginDirPath) . '/' . Strings::sanitizeTitleWithDashes($pluginName);
 
         $filesystem = new Filesystem();
 
         try {
-            // copy the templates directory into the child plugin
-            $filesystem->mirror($templateDir, $sourceDir . '/templates/');
+            // Create target directory if it does not exist
+            if (!$filesystem->exists($targetDirTemplatePath)) {
+                $filesystem->mkdir($targetDirTemplatePath);
+            }
+
+            // Get all directories in $templateDir except for ChildPlugin
+            $directories = new \DirectoryIterator($templateDir);
+            foreach ($directories as $dir) {
+                if ($dir->isDot() || !$dir->isDir()) {
+                    continue; // Skip non-directories and dot directories
+                }
+
+                $dirName = $dir->getFilename();
+                if ($dirName === 'ChildPlugin') {
+                    continue; // Skip the ChildPlugin directory
+                }
+
+                // Define the source and target paths
+                $sourcePath = $templateDir . $dirName;
+                $targetPath = $targetDirTemplatePath . $dirName;
+
+                // Mirror the directory excluding ChildPlugin
+                $filesystem->mirror($sourcePath, $targetPath);
+            }
         } catch (IOExceptionInterface $exception) {
             $output->writeln('<error>An error occurred while creating the plugin. ' . $exception->getMessage() . '</error>');
         }
