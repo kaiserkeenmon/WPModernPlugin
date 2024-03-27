@@ -57,6 +57,13 @@ class CreateChildPluginCommand extends Command
             // Copy the template directory to the new location
             $filesystem->mirror($sourceDir, $targetDir);
 
+            // After copying, set the /modernize script to be executable
+            $modernizeScriptPath = $targetDir . '/modernize'; // Assuming the script's name is 'modernize'
+            if (file_exists($modernizeScriptPath)) {
+                chmod($modernizeScriptPath, 0755); // Make the script executable
+                $output->writeln('<info>modernize script set to executable.</info>');
+            }
+
             // Rename the main plugin file within the new plugin directory
             $originalPluginFileName = 'child-plugin.php';
             $newPluginFileName = Strings::sanitizeTitleWithDashes($pluginName) . '.php';
