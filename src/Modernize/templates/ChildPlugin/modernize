@@ -2,7 +2,7 @@
 <?php
 
 // Path to the WPPluginModernizer CLI script
-$mainPluginCliPath = '../WPPluginModernizer/wp-plugin-modernizer.php';
+$mainPluginCliPath = dirname(__DIR__) . '/WPPluginModernizer/modernize';
 
 // Change the current working directory to the child plugin's directory
 chdir(__DIR__);
