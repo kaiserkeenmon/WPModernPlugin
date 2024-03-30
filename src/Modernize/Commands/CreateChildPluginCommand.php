@@ -48,7 +48,7 @@ class CreateChildPluginCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $pluginName = $input->getArgument('pluginName');
-        $targetDir = dirname($this->pluginDirPath) . '/' . Strings::sanitizeTitleWithDashes($pluginName);
+        $targetDir = dirname($this->pluginDirPath) . '/' . Strings::sanitizeAndConvertToCamelCase($pluginName);
 
         $filesystem = new Filesystem();
 
@@ -66,7 +66,7 @@ class CreateChildPluginCommand extends Command
 
             // Rename the main plugin file
             $originalPluginFileName = 'child-plugin.php';
-            $newPluginFileName = Strings::sanitizeTitleWithDashes($pluginName) . '.php';
+            $newPluginFileName = Strings::sanitizeAndConvertToCamelCase($pluginName) . '.php';
             $filesystem->rename($targetDir . '/' . $originalPluginFileName, $targetDir . '/' . $newPluginFileName);
 
             // Update the plugin header
