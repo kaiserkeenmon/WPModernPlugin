@@ -47,7 +47,8 @@ class CreateAPIRoutesCommand extends Command
         $filesystem = new Filesystem();
 
         // Load the template
-        $templatePath = __DIR__ . '/templates/Route/api-routes.php';
+        $parentDir = dirname(dirname(__DIR__)); // Move up two levels from the child plugin
+        $templatePath = $parentDir . '/Modernize/templates/Route/api-routes.php';
         $templateContent = include($templatePath);
 
         // Replace placeholders in the template

@@ -74,13 +74,7 @@ class CreateChildPluginCommand extends Command
             $replacedContents = str_replace('Template Plugin Name', $pluginName, $fileContents);
             file_put_contents($targetDir . '/' . $newPluginFileName, $replacedContents);
 
-            // Generate scaffold-config.php
-            $configContent = "<?php\n\nreturn [\n    'pluginPath' => __DIR__];\n";
-            $configFilePath = $targetDir . '/scaffold-config.php';
-            $filesystem->dumpFile($configFilePath, $configContent);
-
             $output->writeln('<info>Plugin created successfully.</info>');
-            $output->writeln('<info>scaffold-config.php generated successfully.</info>');
         } catch (IOExceptionInterface $exception) {
             $output->writeln('<error>An error occurred while creating the plugin.</error>');
         }
