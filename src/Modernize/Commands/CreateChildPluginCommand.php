@@ -48,65 +48,34 @@ class CreateChildPluginCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $pluginName = $input->getArgument('pluginName');
-        $templateDir = $this->pluginDirPath . '/src/Modernize/templates/';
-        $sourceDir = $this->pluginDirPath . '/src/Modernize/templates/ChildPlugin/';
-        $targetDirTemplatePath = $sourceDir . 'templates/';
         $targetDir = dirname($this->pluginDirPath) . '/' . Strings::sanitizeTitleWithDashes($pluginName);
 
         $filesystem = new Filesystem();
 
         try {
-            // Create target directory if it does not exist
-            if (!$filesystem->exists($targetDirTemplatePath)) {
-                $filesystem->mkdir($targetDirTemplatePath);
-            }
-
-            // Get all directories in $templateDir except for ChildPlugin
-            $directories = new \DirectoryIterator($templateDir);
-            foreach ($directories as $dir) {
-                if ($dir->isDot() || !$dir->isDir()) {
-                    continue; // Skip non-directories and dot directories
-                }
-
-                $dirName = $dir->getFilename();
-                if ($dirName === 'ChildPlugin') {
-                    continue; // Skip the ChildPlugin directory
-                }
-
-                // Define the source and target paths
-                $sourcePath = $templateDir . $dirName;
-                $targetPath = $targetDirTemplatePath . $dirName;
-
-                // Mirror the directory excluding ChildPlugin
-                $filesystem->mirror($sourcePath, $targetPath);
-            }
-        } catch (IOExceptionInterface $exception) {
-            $output->writeln('<error>An error occurred while creating the plugin. ' . $exception->getMessage() . '</error>');
-        }
-
-        try {
-            // Copy the template directory to the new location
+            // Copy the ChildPlugin skeleton to the new location
+            $sourceDir = $this->pluginDirPath . '/src/Modernize/templates/ChildPlugin/';
             $filesystem->mirror($sourceDir, $targetDir);
 
-            // After copying, set the /modernize script to be executable
+            // Set modernize to be executable
             $modernizeScriptPath = $targetDir . '/modernize'; // Assuming the script's name is 'modernize'
             if (file_exists($modernizeScriptPath)) {
                 chmod($modernizeScriptPath, 0755); // Make the script executable
                 $output->writeln('<info>modernize script set to executable.</info>');
             }
 
-            // Rename the main plugin file within the new plugin directory
+            // Rename the main plugin file
             $originalPluginFileName = 'child-plugin.php';
             $newPluginFileName = Strings::sanitizeTitleWithDashes($pluginName) . '.php';
             $filesystem->rename($targetDir . '/' . $originalPluginFileName, $targetDir . '/' . $newPluginFileName);
 
-            // Update the plugin header in the new main file
+            // Update the plugin header
             $fileContents = file_get_contents($targetDir . '/' . $newPluginFileName);
             $replacedContents = str_replace('Template Plugin Name', $pluginName, $fileContents);
             file_put_contents($targetDir . '/' . $newPluginFileName, $replacedContents);
 
             // Generate scaffold-config.php
-            $configContent = "<?php\n\nreturn [\n    'pluginPath' => __DIR__,\n    // Additional config items can go here\n];\n";
+            $configContent = "<?php\n\nreturn [\n    'pluginPath' => __DIR__];\n";
             $configFilePath = $targetDir . '/scaffold-config.php';
             $filesystem->dumpFile($configFilePath, $configContent);
 
