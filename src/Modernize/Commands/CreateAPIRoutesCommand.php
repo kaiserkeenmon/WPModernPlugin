@@ -71,6 +71,11 @@ class CreateAPIRoutesCommand extends Command
         try {
             $filesystem->dumpFile($targetFilePath, $replacedContent);
             $io->success('api-routes.php file created successfully at ' . $this->pluginDirName . '/api-routes.php');
+            $io->note([
+                'Remember to include this file in your plugin entry point.',
+                'For example, you can include it in your main plugin file like this:',
+                'require_once __DIR__ . \'/api-routes.php\';'
+            ]);
         } catch (\Exception $e) {
             $io->error('An error occurred while creating the api-routes.php file.');
             return Command::FAILURE;

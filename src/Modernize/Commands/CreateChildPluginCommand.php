@@ -48,7 +48,7 @@ class CreateChildPluginCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $pluginName = $input->getArgument('pluginName');
-        $pluginName = Strings::sanitizeAndConvertToCamelCase($pluginName);
+        $pluginName = Strings::sanitizeTitleWithDashes($pluginName);
         $targetDir = dirname($this->pluginDirPath) . '/' . $pluginName;
 
         $filesystem = new Filesystem();
@@ -59,7 +59,7 @@ class CreateChildPluginCommand extends Command
             $filesystem->mirror($sourceDir, $targetDir);
 
             // Set modernize to be executable
-            $modernizeScriptPath = $targetDir . '/modernize'; // Assuming the script's name is 'modernize'
+            $modernizeScriptPath = $targetDir . '/modernize';
             if (file_exists($modernizeScriptPath)) {
                 chmod($modernizeScriptPath, 0755); // Make the script executable
                 $output->writeln('<info>modernize script set to executable.</info>');

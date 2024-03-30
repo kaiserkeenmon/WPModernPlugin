@@ -132,6 +132,10 @@ class CreateGutenbergBlockCommand extends Command
             $filesystem->dumpFile("$blockDirPath/styles.scss", $stylesScssTemplate);
 
             $io->success("Scaffolded block files for $blockName at $this->pluginDirName/src/blocks/$blockName");
+            $io->note([
+                "Customize the block files as needed.",
+                "To build the block, run 'npm run build' in the plugin directory.",
+            ]);
         }
 
         return Command::SUCCESS;

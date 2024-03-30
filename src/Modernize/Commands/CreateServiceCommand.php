@@ -112,6 +112,11 @@ class CreateServiceCommand extends Command
         }
         $this->generateFileFromTemplate('repositoryInterface', $repositoryInterfaceName, $namespaceBase, $io);
 
+        $io->note([
+            "Customize the service and repository classes as needed.",
+            "To make your new service available, register it in 'src/Service/registration.php'.",
+        ]);
+
         return Command::SUCCESS;
     }
 
