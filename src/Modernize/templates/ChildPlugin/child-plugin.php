@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Plugin Name: Template Plugin Name
  * Plugin URI: http://yourpluginurl.com

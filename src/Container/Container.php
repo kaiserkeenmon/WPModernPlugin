@@ -30,6 +30,7 @@ class Container
     public function __construct(array $registrations)
     {
         $this->registrations = $registrations;
+        $this->loadChildPluginRegistrations(); // Load child plugin registrations.
     }
 
     /**
@@ -129,6 +130,37 @@ class Container
         }
 
         return $dependencies;
+    }
+
+    public function loadChildPluginRegistrations()
+    {
+        foreach (new \DirectoryIterator(WP_PLUGIN_DIR) as $fileInfo) {
+            if ($fileInfo->isDot() || !$fileInfo->isDir()) continue;
+
+            // Child plugins can be identified by the presence of a 'modernize' file.
+            $markerFilePath = $fileInfo->getPathname() . '/modernize';
+            if (!file_exists($markerFilePath)) {
+                continue; // Not a child plugin, skip it
+            }
+
+            $registrationFilePath = $fileInfo->getPathname() . '/registration.php';
+            if (file_exists($registrationFilePath)) {
+                $serviceDefinitions = require $registrationFilePath;
+                $this->registerServicesFromDefinition($serviceDefinitions);
+            }
+        }
+    }
+
+    /**
+     * Registers services from a given definition array.
+     *
+     * @param array $serviceDefinitions Array of service definitions.
+     */
+    protected function registerServicesFromDefinition(array $serviceDefinitions)
+    {
+        foreach ($serviceDefinitions as $abstract => $definition) {
+            $this->registrations[$abstract] = $definition;
+        }
     }
 
     /**
