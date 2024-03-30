@@ -71,7 +71,7 @@ class CreateChildPluginCommand extends Command
 
             // Update the plugin header
             $fileContents = file_get_contents($targetDir . '/' . $newPluginFileName);
-            $replacedContents = str_replace('Template Plugin Name', $pluginName, $fileContents);
+            $replacedContents = str_replace('Template Plugin Name', $newPluginFileName, $fileContents);
             file_put_contents($targetDir . '/' . $newPluginFileName, $replacedContents);
 
             $output->writeln('<info>Plugin created successfully.</info>');
