@@ -119,7 +119,7 @@ class CreateServiceCommand extends Command
     {
         switch ($type) {
             case 'service':
-                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/Service.php';
+                $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Service/Service.php';
                 $filePath = $this->pluginDirPath . "/src/Service/{$name}.php";
                 $pluginFilePath = $this->pluginDirName . "/src/Service/{$name}.php";
                 $replacements = [

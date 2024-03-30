@@ -24,8 +24,8 @@ add_action('rest_api_init', function () use (\$container) {
         'methods' => 'GET',
         'callback' => function (\$request) use (\$service) {
             // Directly use the service to handle the request.
-            \$data = \$service->fetchData();
-            return new WP_REST_Response(\$data, 200);
+            // \$data = \$service->fetchData();
+            // return new WP_REST_Response(\$data, 200);
         },
     ));
 
