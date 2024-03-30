@@ -48,7 +48,8 @@ class CreateChildPluginCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $pluginName = $input->getArgument('pluginName');
-        $targetDir = dirname($this->pluginDirPath) . '/' . Strings::sanitizeAndConvertToCamelCase($pluginName);
+        $pluginName = Strings::sanitizeAndConvertToCamelCase($pluginName);
+        $targetDir = dirname($this->pluginDirPath) . '/' . $pluginName;
 
         $filesystem = new Filesystem();
 
@@ -66,12 +67,12 @@ class CreateChildPluginCommand extends Command
 
             // Rename the main plugin file
             $originalPluginFileName = 'child-plugin.php';
-            $newPluginFileName = Strings::sanitizeAndConvertToCamelCase($pluginName) . '.php';
+            $newPluginFileName = $pluginName . '.php';
             $filesystem->rename($targetDir . '/' . $originalPluginFileName, $targetDir . '/' . $newPluginFileName);
 
             // Update the plugin header
             $fileContents = file_get_contents($targetDir . '/' . $newPluginFileName);
-            $replacedContents = str_replace('Template Plugin Name', $newPluginFileName, $fileContents);
+            $replacedContents = str_replace('Template Plugin Name', $pluginName, $fileContents);
             file_put_contents($targetDir . '/' . $newPluginFileName, $replacedContents);
 
             $output->writeln('<info>Plugin created successfully.</info>');
