@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-\$container = {{pluginDirName}}\Container\Container::getInstance();
+\$container = WPPluginModernizer\Container\Container::getInstance();
 
 add_action('rest_api_init', function () use (\$container) {
     \$service = \$container->get({{pluginDirName}}\Service\YourServiceInterface::class);
