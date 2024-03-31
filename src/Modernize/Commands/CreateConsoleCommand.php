@@ -14,36 +14,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use WPPluginModernizer\Modernize\Traits\Commands\PluginDirectory;
 
 class CreateConsoleCommand extends Command
 {
     use PluginDirectory;
 
-    protected $composerDependencies;
-
-    protected $nameSpaceName;
-
     public function __construct() {
         parent::__construct();
         $this->initializePluginDirectory();
-        $this->composerDependencies = [
-            'require' => [
-                "symfony/console" => "^7.0",
-                "symfony/filesystem" => "^7.0",
-                "symfony/process" => "^7.0",
-                "symfony/finder" => "^7.0",
-                "symfony/string" => "^7.0"
-            ],
-            'autoload' => [
-                'psr-4' => [
-                    "{$this->nameSpaceName}\\" => "src/"
-                ]
-            ]
-        ];
-
     }
 
     /**
@@ -102,27 +81,6 @@ class CreateConsoleCommand extends Command
             ]);
         } else {
             $io->error("Failed to create custom command class at: {$path}");
-            return Command::FAILURE;
-        }
-
-        // Define the path for composer.json in the child plugin directory
-        $composerJsonPath = $this->pluginDirPath . '/composer.json';
-
-        // Write the composer.json file
-        if (file_put_contents($composerJsonPath, json_encode($this->composerDependencies, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) === false) {
-            $io->error('Failed to create composer.json file.');
-            return Command::FAILURE;
-        } else {
-            $io->success('composer.json file created successfully.');
-        }
-
-        // Run composer install
-        $process = new Process(['composer', 'install'], $this->pluginDirPath);
-        try {
-            $process->mustRun();
-            $io->success('Dependencies installed successfully.');
-        } catch (ProcessFailedException $exception) {
-            $io->error('Composer install failed: ' . $exception->getMessage());
             return Command::FAILURE;
         }
 
