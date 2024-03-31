@@ -35,7 +35,7 @@ class CreateChildPluginCommand extends Command
     {
         $this
             ->setName('make:child-plugin')
-            ->setDescription('Creates a new plugin from the template.')
+            ->setDescription('Creates a new plugin from the template (parent only).')
             ->setHelp('This command allows you to create a new WordPress plugin from a template')
             ->addArgument('pluginName', InputArgument::REQUIRED, 'The name of the new plugin');
     }

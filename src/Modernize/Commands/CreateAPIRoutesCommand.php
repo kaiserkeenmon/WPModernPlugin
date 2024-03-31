@@ -33,7 +33,7 @@ class CreateAPIRoutesCommand extends Command
     {
         $this
             ->setName('make:api-routes')
-            ->setDescription('Creates a new API routes file.')
+            ->setDescription('Creates a new API routes file (child only).')
             ->setHelp('This command allows you to create a api-routes.php file.');
     }
 

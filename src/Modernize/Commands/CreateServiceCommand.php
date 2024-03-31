@@ -33,7 +33,7 @@ class CreateServiceCommand extends Command
     {
         $this
             ->setName('make:service')
-            ->setDescription('Creates a new service class with a corresponding repository class.')
+            ->setDescription('Creates a new service class with a corresponding repository class (child only).')
             ->setHelp('This command allows you to create a new service class with a corresponding repository class.')
             ->addArgument('serviceName', InputArgument::REQUIRED, 'The name of the service to create');
     }

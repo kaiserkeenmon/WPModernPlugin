@@ -33,7 +33,7 @@ class CreateGutenbergBlockCommand extends Command
     {
         $this
             ->setName('make:gutenberg-block')
-            ->setDescription('Scaffolds a basic Gutenberg block setup, including package installation and configuration.')
+            ->setDescription('Scaffolds a basic Gutenberg block setup, including package installation and configuration (child only).')
             ->setHelp('This command checks for npm installation and installs a sensible set of packages needed for Gutenberg block development.');
     }
 
@@ -117,9 +117,9 @@ class CreateGutenbergBlockCommand extends Command
         $blockNames = ['sample-block-1', 'sample-block-2'];
 
         // Load template contents
-        $indexJsTemplatePath = getcwd() . '/src/Modernize/templates/Block/index.js';
-        $editorScssTemplatePath = getcwd() . '/src/Modernize/templates/Block/editor.scss';
-        $stylesScssTemplatePath = getcwd() . '/src/Modernize/templates/Block/styles.scss';
+        $indexJsTemplatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Block/index.js';
+        $editorScssTemplatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Block/editor.scss';
+        $stylesScssTemplatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Block/styles.scss';
 
         $indexJsTemplate = file_get_contents($indexJsTemplatePath);
         $editorScssTemplate = file_get_contents($editorScssTemplatePath);

@@ -32,7 +32,7 @@ class CreateConsoleCommand extends Command
     {
         $this
             ->setName('make:command')
-            ->setDescription('Generates a custom command class.')
+            ->setDescription('Generates a custom command class (child only).')
             ->addArgument('commandName', InputArgument::REQUIRED, 'The name of the custom command.');
     }
 
