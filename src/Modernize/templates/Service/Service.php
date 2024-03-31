@@ -33,7 +33,7 @@ class {{serviceName}} implements {{serviceName}}Interface {
      */
     public function exampleMethod(\$parameter) {
         // Implement method functionality here
-        // Example: return \$this->{{repositoryVariableName}}->find(\$parameter);
+        // Example: return \$this->{{repositoryVariableName}}->exampleMethod(\$parameter);
     }
 }
 TEMPLATE;
