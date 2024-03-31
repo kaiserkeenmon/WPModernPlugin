@@ -34,17 +34,17 @@ class CreateChildPluginCommand extends Command
         parent::__construct();
         $this->initializePluginDirectory();
         $this->composerDependencies = [
+            'autoload' => [
+                'psr-4' => [
+                    "{$this->nameSpaceName}\\" => "src/"
+                ]
+            ],
             'require' => [
                 "symfony/console" => "^7.0",
                 "symfony/filesystem" => "^7.0",
                 "symfony/process" => "^7.0",
                 "symfony/finder" => "^7.0",
                 "symfony/string" => "^7.0"
-            ],
-            'autoload' => [
-                'psr-4' => [
-                    "{$this->nameSpaceName}\\" => "src/"
-                ]
             ]
         ];
     }
@@ -80,6 +80,7 @@ class CreateChildPluginCommand extends Command
 
         $pluginName = $input->getArgument('pluginName');
         $pluginName = Strings::sanitizeTitleWithDashes($pluginName);
+        $this->nameSpaceName = Strings::sanitizeAndConvertToCamelCase($pluginName);
         $targetDir = dirname($this->pluginDirPath) . '/' . $pluginName;
 
         $filesystem = new Filesystem();
