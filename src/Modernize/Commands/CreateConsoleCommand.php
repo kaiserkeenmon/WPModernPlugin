@@ -59,7 +59,7 @@ class CreateConsoleCommand extends Command
         // Load the command template
         $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Command/Command.php';
         $template = include($templatePath);
-        $nameSpaceName = $this->camelCasedPluginName() . '\Console';
+        $nameSpaceName = $this->camelCasedPluginName();
 
         // Replace placeholders
         $filledTemplate = str_replace(
