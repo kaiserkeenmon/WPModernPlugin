@@ -36,7 +36,7 @@ class CreateChildPluginCommand extends Command
         $this->composerDependencies = [
             'autoload' => [
                 'psr-4' => [
-                    "{$this->nameSpaceName}\\" => "src/"
+                    "{{nameSpaceName}}\\" => "src/"
                 ]
             ],
             'require' => [
@@ -116,6 +116,11 @@ class CreateChildPluginCommand extends Command
             file_put_contents($targetDir . '/' . $newPluginFileName, $replacedContents);
 
             $output->writeln('<info>Plugin created successfully.</info>');
+
+            // Before writing the composer.json, replace the placeholder in the autoload configuration
+            $this->composerDependencies['autoload']['psr-4'] = [
+                "{$this->nameSpaceName}\\" => "src/"
+            ];
 
             // Define the path for composer.json in the child plugin directory
             $composerJsonPath = $targetDir . '/composer.json';
