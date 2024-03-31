@@ -53,6 +53,12 @@ class CreateChildPluginCommand extends Command
 
         $filesystem = new Filesystem();
 
+        // Check if the plugin directory already exists
+        if ($filesystem->exists($targetDir)) {
+            $output->writeln('<error>A plugin with this name already exists.</error>');
+            return Command::FAILURE; // Use a constant or a specific integer to indicate failure
+        }
+
         try {
             // Copy the ChildPlugin skeleton to the new location
             $sourceDir = $this->pluginDirPath . '/src/Modernize/templates/ChildPlugin/';
