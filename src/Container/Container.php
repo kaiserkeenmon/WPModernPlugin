@@ -143,7 +143,7 @@ class Container
                 continue; // Not a child plugin, skip it
             }
 
-            $registrationFilePath = $fileInfo->getPathname() . '/registration.php';
+            $registrationFilePath = $fileInfo->getPathname() . '/src/registration.php';
             if (file_exists($registrationFilePath)) {
                 $serviceDefinitions = require $registrationFilePath;
                 $this->registerServicesFromDefinition($serviceDefinitions);
