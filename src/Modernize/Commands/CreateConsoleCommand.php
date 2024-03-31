@@ -70,17 +70,18 @@ class CreateConsoleCommand extends Command
 
         // Define the file path
         $path = $this->pluginDirPath . "/src/Console/{$commandClassName}.php";
+        $relativePath = $this->pluginDirName . "/src/Console/{$commandClassName}.php";
 
         // Write the command class file
         if (file_put_contents($path, $filledTemplate) !== false) {
-            $io->success("Custom command class created at: {$path}");
+            $io->success("Custom command class created at: {$relativePath}");
             $io->note([
                 "Customize the command logic and description as needed.",
                 "To make your new command available, register it in 'src/Console/registration.php'.",
                 "Ensure your new command is properly loaded and available by checking with 'php modernize list-commands'."
             ]);
         } else {
-            $io->error("Failed to create custom command class at: {$path}");
+            $io->error("Failed to create custom command class at: {$relativePath}");
             return Command::FAILURE;
         }
 
