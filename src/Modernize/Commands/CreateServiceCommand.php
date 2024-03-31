@@ -124,7 +124,7 @@ class CreateServiceCommand extends Command
 
         $io->note([
             "Customize the service and repository classes as needed.",
-            "To make your new service available, register it in 'src/Service/registration.php'.",
+            "To make your new service and repository available, register them in 'src/registration.php'.",
         ]);
 
         return Command::SUCCESS;
