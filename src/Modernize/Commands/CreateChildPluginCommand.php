@@ -47,6 +47,14 @@ class CreateChildPluginCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // Enforce that this command is called from the parent plugin
+        try {
+            $this->ensureCalledFromParentPlugin();
+        } catch (\RuntimeException $e) {
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+            return Command::FAILURE;
+        }
+
         $pluginName = $input->getArgument('pluginName');
         $pluginName = Strings::sanitizeTitleWithDashes($pluginName);
         $targetDir = dirname($this->pluginDirPath) . '/' . $pluginName;

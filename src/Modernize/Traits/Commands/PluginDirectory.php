@@ -16,7 +16,7 @@ trait PluginDirectory
 
     /** @var string */
     protected $pluginDirName;
-    
+
     /** @var string */
     protected $parentPluginDirPath;
 
@@ -28,5 +28,27 @@ trait PluginDirectory
         $this->pluginDirPath = getcwd();
         $this->pluginDirName = basename($this->pluginDirPath);
         $this->parentPluginDirPath = dirname(getcwd()) . '/WPPluginModernizer';
+    }
+
+    /**
+     * @return void
+     */
+    protected function ensureCalledFromChildPlugin()
+    {
+        // Check if the current plugin directory is the same as the parent plugin directory.
+        if ($this->pluginDirPath === $this->parentPluginDirPath) {
+            throw new \RuntimeException('This command cannot be executed from the WPPluginModernizer parent plugin.');
+        }
+    }
+
+    /**
+     * @return void
+     */
+    protected function ensureCalledFromParentPlugin()
+    {
+        // Check if the current plugin directory is not the parent plugin directory.
+        if ($this->pluginDirPath !== $this->parentPluginDirPath) {
+            throw new \RuntimeException('This command can only be executed from the WPPluginModernizer parent plugin.');
+        }
     }
 }

@@ -44,6 +44,14 @@ class CreateAPIRoutesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // Enforce that this command is called from a child plugin
+        try {
+            $this->ensureCalledFromChildPlugin();
+        } catch (\RuntimeException $e) {
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+            return Command::FAILURE;
+        }
+
         $io = new SymfonyStyle($input, $output);
         $filesystem = new Filesystem();
 

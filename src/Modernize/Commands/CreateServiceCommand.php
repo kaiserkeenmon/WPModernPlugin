@@ -45,8 +45,15 @@ class CreateServiceCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        // Enforce that this command is called from a child plugin
+        try {
+            $this->ensureCalledFromChildPlugin();
+        } catch (\RuntimeException $e) {
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+            return Command::FAILURE;
+        }
 
+        $io = new SymfonyStyle($input, $output);
 
         // Command title
         $io->title('Modernizing a new service class with a corresponding repository class');
@@ -135,7 +142,7 @@ class CreateServiceCommand extends Command
                 ];
                 break;
             case 'serviceInterface':
-                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php';
+                $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php';
                 $filePath = $this->pluginDirPath . "/src/Service/{$name}Interface.php";
                 $pluginFilePath = $this->pluginDirName . "/src/Service/{$name}.php";
                 $replacements = [
@@ -144,7 +151,7 @@ class CreateServiceCommand extends Command
                 ];
                 break;
             case 'repository':
-                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Repository/Repository.php';
+                $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Repository/Repository.php';
                 $filePath = $this->pluginDirPath . "/src/Repository/{$name}.php";
                 $pluginFilePath = $this->pluginDirName . "/src/Repository/{$name}.php";
                 $replacements = [
@@ -154,7 +161,7 @@ class CreateServiceCommand extends Command
                 ];
                 break;
             case 'repositoryInterface':
-                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Repository/RepositoryInterface.php';
+                $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Repository/RepositoryInterface.php';
                 $filePath = $this->pluginDirPath . "/src/Repository/{$name}.php";
                 $pluginFilePath = $this->pluginDirName . "/src/Repository/{$name}.php";
                 $replacements = [
