@@ -115,7 +115,7 @@ class CreateChildPluginCommand extends Command
             $output->writeln('<info>Plugin created successfully.</info>');
 
             // Define the path for composer.json in the child plugin directory
-            $composerJsonPath = $this->pluginDirPath . '/composer.json';
+            $composerJsonPath = $targetDir . '/composer.json';
 
             // Write the composer.json file
             if (file_put_contents($composerJsonPath, json_encode($this->composerDependencies, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) === false) {
@@ -126,7 +126,7 @@ class CreateChildPluginCommand extends Command
             }
 
             // Run composer install
-            $process = new Process(['composer', 'install'], $this->pluginDirPath);
+            $process = new Process(['composer', 'install'], $targetDir);
             try {
                 $process->mustRun();
                 $io->success('Dependencies installed successfully.');
