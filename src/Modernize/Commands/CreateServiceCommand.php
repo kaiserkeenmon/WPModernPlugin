@@ -96,7 +96,7 @@ class CreateServiceCommand extends Command
             $io->error("Service interface for service {$serviceInterfaceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateFileFromTemplate('serviceInterface', $serviceInterfaceName, $namespaceBase, $io);
+        $this->generateFileFromTemplate('serviceInterface', $serviceInterfaceName, $namespaceBase, $io, $repositoryInterfaceName);
 
         /**
          * Create the repository class.
@@ -130,7 +130,7 @@ class CreateServiceCommand extends Command
         return Command::SUCCESS;
     }
 
-    protected function generateFileFromTemplate($type, $name, $namespace, SymfonyStyle $io)
+    protected function generateFileFromTemplate($type, $name, $namespace, SymfonyStyle $io, $repoName = null)
     {
         switch ($type) {
             case 'service':
@@ -140,13 +140,13 @@ class CreateServiceCommand extends Command
                 $replacements = [
                     '{{namespace}}' => $namespace,
                     '{{serviceName}}' => $name,
-                    '{{repositoryInterfaceName}}' => $name . 'RepositoryInterface',
+                    '{{repositoryInterfaceName}}' => $repoName,
                     '{{repositoryVariableName}}' => lcfirst($name) . 'Repository',
                 ];
                 break;
             case 'serviceInterface':
                 $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php';
-                $filePath = $this->pluginDirPath . "/src/Service/{$name}Interface.php";
+                $filePath = $this->pluginDirPath . "/src/Service/{$name}.php";
                 $pluginFilePath = $this->pluginDirName . "/src/Service/{$name}.php";
                 $replacements = [
                     '{{namespace}}' => $namespace . '\\Service',
