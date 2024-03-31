@@ -62,6 +62,9 @@ class CreateServiceCommand extends Command
         $serviceNameRaw = $input->getArgument('serviceName');
         $serviceName = preg_replace('/Service$/', '', $serviceNameRaw) . 'Service';
 
+        // Automatically construct the Service Interface name based on the Service name
+        $serviceInterfaceName = $serviceName . 'Interface';
+
         // Automatically construct the Repository Interface name based on the Service name
         $repositoryInterfaceName = preg_replace('/Service$/', 'RepositoryInterface', $serviceName);
 
@@ -89,11 +92,11 @@ class CreateServiceCommand extends Command
         $io->section('Creating the service interface');
 
         // Check if the service interface already exists
-        if (file_exists($this->pluginDirPath . "/src/Service/{$serviceName}Interface.php")) {
-            $io->error("Service interface for service {$serviceName}Interface already exists.");
+        if (file_exists($this->pluginDirPath . "/src/Service/{$serviceInterfaceName}.php")) {
+            $io->error("Service interface for service {$serviceInterfaceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateFileFromTemplate('serviceInterface', $serviceName . 'Interface', $namespaceBase, $io);
+        $this->generateFileFromTemplate('serviceInterface', $serviceInterfaceName, $namespaceBase, $io);
 
         /**
          * Create the repository class.
