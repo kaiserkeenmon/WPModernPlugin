@@ -10,7 +10,7 @@
 $template = <<<TEMPLATE
 <?php
 
-namespace WPPluginModernizer\Console;
+namespace {{nameSpaceName}}\Console;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
