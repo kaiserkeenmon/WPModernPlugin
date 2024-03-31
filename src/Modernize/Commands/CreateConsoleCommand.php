@@ -57,9 +57,9 @@ class CreateConsoleCommand extends Command
         $commandSlug = strtolower($commandName);
 
         // Load the command template
-        $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Command/Command.php';
+        $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Command/Command.php';
         $template = include($templatePath);
-        $namespace = 'WPPluginModernizer\Console';
+        $namespace = $this->camelCasedPluginName() . '\Console';
 
         // Replace placeholders
         $filledTemplate = str_replace(

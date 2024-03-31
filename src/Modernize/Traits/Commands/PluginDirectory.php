@@ -51,4 +51,12 @@ trait PluginDirectory
             throw new \RuntimeException('This command can only be executed from the WPPluginModernizer parent plugin.');
         }
     }
+
+    /**
+     * @return string
+     */
+    protected function camelCasedPluginName(): string
+    {
+        return str_replace(' ', '', ucwords(str_replace('-', ' ', $this->pluginDirName)));
+    }
 }
