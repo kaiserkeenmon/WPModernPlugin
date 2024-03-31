@@ -80,8 +80,10 @@ class CreateChildPluginCommand extends Command
 
         $pluginName = $input->getArgument('pluginName');
         $pluginName = Strings::sanitizeTitleWithDashes($pluginName);
-        $this->nameSpaceName = Strings::sanitizeAndConvertToCamelCase($pluginName);
         $targetDir = dirname($this->pluginDirPath) . '/' . $pluginName;
+
+        // Namespace name for the composer.json file
+        $this->nameSpaceName = Strings::sanitizeAndConvertToCamelCase($pluginName);
 
         $filesystem = new Filesystem();
 
