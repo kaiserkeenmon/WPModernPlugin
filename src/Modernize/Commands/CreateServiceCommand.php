@@ -84,7 +84,7 @@ class CreateServiceCommand extends Command
             $io->error("Service {$serviceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateFileFromTemplate('service', $serviceName, $namespaceBase, $io);
+        $this->generateFileFromTemplate('service', $serviceName, $namespaceBase, $io, $repositoryInterfaceName);
 
         /**
          * Create the service interface.

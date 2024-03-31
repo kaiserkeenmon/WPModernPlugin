@@ -17,7 +17,7 @@ namespace {{namespace}};
  *
  * Describe the purpose of the interface here.
  */
-interface {{serviceName}}Interface
+interface {{serviceName}}
 {
     /**
      * Describe the method and its purpose here.
