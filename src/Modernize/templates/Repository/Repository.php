@@ -14,6 +14,10 @@ namespace {{namespace}};
 
 class {{repositoryClassName}} implements {{repositoryInterfaceName}}
 {
+    /**
+    * @param array $\$parameter
+    * @return array
+     */
     public function exampleMethod(array \$parameter): array
     {
         // Implement logic here

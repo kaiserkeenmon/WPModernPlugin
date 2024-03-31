@@ -12,11 +12,6 @@ $template = <<<TEMPLATE
 
 namespace {{namespace}};
 
-/**
- * Interface {{serviceName}}Interface
- *
- * Describe the purpose of the interface here.
- */
 interface {{serviceName}}
 {
     /**
