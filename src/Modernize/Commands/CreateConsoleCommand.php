@@ -69,7 +69,7 @@ class CreateConsoleCommand extends Command
         );
 
         // Define the file path
-        $path = dirname(dirname(__DIR__)) . "/Console/{$commandClassName}.php";
+        $path = $this->pluginDirPath . "/src/Console/{$commandClassName}.php";
 
         // Write the command class file
         if (file_put_contents($path, $filledTemplate) !== false) {
