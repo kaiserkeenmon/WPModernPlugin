@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use WPPluginModernizer\Modernize\Traits\Commands\PluginDirectory;
+use WPPluginModernizer\Modernize\Utilities\Strings;
 
 class CreateAPIRoutesCommand extends Command
 {
@@ -51,10 +52,13 @@ class CreateAPIRoutesCommand extends Command
         $templatePath = $parentDir . '/Modernize/templates/Route/api-routes.php';
         $templateContent = include($templatePath);
 
+        // Camel case the plugin name
+        $camelCasedPluginName = Strings::sanitizeAndConvertToCamelCase($this->pluginDirName);
+
         // Replace placeholders in the template
         $replacedContent = str_replace(
             ['{{pluginDirName}}'],
-            [$this->pluginDirName],
+            [$camelCasedPluginName],
             $templateContent
         );
 

@@ -22,12 +22,27 @@ class Strings {
         return $str;
     }
 
+    /**
+     * @param $title
+     * @return string
+     */
     public static function sanitizeTitleWithDashes($title) {
         $title = strtolower($title);
         $title = str_replace(' ', '-', $title);
         $title = preg_replace('/[^a-z0-9-]/', '', $title);
         $title = preg_replace('/-+/', '-', $title);
         $title = trim($title, '-');
+        return $title;
+    }
+
+    /**
+     * @param $title
+     * @return array|string|string[]
+     */
+    public static function sanitizeAndConvertToCamelCase($title) {
+        $title = str_replace(['-', '_'], ' ', $title);
+        $title = ucwords($title);
+        $title = str_replace(' ', '', $title);
         return $title;
     }
 }
