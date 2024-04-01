@@ -1,1 +1,34 @@
-const swconf = { cacheName: 'chirpy-1711999209',resources: [ '/assets/css/jekyll-theme-chirpy.css', '/', '/categories/', '/tags/', '/archives/', '/about/', ],allowHosts: [ 'raw.githubusercontent.com', 'fonts.googleapis.com', 'fonts.gstatic.com', 'fonts.googleapis.com', 'cdn.jsdelivr.net', 'cdnjs.cloudflare.com' ],denyPaths: [ ], purge: false };
+const swconf = {
+  
+    cacheName: 'chirpy-1711999498',resources: [
+      '/assets/css/jekyll-theme-chirpy.css',
+      '/',
+      
+        '/categories/',
+      
+        '/tags/',
+      
+        '/archives/',
+      
+        '/about/',
+      
+
+      
+      
+    ],allowHosts: [
+      
+        'raw.githubusercontent.com',
+      
+          'fonts.googleapis.com',
+          'fonts.gstatic.com',
+          'fonts.googleapis.com',
+          'cdn.jsdelivr.net',
+          'cdnjs.cloudflare.com'
+      
+    ],denyPaths: [
+      
+    ],
+    purge: false
+  
+};
+
