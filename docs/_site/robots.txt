@@ -1,5 +1,0 @@
-User-agent: *
-
-Disallow: /norobots/
-
-Sitemap: https://kaiserkeenmon.github.io/WPPluginModernizer/sitemap.xml
