@@ -23,7 +23,9 @@ Key Features Include:
 1. Download or clone this repository into your WordPress `plugins` directory.
 2. Run `composer install` to install PHP class autoloading and dependencies.
 3. Activate the plugin from the WordPress admin panel.
-4. Start utilizing WPPluginModernizer's features for your development.
+4. Run `php modernize make:child-plugin [YourAwesomePluginName]` to generate a customizable child plugin.
+5. Customize the generated child plugin to suit your needs.
+7. For more detailed installation instructions, visit our documentation: https://kaiserkeenmon.github.io/WPPluginModernizer
 
 == Frequently Asked Questions ==
 = Can I use this plugin without composer? =
@@ -33,24 +35,27 @@ No, composer is required for autoloading PHP classes and managing dependencies.
 Use the provided console commands, e.g., `php modernize make:service MyNewService`, for scaffolding.
 
 == Screenshots ==
-1. The plugin settings page.
-2. Example of a service created with WPPluginModernizer.
+1. A customizable child plugin generated with WPPluginModernizer CLI tool.
+2. A console command generated with WPPluginModernizer's scaffolding.
 
 == Changelog ==
 
-= 1.0.1 =
-- ...
+= 1.0.2 =
+- Added customizable child plugin generation.
 
-= 1.0.0 =
-- ...
+= 1.0.1 =
+- Added support for creating custom console commands.
 
 == Upgrade Notice ==
 
+= 1.0.2 =
+- Added customizable child plugin generation.
+
 = 1.0.1 =
-Initial release. Please provide feedback through the WordPress support forums.
+- Added support for creating custom console commands.
 
 = 1.0.0 =
-Initial release. Please provide feedback through the WordPress support forums.
+- Initial Release. Core plugin functionality.
 
 == Notice ==
 - While WPPluginModernizer is not open for public contributions, feedback and suggestions are welcome. Please feel free to share your projects and how you're using WPPluginModernizer to enhance your WordPress development.
