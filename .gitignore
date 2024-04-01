@@ -18,6 +18,9 @@ Thumbs.db
 # Ignore node modules if using any Node.js-based tools
 /node_modules/
 
+# Ignore the documentation directory
+/documentation/
+
 # Ignore cache and backup files
 *.bak
 *.cache
