@@ -8,7 +8,9 @@
   WPPluginModernizer
 </h1>
 
-[wppluginmodernizer.com](https://wppluginmodernizer.com)
+<div align="center" style="padding-bottom:20px">
+<a href="https://wppluginmodernizer.com">wppluginmodernizer.com</a>
+</div>
 
 <div align="center">
 A WordPress plugin designed to modernize plugin development, inspired by the best practices of modern PHP 
@@ -59,65 +61,11 @@ The above video is a brief intro to WPPluginModernizer, highlighting its feature
     php modernize make:command DoSomething
     ```
 
-## Quick Start
+## How to Use WPPluginModernizer
 
-Follow these steps to get started with WPPluginModernizer:
+View the docs for information on installing, updating and using WPPluginModernizer. The documentation provides a comprehensive guide to help you get started with the plugin and make the most of its features.
 
-### Installation
-
-1. **Download:** Clone or download this repository into your WordPress `plugins` directory.
-2. **Composer Installation:** Run `composer install` to install PHP class autoloading and dependencies.
-3. **Rebrand Plugin (Optional):** Run `php modernize rebrand YourPluginName` to rebrand the plugin with your desired name. This allows you to not only rebrand the plugin, but also enables you to install multiple instances of the plugin for developing separate, more modular features.
-4. **Activate:** Activate the plugin from the WordPress admin panel.
-5. **Create:** Start building something great! Utilize the WPPluginModernizer's features, including PSR-4 autoloading, dependency injection, and console commands for scaffolding services, REST API routes, and Gutenberg blocks.
-
-## How to Use
-
-### Utilize the Modernize CLI for Scaffolding
-- **Jumpstart Development:** Leverage the provided console commands to scaffold services, REST API routes, and Gutenberg blocks quickly. This helps maintain consistency and best practices across your plugin development.
-
-- **Generate a Service**:
-```bash
-php modernize make:service YourServiceName
-```
-
-- **Create a REST API Route**:
-```bash
-php modernize make:api-routes
-```
-
-- **Scaffold Gutenberg Blocks**:
-```bash
-php modernize make:block
-```
-
-### Develop Your Plugin
-- **Organize Your Codebase:** Place PHP classes within the `src/` directory, ensuring they adhere to the PSR-4 naming convention for an organized and scalable codebase. For example:
-
-```php
-namespace YourPluginNamespace\SubNamespace;
-
-class YourClassName {
-    // Your class implementation
-}
-```
-
-### Register Services and Repositories
-- **Simplify Service Management:** Use the src/registration.php file to register your services and repositories with the DI container. This central registration facilitates autoloading and dependency injection, streamlining your development process. Example:
-
-```php
-return [
-    YourPluginNamespace\Service\YourServiceInterface::class => [
-        'class' => YourPluginNamespace\Service\Implementation\YourService::class,
-        'singleton' => true, // Optional: Define as a singleton service
-    ],
-    YourPluginNamespace\Repository\YourRepositoryInterface::class => [
-        'class' => YourPluginNamespace\Repository\Implementation\YourRepository::class,
-        'params' => ['dependency1', 'dependency2'], // Optional: Constructor parameters
-    ],
-    // Add more class DI container registrations as needed
-];
-```
+- [WPPluginModernizer Docs](https://kaiserkeenmon.github.io/WPPluginModernizer/)
 
 > ### Note: See the user guide video [here](https://youtu.be/eTvLHtiRS0M?si=fUJcH44IuZ_N9zTB) for a detailed walkthrough on using WPPluginModernizer.
 
