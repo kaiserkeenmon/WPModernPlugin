@@ -16,6 +16,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CustomApplication extends BaseApplication
 {
+    use \Activation;
+
     /**
      * @param Command $command
      * @param InputInterface $input
@@ -25,6 +27,9 @@ class CustomApplication extends BaseApplication
      */
     protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output): int
     {
+        // Ensure the plugin is activated before proceeding
+        $this->ensurePluginActivated();
+
         // Output ASCII art text before running any command
         $output->writeln([
             '<fg=magenta>  _      _____  ___  __          _      __  ___        __             _            </>',

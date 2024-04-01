@@ -11,6 +11,8 @@ namespace WPPluginModernizer\Container;
 
 class Container
 {
+    use \Activation;
+
     /** @var null  */
     private static $instance = null;
 
@@ -46,6 +48,9 @@ class Container
      */
     public function get($abstract)
     {
+        // Ensure the plugin is activated before proceeding
+        $this->ensurePluginActivated();
+
         if (isset($this->instances[$abstract])) {
             return $this->instances[$abstract];
         }
