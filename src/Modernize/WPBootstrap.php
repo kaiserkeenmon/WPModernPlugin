@@ -15,7 +15,7 @@ class WPBootstrap {
      * @return void
      */
     public static function init() {
-        $wpLoadPath = dirname(__DIR__, 6) . '/wp-load.php';
+        $wpLoadPath = dirname(__DIR__, 5) . '/wp-load.php';
         if (file_exists($wpLoadPath)) {
             require_once $wpLoadPath;
         } else {
