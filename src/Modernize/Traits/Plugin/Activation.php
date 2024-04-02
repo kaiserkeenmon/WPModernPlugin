@@ -11,7 +11,10 @@ namespace WPPluginModernizer\Modernize\Traits\Plugin;
 
 trait Activation {
     public function ensurePluginActivated() {
-        if (!get_option('wppluginmodernizer_activated', false)) {
+        $active_plugins = get_option('active_plugins');
+        $plugin_path = 'WPPluginModernizer/wp-plugin-modernizer.php';
+
+        if (!in_array($plugin_path, $active_plugins)) {
             throw new \Exception("WPPluginModernizer is not activated.");
         }
     }
