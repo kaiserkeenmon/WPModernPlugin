@@ -9,9 +9,11 @@
 
 namespace WPPluginModernizer\Container;
 
+use WPPluginModernizer\Modernize\Traits\Plugin\Activation;
+
 class Container
 {
-    use \Activation;
+    use Activation;
 
     /** @var null  */
     private static $instance = null;
