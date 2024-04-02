@@ -32,7 +32,7 @@ class CreateConsoleCommand extends Command
     {
         $this
             ->setName('make:command')
-            ->setDescription('Generates a custom command class.')
+            ->setDescription('Generates a custom command class (child only).')
             ->addArgument('commandName', InputArgument::REQUIRED, 'The name of the custom command.');
     }
 
@@ -43,36 +43,45 @@ class CreateConsoleCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // Enforce that this command is called from a child plugin
+        try {
+            $this->ensureCalledFromChildPlugin();
+        } catch (\RuntimeException $e) {
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+            return Command::FAILURE;
+        }
+
         $io = new SymfonyStyle($input, $output);
         $commandName = $input->getArgument('commandName');
         $commandClassName = ucfirst($commandName) . 'Command';
         $commandSlug = strtolower($commandName);
 
         // Load the command template
-        $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Command/Command.php';
+        $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Command/Command.php';
         $template = include($templatePath);
-        $namespace = 'WPPluginModernizer\Console';
+        $nameSpaceName = $this->camelCasedPluginName();
 
         // Replace placeholders
         $filledTemplate = str_replace(
-            ['{{namespace}}', '{{commandClassName}}', '{{commandName}}', '{{commandDescription}}'],
-            [$namespace, $commandClassName, $commandSlug, 'Your command description here. Customize as needed.'],
+            ['{{nameSpaceName}}', '{{commandClassName}}', '{{commandName}}', '{{commandDescription}}'],
+            [$nameSpaceName, $commandClassName, $commandSlug, 'Your command description here. Customize as needed.'],
             $template
         );
 
         // Define the file path
-        $path = dirname(dirname(__DIR__)) . "/Console/{$commandClassName}.php";
+        $path = $this->pluginDirPath . "/src/Console/{$commandClassName}.php";
+        $relativePath = $this->pluginDirName . "/src/Console/{$commandClassName}.php";
 
         // Write the command class file
         if (file_put_contents($path, $filledTemplate) !== false) {
-            $io->success("Custom command class created at: {$path}");
+            $io->success("Custom command class created at: {$relativePath}");
             $io->note([
                 "Customize the command logic and description as needed.",
                 "To make your new command available, register it in 'src/Console/registration.php'.",
                 "Ensure your new command is properly loaded and available by checking with 'php modernize list-commands'."
             ]);
         } else {
-            $io->error("Failed to create custom command class at: {$path}");
+            $io->error("Failed to create custom command class at: {$relativePath}");
             return Command::FAILURE;
         }
 

@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use WPPluginModernizer\Modernize\Traits\Commands\PluginDirectory;
+use WPPluginModernizer\Modernize\Utilities\Strings;
 
 class CreateAPIRoutesCommand extends Command
 {
@@ -32,7 +33,7 @@ class CreateAPIRoutesCommand extends Command
     {
         $this
             ->setName('make:api-routes')
-            ->setDescription('Creates a new API routes file.')
+            ->setDescription('Creates a new API routes file (child only).')
             ->setHelp('This command allows you to create a api-routes.php file.');
     }
 
@@ -43,17 +44,29 @@ class CreateAPIRoutesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // Enforce that this command is called from a child plugin
+        try {
+            $this->ensureCalledFromChildPlugin();
+        } catch (\RuntimeException $e) {
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+            return Command::FAILURE;
+        }
+
         $io = new SymfonyStyle($input, $output);
         $filesystem = new Filesystem();
 
         // Load the template
-        $templatePath = __DIR__ . '/templates/Route/api-routes.php';
+        $parentDir = dirname(dirname(__DIR__)); // Move up two levels from the child plugin
+        $templatePath = $parentDir . '/Modernize/templates/Route/api-routes.php';
         $templateContent = include($templatePath);
+
+        // Camel case the plugin name
+        $camelCasedPluginName = Strings::sanitizeAndConvertToCamelCase($this->pluginDirName);
 
         // Replace placeholders in the template
         $replacedContent = str_replace(
             ['{{pluginDirName}}'],
-            [$this->pluginDirName],
+            [$camelCasedPluginName],
             $templateContent
         );
 
@@ -70,6 +83,11 @@ class CreateAPIRoutesCommand extends Command
         try {
             $filesystem->dumpFile($targetFilePath, $replacedContent);
             $io->success('api-routes.php file created successfully at ' . $this->pluginDirName . '/api-routes.php');
+            $io->note([
+                'Remember to include this file in your plugin entry point.',
+                'For example, you can include it in your main plugin file like this:',
+                'require_once __DIR__ . \'/api-routes.php\';'
+            ]);
         } catch (\Exception $e) {
             $io->error('An error occurred while creating the api-routes.php file.');
             return Command::FAILURE;

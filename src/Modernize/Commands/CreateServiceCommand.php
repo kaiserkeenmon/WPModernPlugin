@@ -33,9 +33,9 @@ class CreateServiceCommand extends Command
     {
         $this
             ->setName('make:service')
-            ->setDescription('Creates a new service class with a corresponding repository class.')
+            ->setDescription('Creates a new service class with a corresponding repository class (child only).')
             ->setHelp('This command allows you to create a new service class with a corresponding repository class.')
-            ->addArgument('service', InputArgument::REQUIRED, 'The name of the service to create');
+            ->addArgument('serviceName', InputArgument::REQUIRED, 'The name of the service to create');
     }
 
     /**
@@ -45,20 +45,28 @@ class CreateServiceCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // Enforce that this command is called from a child plugin
+        try {
+            $this->ensureCalledFromChildPlugin();
+        } catch (\RuntimeException $e) {
+            $output->writeln(sprintf('<error>%s</error>', $e->getMessage()));
+            return Command::FAILURE;
+        }
+
         $io = new SymfonyStyle($input, $output);
 
         // Command title
         $io->title('Modernizing a new service class with a corresponding repository class');
 
         // Retrieve the service name from the command argument
-        $serviceNameRaw = $input->getArgument('service');
+        $serviceNameRaw = $input->getArgument('serviceName');
         $serviceName = preg_replace('/Service$/', '', $serviceNameRaw) . 'Service';
+
+        // Automatically construct the Service Interface name based on the Service name
+        $serviceInterfaceName = $serviceName . 'Interface';
 
         // Automatically construct the Repository Interface name based on the Service name
         $repositoryInterfaceName = preg_replace('/Service$/', 'RepositoryInterface', $serviceName);
-
-        // Automatically construct the Repository variable name based on the Service name
-        $repositoryVariableName = preg_replace('/Repository$/', '', $repositoryInterfaceName);
 
         // Automatically construct the Repository name
         $repositoryName = preg_replace('/RepositoryInterface$/', 'Repository', $repositoryInterfaceName);
@@ -76,7 +84,7 @@ class CreateServiceCommand extends Command
             $io->error("Service {$serviceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateFileFromTemplate('service', $serviceName, $namespaceBase, $io);
+        $this->generateFileFromTemplate('service', $serviceName, $namespaceBase, $io, $repositoryInterfaceName);
 
         /**
          * Create the service interface.
@@ -84,11 +92,11 @@ class CreateServiceCommand extends Command
         $io->section('Creating the service interface');
 
         // Check if the service interface already exists
-        if (file_exists($this->pluginDirPath . "/src/Service/{$serviceName}Interface.php")) {
-            $io->error("Service interface for service {$serviceName}Interface already exists.");
+        if (file_exists($this->pluginDirPath . "/src/Service/{$serviceInterfaceName}.php")) {
+            $io->error("Service interface for service {$serviceInterfaceName} already exists.");
             return Command::FAILURE;
         }
-        $this->generateFileFromTemplate('serviceInterface', $serviceName . 'Interface', $namespaceBase, $io);
+        $this->generateFileFromTemplate('serviceInterface', $serviceInterfaceName, $namespaceBase, $io, $repositoryInterfaceName);
 
         /**
          * Create the repository class.
@@ -114,26 +122,31 @@ class CreateServiceCommand extends Command
         }
         $this->generateFileFromTemplate('repositoryInterface', $repositoryInterfaceName, $namespaceBase, $io);
 
+        $io->note([
+            "Customize the service and repository classes as needed.",
+            "To make your new service and repository available, register them in 'src/registration.php'.",
+        ]);
+
         return Command::SUCCESS;
     }
 
-    protected function generateFileFromTemplate($type, $name, $namespace, SymfonyStyle $io)
+    protected function generateFileFromTemplate($type, $name, $namespace, SymfonyStyle $io, $repoName = null)
     {
         switch ($type) {
             case 'service':
-                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/Service.php';
+                $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Service/Service.php';
                 $filePath = $this->pluginDirPath . "/src/Service/{$name}.php";
                 $pluginFilePath = $this->pluginDirName . "/src/Service/{$name}.php";
                 $replacements = [
                     '{{namespace}}' => $namespace,
                     '{{serviceName}}' => $name,
-                    '{{repositoryInterfaceName}}' => $name . 'RepositoryInterface',
+                    '{{repositoryInterfaceName}}' => $repoName,
                     '{{repositoryVariableName}}' => lcfirst($name) . 'Repository',
                 ];
                 break;
             case 'serviceInterface':
-                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php';
-                $filePath = $this->pluginDirPath . "/src/Service/{$name}Interface.php";
+                $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Service/ServiceInterface.php';
+                $filePath = $this->pluginDirPath . "/src/Service/{$name}.php";
                 $pluginFilePath = $this->pluginDirName . "/src/Service/{$name}.php";
                 $replacements = [
                     '{{namespace}}' => $namespace . '\\Service',
@@ -141,7 +154,7 @@ class CreateServiceCommand extends Command
                 ];
                 break;
             case 'repository':
-                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Repository/Repository.php';
+                $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Repository/Repository.php';
                 $filePath = $this->pluginDirPath . "/src/Repository/{$name}.php";
                 $pluginFilePath = $this->pluginDirName . "/src/Repository/{$name}.php";
                 $replacements = [
@@ -151,7 +164,7 @@ class CreateServiceCommand extends Command
                 ];
                 break;
             case 'repositoryInterface':
-                $templatePath = $this->pluginDirPath . '/src/Modernize/templates/Repository/RepositoryInterface.php';
+                $templatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Repository/RepositoryInterface.php';
                 $filePath = $this->pluginDirPath . "/src/Repository/{$name}.php";
                 $pluginFilePath = $this->pluginDirName . "/src/Repository/{$name}.php";
                 $replacements = [
