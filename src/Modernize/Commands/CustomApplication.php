@@ -13,18 +13,9 @@ use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use WPPluginModernizer\Modernize\Traits\Plugin\Activation;
-use WPPluginModernizer\Modernize\WPBootstrap;
 
 class CustomApplication extends BaseApplication
 {
-    use Activation;
-
-    public function __construct() {
-        WPBootstrap::init();
-        parent::__construct('WP Plugin Modernizer', '1.0.0');
-    }
-
     /**
      * @param Command $command
      * @param InputInterface $input
@@ -34,9 +25,6 @@ class CustomApplication extends BaseApplication
      */
     protected function doRunCommand(Command $command, InputInterface $input, OutputInterface $output): int
     {
-        // Ensure the plugin is activated before proceeding
-        $this->ensurePluginActivated();
-
         // Output ASCII art text before running any command
         $output->writeln([
             '<fg=magenta>  _      _____  ___  __          _      __  ___        __             _            </>',
