@@ -18,12 +18,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 // Import the DI Container class.
 use WPPluginModernizer\Container\Container;
 
-// Import the WPBootstrap class.
-use WPPluginModernizer\Modernize\WPBootstrap;
-
-// Initialize the WordPress environment.
-WPBootstrap::init();
-
 // Load the class registration file.
 $registrations = require __DIR__ . '/src/registration.php';
 
