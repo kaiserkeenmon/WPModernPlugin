@@ -132,9 +132,9 @@ class CreateGutenbergBlockCommand extends Command
      * @return int
      */
     protected function copyRegisterBlocksFile(SymfonyStyle $io) {
-        $io->section('Creating register-blocks.php file...');
-        $registerBlocksTemplatePath = $this->parentPluginDirPath . '/src/Modernize/templates/register-blocks.php';
-        $registerBlocksPath = $this->pluginDirPath . '/src/register-blocks.php';
+        $io->section('Creating registration-blocks.php file...');
+        $registerBlocksTemplatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Block/registration-blocks.php';
+        $registerBlocksPath = $this->pluginDirPath . '/src/registration-blocks.php';
 
         try {
             // Check if the template file exists
