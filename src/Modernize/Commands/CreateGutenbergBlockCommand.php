@@ -121,8 +121,6 @@ class CreateGutenbergBlockCommand extends Command
         // Copy over the block registration file
         $this->copyRegisterBlocksFile($io);
 
-        $io->success("Created register-blocks.php file at $this->pluginDirName/src/register-blocks.php");
-
         return Command::SUCCESS;
     }
 
