@@ -145,7 +145,7 @@ class CreateGutenbergBlockCommand extends Command
             $filesystem = new Filesystem();
             $filesystem->dumpFile($registerBlocksPath, $registerBlocksContents);
 
-            $io->success("Created register-blocks.php file at {$this->pluginDirName}/src/register-blocks.php");
+            $io->success("Created registration-blocks.php file at {$this->pluginDirName}/src/register-blocks.php");
         } catch (\RuntimeException $e) {
             $io->error("An error occurred: " . $e->getMessage());
             return Command::FAILURE;
