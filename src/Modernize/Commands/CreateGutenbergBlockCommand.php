@@ -65,10 +65,24 @@ class CreateGutenbergBlockCommand extends Command
                 'For installation instructions, visit the official NPM website:',
                 'https://docs.npmjs.com/downloading-and-installing-node-js-and-npm'
             ]);
+            $io->text($process->getErrorOutput());
             return Command::FAILURE;
         } else {
             $io->success('NPM is installed.');
         }
+
+        // Create package.json
+        $io->note('Creating a default package.json file.');
+        $process = Process::fromShellCommandline('npm init -y');
+        $process->setWorkingDirectory(getcwd());
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            $io->error('An error occurred while creating package.json.');
+            $io->text($process->getErrorOutput());
+            return Command::FAILURE;
+        }
+        $io->success('package.json created successfully.');
 
         // Install @wordpress/scripts
         $io->section('Installing @wordpress/scripts...');
@@ -79,6 +93,7 @@ class CreateGutenbergBlockCommand extends Command
 
         if (!$process->isSuccessful()) {
             $io->error('An error occurred while installing @wordpress/scripts.');
+            $io->text($process->getErrorOutput());
             return Command::FAILURE;
         }
         $io->success('@wordpress/scripts installed successfully.');
@@ -93,6 +108,7 @@ class CreateGutenbergBlockCommand extends Command
 
         if (!$process->isSuccessful()) {
             $io->error('An error occurred while installing additional NPM packages.');
+            $io->text($process->getErrorOutput());
             return Command::FAILURE;
         }
 
