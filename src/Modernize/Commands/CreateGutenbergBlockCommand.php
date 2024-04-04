@@ -118,7 +118,40 @@ class CreateGutenbergBlockCommand extends Command
         $io->section('Scaffolding block files...');
         $this->scaffoldBlocks($input, $output);
 
+        // Copy over the block registration file
+        $this->copyRegisterBlocksFile($io);
+
+        $io->success("Created register-blocks.php file at $this->pluginDirName/src/register-blocks.php");
+
         return Command::SUCCESS;
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
+    protected function copyRegisterBlocksFile(SymfonyStyle $io) {
+        $io->section('Creating register-blocks.php file...');
+        $registerBlocksTemplatePath = $this->parentPluginDirPath . '/src/Modernize/templates/register-blocks.php';
+        $registerBlocksPath = $this->pluginDirPath . '/src/register-blocks.php';
+
+        try {
+            // Check if the template file exists
+            if (!file_exists($registerBlocksTemplatePath)) {
+                throw new \RuntimeException("Template file does not exist: $registerBlocksTemplatePath");
+            }
+
+            $registerBlocksContents = file_get_contents($registerBlocksTemplatePath);
+
+            $filesystem = new Filesystem();
+            $filesystem->dumpFile($registerBlocksPath, $registerBlocksContents);
+
+            $io->success("Created register-blocks.php file at {$this->pluginDirName}/src/register-blocks.php");
+        } catch (\RuntimeException $e) {
+            $io->error("An error occurred: " . $e->getMessage());
+            return Command::FAILURE;
+        }
     }
 
     /**
