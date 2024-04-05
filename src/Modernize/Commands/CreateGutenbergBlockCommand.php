@@ -84,6 +84,9 @@ class CreateGutenbergBlockCommand extends Command
         }
         $io->success('package.json created successfully.');
 
+        // Update package.json with custom scripts
+        $this->updatePackageJsonScripts($input, $output);
+
         // Install packages
         $npmPackages = [
             '@wordpress/scripts',
@@ -118,6 +121,41 @@ class CreateGutenbergBlockCommand extends Command
 
         // Copy over the block registration file
         $this->copyRegisterBlocksFile($io);
+
+        return Command::SUCCESS;
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
+    protected function updatePackageJsonScripts(InputInterface $input, OutputInterface $output)
+    {
+        $io = new SymfonyStyle($input, $output);
+        $packageJsonPath = getcwd() . '/package.json';
+
+        if (!file_exists($packageJsonPath)) {
+            $io->error('package.json does not exist.');
+            return Command::FAILURE;
+        }
+
+        // Load the existing package.json
+        $packageJson = json_decode(file_get_contents($packageJsonPath), true);
+
+        // Add or update the scripts
+        $packageJson['scripts'] = [
+            "start" => "wp-scripts start",
+            "build" => "wp-scripts build"
+        ];
+
+        // Save the updated package.json
+        if (file_put_contents($packageJsonPath, json_encode($packageJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))) {
+            $io->success('Updated package.json with custom scripts.');
+        } else {
+            $io->error('Failed to update package.json.');
+            return Command::FAILURE;
+        }
 
         return Command::SUCCESS;
     }
