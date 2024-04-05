@@ -143,6 +143,13 @@ class Container
                 continue; // Not a child plugin, skip it
             }
 
+            // Include the Composer autoloader for each child plugin
+            $composerAutoloadPath = $fileInfo->getPathname() . '/vendor/autoload.php';
+            if (file_exists($composerAutoloadPath)) {
+                require_once $composerAutoloadPath;
+            }
+
+            // Load service definitions if a registration file exists
             $registrationFilePath = $fileInfo->getPathname() . '/src/registration.php';
             if (file_exists($registrationFilePath)) {
                 $serviceDefinitions = require $registrationFilePath;

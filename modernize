@@ -27,7 +27,7 @@ $application->add(new CreateConsoleCommand());
 $application->add(new CreateChildPluginCommand());
 
 // Load and register user defined custom commands
-$customCommands = require(__DIR__ . '/src/Console/registration.php');
+$customCommands = require($this->pluginDirPath . '/src/Console/registration.php');
 foreach ($customCommands as $customCommandClass) {
     if (class_exists($customCommandClass)) {
         $application->add(new $customCommandClass());
