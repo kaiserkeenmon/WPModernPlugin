@@ -76,11 +76,11 @@ class CreateGutenbergBlockCommand extends Command
         $this->scaffoldBlocks($input, $output, $filesystem);
 
         // Copy over the block registration file
-        $io->section('Copying registration-blocks.php file...');
+        $io->section('Creating registration-blocks.php file...');
         $this->copyRegisterBlocksFile($io, $filesystem);
 
         // Copy over webpack.config.js
-        $io->section('Copying webpack.config.js file...');
+        $io->section('Creating webpack.config.js file...');
         $this->copyWebpackConfigFile($io, $filesystem);
 
         return Command::SUCCESS;
