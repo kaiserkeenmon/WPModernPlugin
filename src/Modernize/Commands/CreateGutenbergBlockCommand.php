@@ -84,35 +84,33 @@ class CreateGutenbergBlockCommand extends Command
         }
         $io->success('package.json created successfully.');
 
-        // Install @wordpress/scripts
-        $io->section('Installing @wordpress/scripts...');
-        $process = Process::fromShellCommandline('npm install @wordpress/scripts --save-dev');
+        // Install packages
+        $npmPackages = [
+            '@wordpress/scripts',
+            '@wordpress/api-fetch',
+            '@wordpress/blocks',
+            '@wordpress/components',
+            '@wordpress/element',
+            'webpack-merge',
+            'style-loader',
+            'css-loader',
+            'sass-loader'
+        ];
+
+        // Install npm packages
+        $io->section('Installing NPM packages...');
+        $packagesInstallCommand = 'npm install ' . implode(' ', $npmPackages) . ' --save-dev';
+        $process = Process::fromShellCommandline($packagesInstallCommand);
         $process->setWorkingDirectory(getcwd()); // Ensure we are in the plugin directory
         $process->setTimeout(240);
         $process->run();
 
         if (!$process->isSuccessful()) {
-            $io->error('An error occurred while installing @wordpress/scripts.');
+            $io->error('An error occurred while installing NPM packages.');
             $io->text($process->getErrorOutput());
             return Command::FAILURE;
         }
-        $io->success('@wordpress/scripts installed successfully.');
-
-        // Install additional npm packages required for webpack configuration
-        $io->section('Installing additional NPM packages for webpack configuration...');
-        $npmPackages = ['webpack-merge', 'style-loader', 'css-loader', 'sass-loader'];
-        $process = Process::fromShellCommandline('npm install ' . implode(' ', $npmPackages) . ' --save-dev');
-        $process->setWorkingDirectory(getcwd());
-        $process->setTimeout(240);
-        $process->run();
-
-        if (!$process->isSuccessful()) {
-            $io->error('An error occurred while installing additional NPM packages.');
-            $io->text($process->getErrorOutput());
-            return Command::FAILURE;
-        }
-
-        $io->success('Additional NPM packages installed successfully.');
+        $io->success('NPM packages installed successfully.');
 
         // Scaffold block files
         $io->section('Scaffolding block files...');
