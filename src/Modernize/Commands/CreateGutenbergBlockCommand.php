@@ -172,7 +172,6 @@ class CreateGutenbergBlockCommand extends Command
         ];
 
         // Install npm packages
-        $io->section('Installing NPM packages...');
         $packagesInstallCommand = 'npm install ' . implode(' ', $npmPackages) . ' --save-dev';
         $process = Process::fromShellCommandline($packagesInstallCommand);
         $process->setWorkingDirectory(getcwd()); // Ensure we are in the plugin directory
