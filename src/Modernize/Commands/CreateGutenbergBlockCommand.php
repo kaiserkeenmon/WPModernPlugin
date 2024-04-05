@@ -53,9 +53,71 @@ class CreateGutenbergBlockCommand extends Command
         }
 
         $io = new SymfonyStyle($input, $output);
+        $filesystem = new Filesystem();
 
         // Section for checking NPM installation
         $io->section('Checking for NPM installation...');
+        $this->checkNpmInstallation($io);
+
+        // Create package.json
+        $io->note('Creating a default package.json file.');
+        $this->createPackageJson($io);
+
+        // Update package.json with custom scripts
+        $io->section('Updating package.json with custom scripts...');
+        $this->updatePackageJsonScripts($input, $output);
+
+        // Install packages
+        $io->section('Installing NPM packages...');
+        $this->installPackages($io);
+
+        // Scaffold block files
+        $io->section('Scaffolding block files...');
+        $this->scaffoldBlocks($input, $output, $filesystem);
+
+        // Copy over the block registration file
+        $io->section('Copying registration-blocks.php file...');
+        $this->copyRegisterBlocksFile($io, $filesystem);
+
+        // Copy over webpack.config.js
+        $io->section('Copying webpack.config.js file...');
+        $this->copyWebpackConfigFile($io, $filesystem);
+
+        return Command::SUCCESS;
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
+    protected function copyWebpackConfigFile(SymfonyStyle $io, Filesystem $filesystem) {
+        // Define paths
+        $sourceWebpackConfigPath = $this->parentPluginDirPath . '/src/Modernize/templates/Block/webpack.config.js';
+        $destinationWebpackConfigPath = $this->pluginDirPath . '/webpack.config.js';
+
+        // Attempt to copy the webpack.config.js file
+        try {
+            $filesystem->copy($sourceWebpackConfigPath, $destinationWebpackConfigPath, true); // The 'true' parameter overwrites the file if it already exists
+            $io->success("webpack.config.js copied successfully to {$this->pluginDirPath}");
+        } catch (IOExceptionInterface $exception) {
+            $io->error('An error occurred while copying webpack.config.js: ' . $exception->getMessage());
+            return Command::FAILURE;
+        }
+
+        // Continue with the rest of your scaffolding process...
+
+        return Command::SUCCESS;
+    }
+
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
+    protected function checkNpmInstallation(SymfonyStyle $io)
+    {
         $process = Process::fromShellCommandline('npm -v');
         $process->run();
 
@@ -70,9 +132,14 @@ class CreateGutenbergBlockCommand extends Command
         } else {
             $io->success('NPM is installed.');
         }
+    }
 
-        // Create package.json
-        $io->note('Creating a default package.json file.');
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
+    protected function createPackageJson(SymfonyStyle $io) {
         $process = Process::fromShellCommandline('npm init -y');
         $process->setWorkingDirectory(getcwd());
         $process->run();
@@ -83,11 +150,15 @@ class CreateGutenbergBlockCommand extends Command
             return Command::FAILURE;
         }
         $io->success('package.json created successfully.');
+    }
 
-        // Update package.json with custom scripts
-        $this->updatePackageJsonScripts($input, $output);
-
-        // Install packages
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @param SymfonyStyle $io
+     * @return int
+     */
+    protected function installPackages(SymfonyStyle $io) {
         $npmPackages = [
             '@wordpress/scripts',
             '@wordpress/api-fetch',
@@ -114,15 +185,6 @@ class CreateGutenbergBlockCommand extends Command
             return Command::FAILURE;
         }
         $io->success('NPM packages installed successfully.');
-
-        // Scaffold block files
-        $io->section('Scaffolding block files...');
-        $this->scaffoldBlocks($input, $output);
-
-        // Copy over the block registration file
-        $this->copyRegisterBlocksFile($io);
-
-        return Command::SUCCESS;
     }
 
     /**
@@ -165,7 +227,7 @@ class CreateGutenbergBlockCommand extends Command
      * @param OutputInterface $output
      * @return int
      */
-    protected function copyRegisterBlocksFile(SymfonyStyle $io) {
+    protected function copyRegisterBlocksFile(SymfonyStyle $io, Filesystem $filesystem) {
         $io->section('Creating registration-blocks.php file...');
         $registerBlocksTemplatePath = $this->parentPluginDirPath . '/src/Modernize/templates/Block/registration-blocks.php';
         $registerBlocksPath = $this->pluginDirPath . '/src/registration-blocks.php';
@@ -178,7 +240,6 @@ class CreateGutenbergBlockCommand extends Command
 
             $registerBlocksContents = file_get_contents($registerBlocksTemplatePath);
 
-            $filesystem = new Filesystem();
             $filesystem->dumpFile($registerBlocksPath, $registerBlocksContents);
 
             $io->success("Created registration-blocks.php file at {$this->pluginDirName}/src/register-blocks.php");
@@ -193,10 +254,10 @@ class CreateGutenbergBlockCommand extends Command
      * @param OutputInterface $output
      * @return int
      */
-    protected function scaffoldBlocks(InputInterface $input, OutputInterface $output)
+    protected function scaffoldBlocks(InputInterface $input, OutputInterface $output, Filesystem $filesystem)
     {
         $io = new SymfonyStyle($input, $output);
-        $filesystem = new Filesystem();
+
         $blockNames = ['sample-block-1', 'sample-block-2'];
 
         // Load template contents
