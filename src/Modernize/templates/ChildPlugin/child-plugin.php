@@ -10,25 +10,52 @@
  * License: GPL2
  */
 
-// If this file is called directly, abort.
-if (!defined('WPINC')) {
-    die;
+if ( !defined('ABSPATH') ) {
+    exit; // Exit if accessed directly.
 }
 
-// Load the DI container.
-require_once dirname(__FILE__, 2) . '/WPPluginModernizer/src/Container/Container.php';
+require __DIR__ . '/vendor/autoload.php';
 
-// Import the DI Container class from WPPluginModernizer.
+// Load environment variables
+\Dotenv\Dotenv::createImmutable(__DIR__)->load();
+
+// Import the DI Container class.
 use WPPluginModernizer\Container\Container;
 
-// Load the class registration file.
-$registrations = require __DIR__ . '/src/registration.php';
+include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+if (is_plugin_active('WPPluginModernizer/wp-plugin-modernizer.php')) {
+    // Require the parent plugin autoloader
+    $parentPluginAutoloader = WP_PLUGIN_DIR . '/WPPluginModernizer/vendor/autoload.php';
+    if (file_exists($parentPluginAutoloader)) {
+        require_once $parentPluginAutoloader;
+    } else {
+        add_action('admin_notices', function () {
+            echo '<div class="notice notice-error"><p>';
+            echo 'The vendor-air-quality plugin requires the WPPluginModernizer plugin to be installed or updated.';
+            echo '</p></div>';
+        });
+    }
 
-// Initialize the DI Container.
-$container = Container::getInstance($registrations);
+    if (class_exists(Container::class)) {
+        // Load the class registration file and initialize the DI Container with child plugin registrations.
+        $registrations = require __DIR__ . '/src/registration.php';
+        $container = Container::getInstance($registrations);
+    } else {
+        add_action('admin_notices', function () {
+            echo '<div class="notice notice-error"><p>';
+            echo 'The vendor-air-quality plugin requires the WPPluginModernizer plugin to be updated.';
+            echo '</p></div>';
+        });
 
-// Load Composer autoloader.
-require __DIR__ . '/vendor/autoload.php';
+    }
+} else {
+    add_action('admin_notices', function () {
+        echo '<div class="notice notice-error"><p>';
+        echo 'The vendor-air-quality plugin requires the WPPluginModernizer plugin to be active.';
+        echo '</p></div>';
+    });
+
+}
 
 
 
