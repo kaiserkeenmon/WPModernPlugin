@@ -44,7 +44,8 @@ class CreateChildPluginCommand extends Command
                 "symfony/filesystem" => "^7.0",
                 "symfony/process" => "^7.0",
                 "symfony/finder" => "^7.0",
-                "symfony/string" => "^7.0"
+                "symfony/string" => "^7.0",
+                "vlucas/phpdotenv" => "^5.6"
             ]
         ];
     }
