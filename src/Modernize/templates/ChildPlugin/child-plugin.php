@@ -18,6 +18,15 @@ if (!defined('WPINC')) {
 // Load the DI container.
 require_once dirname(__FILE__, 2) . '/WPPluginModernizer/src/Container/Container.php';
 
+// Import the DI Container class from WPPluginModernizer.
+use WPPluginModernizer\Container\Container;
+
+// Load the class registration file.
+$registrations = require __DIR__ . '/src/registration.php';
+
+// Initialize the DI Container.
+$container = Container::getInstance($registrations);
+
 // Load Composer autoloader.
 require __DIR__ . '/vendor/autoload.php';
 
