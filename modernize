@@ -8,7 +8,7 @@
  * Date: 3/22/24
  */
 
-require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 use WPPluginModernizer\Modernize\Commands\CreateChildPluginCommand;
 use WPPluginModernizer\Modernize\Commands\CustomApplication as Application;
@@ -27,7 +27,7 @@ $application->add(new CreateConsoleCommand());
 $application->add(new CreateChildPluginCommand());
 
 // Load and register user defined custom commands
-$customCommands = require($this->pluginDirPath . '/src/Console/registration.php');
+$customCommands = require(getcwd() . '/src/Console/registration.php');
 foreach ($customCommands as $customCommandClass) {
     if (class_exists($customCommandClass)) {
         $application->add(new $customCommandClass());

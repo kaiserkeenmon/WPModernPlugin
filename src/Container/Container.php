@@ -30,7 +30,7 @@ class Container
     public function __construct(array $registrations)
     {
         $this->registrations = $registrations;
-        //$this->loadChildPluginRegistrations(); // Load child plugin registrations.
+        add_action('plugins_loaded', [$this, 'loadChildPluginRegistrations']); // Load child plugin registrations.
     }
 
     /**
