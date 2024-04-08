@@ -1,7 +1,16 @@
 #!/usr/bin/env php
 <?php
 
-// Path to the WPPluginModernizer CLI script
+// Bootstrap wordpress
+require_once dirname(__DIR__, 3) . '/wp-load.php';
+
+// Load Composer autoloader
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Load the WPPluginModernizer plugin
+require_once dirname(__DIR__) . '/WPPluginModernizer/wp-plugin-modernizer.php';
+
+// Load the WPPluginModernizer CLI script
 $mainPluginCliPath = dirname(__DIR__) . '/WPPluginModernizer/modernize';
 
 // Change the current working directory to the child plugin's directory
